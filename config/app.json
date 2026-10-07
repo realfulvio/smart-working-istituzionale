@@ -1,0 +1,11 @@
+{
+  "_istruzioni": "Policy CED. Collector avviato solo dal dipendente; eventi di sessione, attività sì/no e applicazioni allowlist in fasce da config/raccolta.json. Rete e Halley disabilitati. AI locale opzionale, su richiesta: profilo_ai null seleziona il modello in base alle risorse, senza cambiare raccolta o aggregazione. Percorsi Windows espandibili. Il dipendente può leggere la policy e modificare solo profilo personale/cartella PDF.",
+  "modalita": "collector",
+  "server_ai": "%LOCALAPPDATA%\\Programs\\RendicontoSW\\ai\\llama\\llama-server.exe",
+  "modelli_ai": "%LOCALAPPDATA%\\Programs\\RendicontoSW\\ai\\modelli",
+  "cache_ai": "%LOCALAPPDATA%\\RendicontoSW\\cache_ai",
+  "thread_ai": 4,
+  "profilo_ai": null,
+  "profili_siti": [],
+  "estensione_browser": false
+}

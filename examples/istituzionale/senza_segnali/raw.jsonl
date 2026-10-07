@@ -1,0 +1,6 @@
+{"tipo": "meta", "giorno": "2026-10-05", "fuso": "Europe/Rome", "modalita": "collector", "dipendente": {"nome": "Rossi Maria (ESEMPIO)", "ufficio": "Ufficio dimostrativo"}, "copertura_fonti": {"sessione": "completa", "app": "parziale", "attivita": "parziale", "rete": "non_installato", "browser": "non_installato"}}
+{"tipo": "sessione", "ts": "2026-10-05T08:00:00+02:00", "evento": "avvio_raccolta"}
+{"tipo": "sessione", "ts": "2026-10-05T14:00:00+02:00", "evento": "fine_raccolta"}
+{"tipo": "manuale", "inizio": "2026-10-05T10:00:00+02:00", "fine": "2026-10-05T10:30:00+02:00", "categoria": "riunione", "descrizione": "Confronto organizzativo (ESEMPIO)"}
+{"tipo": "manuale", "inizio": "2026-10-05T13:00:00+02:00", "fine": "2026-10-05T13:15:00+02:00", "categoria": "amministrativa_offline", "descrizione": "Attività offline (ESEMPIO)"}
+{"tipo": "osservazione", "testo": "Giornata inventata, destinata esclusivamente a test e demo."}

@@ -1,0 +1,121 @@
+Smart Working Istituzionale (Rendiconto SW) — pacchetto di prova
+Autore: Luca Accorsi
+
+Codici di uscita di installa: 0 ok · 10 impronte · 20 app in uso · 40 spazio · 50 versione
+Codici di uscita di disinstalla: 0 ok · 20 processi/file in uso · 30 rimozione parziale
+
+═══════════════════════════════════════════════════════════════════
+
+VERSIONE ALFA DI PROVA — NON DISTRIBUIRE AI COLLEGHI
+═══════════════════════════════════════════════════════════════════
+
+Questo pacchetto serve solo a provare l'applicazione su un altro PC (utenti
+di fiducia / collaudo interno dell'Ente). Non è una distribuzione ufficiale.
+
+Che cos'è
+---------
+Applicazione Windows per il resoconto giornaliero del lavoro agile:
+a fine giornata prepara un PDF chiaro e verificabile. Modalità «collector»
+(predefinita): solo tra «Avvia giornata» e «Chiudi giornata», escluse le pause,
+registra per fasce di 15 minuti gli eventi di sessione (blocco, sblocco,
+disconnessione...), se c'è stata attività al computer (solo sì/no), i programmi
+dell'elenco del CED e un numero per la rete. Mai tasti, mouse, schermate, titoli
+delle finestre, nomi dei file, posta, indirizzi dei siti, registro eventi.
+Assistente locale AI-Light (Qwen3-1.7B su llama.cpp): nessun invio in cloud.
+
+Eseguibili NON FIRMATI
+----------------------
+RendicontoSW.exe, VerificaRendiconto.exe e llama-server.exe non hanno ancora
+la firma del codice dell'Ente. Windows SmartScreen e Defender possono mostrare
+avvisi («Windows ha protetto il PC», «sconosciuto»).
+
+  → NON aggiungere esclusioni a Defender / ASR / EDR.
+  → NON disattivare SmartScreen.
+  → Se ti fidi della fonte (i Sistemi Informativi dell'Ente), scegli «Altre
+    informazioni» → «Esegui comunque» solo per questa prova.
+  → La distribuzione ai colleghi avverrà solo dopo la firma ufficiale.
+
+Installazione (senza diritti di amministratore)
+-----------------------------------------------
+1. Copia tutta questa cartella sul PC di prova (USB, cartella condivisa, ecc.).
+2. Apri PowerShell nella cartella del pacchetto e esegui:
+
+     powershell -ExecutionPolicy Bypass -File .\installa.ps1
+
+   Oppure: tasto destro su installa.ps1 → Esegui con PowerShell.
+
+3. Cosa fa: confronta la versione, controlla processi e spazio, verifica le
+   impronte SHA-256 (nessun file extra fuori da SHA256SUMS.txt; controllo anche
+   sulla copia), installa con staging e rollback, crea i collegamenti nel menu
+   Start (cartella di lavoro = Documenti), registra la voce Uninstall in HKCU,
+   prepara %LOCALAPPDATA%\RendicontoSW\cache_ai. Log in %TEMP%\rsw_installa_*.log.
+4. Cosa NON fa: Unblock-File, esclusioni antivirus, HKLM, servizi, attività
+   pianificate, avvio automatico, scrittura su unità di rete.
+   Nota: SHA256SUMS.txt non è autenticato finché non c'è code signing.
+
+Disinstallazione
+----------------
+  powershell -ExecutionPolicy Bypass -File .\disinstalla.ps1
+  oppure: Impostazioni → App → Rendiconto SW (voce per utente)
+I dati (giornate, chiave, JSON) restano per impostazione predefinita.
+Per eliminarli, con conferma per categoria (mai i PDF in Documenti):
+  powershell -ExecutionPolicy Bypass -File .\disinstalla.ps1 -RimuoviDati
+Se Rendiconto SW (o il verificatore, o l'assistente llama-server) è ancora
+aperto, lo script chiede «Chiudo i processi di Rendiconto SW nella cartella
+di installazione? [s/N]»: solo con «s» li chiude (unicamente i processi il cui
+eseguibile sta nella cartella di installazione). Con qualunque altra risposta,
+o se non c'è nessuno a rispondere, RIFIUTA con codice 20 e non tocca nulla.
+Con -Forza li chiude senza chiedere. I programmi di terzi che usano file della
+cartella (es. Acrobat) vengono solo elencati, MAI chiusi: chiudili tu e rilancia.
+Dalla voce «App installate», se la disinstallazione rifiuta compare una
+finestra con il motivo. Log in %TEMP%\rsw_disinstalla_*.log.
+
+Cosa provare (checklist)
+------------------------
+[ ] Primo avvio: informativa, nome e ufficio
+[ ] Avvia giornata / Pausa / Riprendi / Chiudi giornata (deve arrivare alla
+    revisione; in caso di errore «Riprova la chiusura»)
+[ ] Genera resoconto (assistente locale) e, se compare, Riscrivi
+[ ] Modifica del testo (con avvisi del controllo se presenti)
+[ ] Spunta «Ho verificato la sintesi» e conferma → PDF
+[ ] Apri il PDF; Verifica resoconto (VALIDO / INTEGRO / …)
+[ ] Giornata precedente non chiusa (lascia aperta, riparti il giorno dopo
+    o cambia data di sistema solo se sai cosa fai)
+[ ] Scala di visualizzazione Windows 125 % e 150 % (testo e pulsanti leggibili)
+[ ] Outlook: l'app NON deve avviare Outlook da sola (impostazione ALFA)
+
+Dove sono i dati e i log
+------------------------
+  Programma:  %LOCALAPPDATA%\Programs\RendicontoSW
+  Dati:       %LOCALAPPDATA%\RendicontoSW   (giorni, raw, chiavi, cache_ai)
+  PDF:        Documenti\Rendiconti lavoro agile
+  Log host (se un giorno attivi l'estensione): diagnostica\estensione-host.log
+
+Contenuto di questo pacchetto
+-----------------------------
+  app\           applicazione e verificatore (+ font e config)
+  ai\llama\      llama-server.exe (b11386) e DLL
+  ai\modelli\    Qwen3-1.7B-Q4_K_M.gguf (AI-Light)
+  licenze\       EUPL e avvisi di terzi
+  installa.ps1 / disinstalla.ps1 / SHA256SUMS.txt / questo file
+
+Modello 4B (AI-Standard, opzionale)
+-----------------------------------
+Non incluso (circa 2,5 GB in più). Per aggiungerlo sul PC di prova, dopo
+l'installazione copia Qwen3-4B-Q4_K_M.gguf in:
+  %LOCALAPPDATA%\Programs\RendicontoSW\ai\modelli\
+e in config\app.json (accanto all'exe) imposta "profilo_ai": null
+(scelta automatica da 14 GB di RAM). Fonte e SHA: vedi il README del repository.
+
+Estensione del browser
+----------------------
+Spenta e non inclusa in questo pacchetto ALFA (estensione_browser: false).
+Se in futuro verrà fornita una cartella «estensione_opzionale», restare
+disattivata finché i Sistemi Informativi non la abilitano.
+
+Feedback
+--------
+Segnala problemi, schermate e cosa ti aspettavi ai Sistemi Informativi dell'Ente.
+Indica: PC usato, scala DPI, orario, e se Defender/SmartScreen hanno bloccato.
+
+Commit / build di riferimento: vedi file VERSIONE.txt in questa cartella.

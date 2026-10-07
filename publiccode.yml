@@ -1,0 +1,91 @@
+# publiccode.yml — standard Developers Italia (https://docs.italia.it/italia/developers-italia/publiccodeyml-en/)
+# I campi dell'Ente titolare del trattamento / dell'amministrazione che adotta il programma sono segnaposto
+# DA_COMPLETARE: vanno compilati dall'Ente prima di qualunque inserimento nel catalogo del riuso.
+publiccodeYmlVersion: "0"
+
+name: Smart Working Istituzionale
+applicationSuite: DA_COMPLETARE
+url: "https://github.com/realfulvio/smart-working-istituzionale.git"
+landingURL: "https://github.com/realfulvio/smart-working-istituzionale"
+
+softwareVersion: "5.0.0"
+releaseDate: "2026-10-07"
+
+platforms:
+  - windows
+
+categories:
+  - document-management
+  - office
+
+developmentStatus: development
+softwareType: standalone/desktop
+
+description:
+  it:
+    localisedName: Smart Working Istituzionale
+    shortDescription: >-
+      Resoconto giornaliero del lavoro agile per gli enti pubblici: raccolta minima sul PC, revisione del
+      dipendente, PDF sigillato verificabile.
+    longDescription: >-
+      Il dipendente avvia la giornata, rivede dati automatici in sola lettura, aggiunge attività dichiarate e
+      osservazioni, prepara il testo standard o richiede l'AI locale, verifica la sintesi e conferma un PDF.
+      La V1 raccoglie soltanto eventi di sessione, attività informatica sì/no e applicazioni dell'elenco CED.
+      Le fasce sono configurabili, con default 15 minuti. Rete e Halley sono disabilitati. Non vengono raccolti
+      tasti, movimenti, schermate, titoli, file, contenuti o conteggi della posta, cronologia o URL.
+      Il JSON /5 può includere lo snapshot tecnico autorizzato, escluso dall’AI e non deduce durata o qualità del lavoro.
+      La provenienza resta distinta anche nelle frasi della sintesi. L'AI è opzionale, su 127.0.0.1 senza proxy
+      o redirect esterni; in caso di indisponibilità o controllo fallito si usa il fallback. Il PDF contiene tutte
+      le fasce, JSON allegato e sigilli Ed25519. La consegna è manuale. Retention raw disabilitata finché l'Ente
+      non valida periodo e decorrenza; lo storico non marcato non viene eliminato automaticamente.
+      Build di sviluppo non firmata, senza dichiarazioni di conformità. Prima dell'esercizio restano da validare
+      informativa, DPO/DPIA, adempimenti applicabili, retention, ruoli/accessi, firma del codice e pilota.
+      Nome e stemma dell’Ente adottante non sono coperti dalla EUPL; l’edizione pubblica usa un simbolo generico.
+    features:
+      - Raccolta tecnica minima locale, solo a giornata avviata
+      - Provenienza distinta tra rilevato, dichiarato, osservazioni e sintesi
+      - Testo standard oppure AI locale su richiesta, con fallback
+      - PDF paginato con JSON /5 allegato, sigilli e Verificatore
+      - Token centrali, font locali e identità configurabile tramite overlay
+      - Tastiera e pannelli scorrevoli, senza cambio framework
+      - Setup per utente e pacchetto senza modelli AI obbligatori
+    documentation: "https://github.com/realfulvio/smart-working-istituzionale/blob/main/README.md"
+
+legal:
+  license: EUPL-1.2
+  mainCopyrightOwner: Luca Accorsi
+
+organisation:
+  name: DA_COMPLETARE      # Ente titolare / che adotta il programma
+  uri: "https://DA_COMPLETARE.invalid"
+
+maintenance:
+  type: community
+  contacts:
+    - name: Luca Accorsi
+
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - it
+
+dependsOn:
+  open:
+    - name: Python
+      versionMin: "3.12"
+    - name: llama.cpp
+      version: b11386
+      optional: true
+    - name: Qwen3 (modelli GGUF)
+      optional: true
+
+intendedAudience:
+  countries:
+    - IT
+  scope:
+    - government
+
+# Estensione italiana (da compilare dall'Ente, se applicabile): codice IPA dell'amministrazione, ad esempio
+#   IT:
+#     riuso:
+#       codiceIPA: <codice IPA dell'Ente>        # DA_COMPLETARE

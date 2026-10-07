@@ -1,0 +1,30 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv*/
+locale/
+build/
+dist/
+
+# Mai committare chiavi, certificati o dati reali
+*.pem
+*.key
+*.pfx
+*.p12
+*.crx
+privata.bin
+chiave/
+raw/
+giorni/
+diagnostica/
+cache_ai/
+*.gguf
+*.exe
+*.zip
+
+output/
+docs/verifiche/
+edizioni/*/
+# Output intermedi sintetici delle catture, non necessari nella galleria pubblica.
+docs/screenshots/finale_esempio.json
+docs/screenshots/tempi_box.json

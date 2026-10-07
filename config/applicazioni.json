@@ -1,0 +1,108 @@
+{
+ "_istruzioni": "File modificabile dall'Ente (Sistemi Informativi). 'applicazioni': nome dell'eseguibile (maiuscolo, senza percorso) -> id (a-z0-9_), etichetta leggibile, categoria. 'siti': etichetta della whitelist dei siti di lavoro -> etichetta, categoria, domini (solo il nome host o un indirizzo IPv4; un dominio vale anche per i suoi sottodomini, un IP solo per sé stesso; la porta non conta), profilo facoltativo. L'elenco predefinito dei siti è VUOTO: è una configurazione locale dell'Ente, da compilare solo dopo aver verificato ogni servizio (nome host, nessun dato personale nell'indirizzo) e dopo le procedure indicate nel README. 'profili': 'generale' vale per tutti i dipendenti; gli altri (es. 'sistemi_informativi') si attivano solo sulle postazioni indicate dall'Ente. 'categorie': le sei di base sono fisse; se ne possono aggiungere altre. Un eseguibile non elencato non viene registrato (conta solo come attività della fascia) e un sito fuori elenco è 'web_generico': non significa 'non lavoro'. Aggiornare 'versione' a ogni modifica. 'esclusi': domini che non sono mai siti di lavoro (dominio -> motivo), anche con i sottodomini; non possono comparire in 'siti'. Predefinito: vuoto.",
+ "versione": "2026-10-06.1",
+ "profili": {
+  "generale": {
+   "descrizione": "Siti di lavoro comuni a tutti i dipendenti"
+  },
+  "sistemi_informativi": {
+   "descrizione": "Strumenti di amministrazione dei sistemi: solo per il personale dei Sistemi Informativi (profilo facoltativo, attivato dal CED sulla postazione)"
+  }
+ },
+ "esclusi": {},
+ "categorie": {
+  "office": "Strumenti d'ufficio",
+  "posta": "Posta elettronica",
+  "halley": "Gestionale Halley",
+  "web_generico": "Navigazione web",
+  "rete": "Traffico di rete",
+  "interazione_postazione": "Uso della postazione",
+  "videoconferenza": "Videoconferenza",
+  "portali_pa": "Portali della Pubblica Amministrazione",
+  "servizi_comune": "Servizi online dell'Ente",
+  "territorio": "Cartografia e territorio",
+  "acquisti_gare": "Acquisti e gare telematiche",
+  "assistenza": "Assistenza e segnalazioni",
+  "formazione": "Formazione",
+  "amministrazione_sistemi": "Amministrazione dei sistemi informativi",
+  "sicurezza_informatica": "Sicurezza informatica"
+ },
+ "applicazioni": {
+  "WINWORD.EXE": {
+   "id": "word",
+   "etichetta": "Microsoft Word",
+   "categoria": "office"
+  },
+  "EXCEL.EXE": {
+   "id": "excel",
+   "etichetta": "Microsoft Excel",
+   "categoria": "office"
+  },
+  "POWERPNT.EXE": {
+   "id": "powerpoint",
+   "etichetta": "Microsoft PowerPoint",
+   "categoria": "office"
+  },
+  "SOFFICE.BIN": {
+   "id": "libreoffice",
+   "etichetta": "LibreOffice",
+   "categoria": "office"
+  },
+  "SOFFICE.EXE": {
+   "id": "libreoffice",
+   "etichetta": "LibreOffice",
+   "categoria": "office"
+  },
+  "ACRORD32.EXE": {
+   "id": "pdf",
+   "etichetta": "Lettore PDF",
+   "categoria": "office"
+  },
+  "ACROBAT.EXE": {
+   "id": "pdf",
+   "etichetta": "Lettore PDF",
+   "categoria": "office"
+  },
+  "NOTEPAD.EXE": {
+   "id": "blocco_note",
+   "etichetta": "Blocco note",
+   "categoria": "office"
+  },
+  "OUTLOOK.EXE": {
+   "id": "outlook",
+   "etichetta": "Microsoft Outlook",
+   "categoria": "posta"
+  },
+  "THUNDERBIRD.EXE": {
+   "id": "thunderbird",
+   "etichetta": "Thunderbird",
+   "categoria": "posta"
+  },
+  "CHROME.EXE": {
+   "id": "browser",
+   "etichetta": "Browser",
+   "categoria": "web_generico"
+  },
+  "MSEDGE.EXE": {
+   "id": "browser",
+   "etichetta": "Browser",
+   "categoria": "web_generico"
+  },
+  "FIREFOX.EXE": {
+   "id": "browser",
+   "etichetta": "Browser",
+   "categoria": "web_generico"
+  },
+  "MS-TEAMS.EXE": {
+   "id": "teams",
+   "etichetta": "Microsoft Teams",
+   "categoria": "videoconferenza"
+  },
+  "ZOOM.EXE": {
+   "id": "zoom",
+   "etichetta": "Zoom",
+   "categoria": "videoconferenza"
+  }
+ },
+ "siti": {}
+}

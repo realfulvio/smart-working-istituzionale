@@ -1,0 +1,92 @@
+{
+  "versione_redattore": "m7-2",
+  "generata_il": "2026-10-05T14:00:00+02:00",
+  "motore": {
+    "tipo": "testo_standard",
+    "modello": null,
+    "runtime": null,
+    "temperatura": 0,
+    "seme": 42,
+    "profilo": null
+  },
+  "fatti": [
+    {
+      "id": 1,
+      "testo": "Giornata del resoconto: lunedì 5 ottobre 2026.",
+      "origine": "automatico",
+      "tipo": "giorno"
+    },
+    {
+      "id": 2,
+      "testo": "Nessuna fascia con attività informatica rilevata dalla postazione in questa giornata.",
+      "origine": "automatico",
+      "tipo": "totale_rilevato"
+    },
+    {
+      "id": 3,
+      "testo": "Attività dichiarata dal dipendente (riunione) dalle 10:00 alle 10:30, 30 minuti: \"Confronto organizzativo (ESEMPIO)\".",
+      "origine": "dichiarato",
+      "tipo": "manuale"
+    },
+    {
+      "id": 4,
+      "testo": "Attività dichiarata dal dipendente (attività amministrativa offline) dalle 13:00 alle 13:15, 15 minuti: \"Attività offline (ESEMPIO)\".",
+      "origine": "dichiarato",
+      "tipo": "manuale"
+    },
+    {
+      "id": 5,
+      "testo": "Osservazioni dichiarate dal dipendente: \"Giornata inventata, destinata esclusivamente a test e demo\".",
+      "origine": "osservazione",
+      "tipo": "osservazioni"
+    },
+    {
+      "id": 6,
+      "testo": "Primo evento di sessione registrato alle 08:00, ultimo alle 14:00.",
+      "origine": "automatico",
+      "tipo": "sessione"
+    }
+  ],
+  "impronta_fatti": "3a5acb200ba550d07702db7633e5858efa4c2159605ba77e6d4a7beb061b9b33",
+  "frasi": [
+    {
+      "testo": "Nella giornata di lunedì 5 ottobre 2026 non risultano fasce con attività informatica rilevata dalla postazione.",
+      "fatti": [
+        1,
+        2
+      ]
+    },
+    {
+      "testo": "Il dipendente ha dichiarato le seguenti attività non rilevabili dalla postazione: riunione dalle 10:00 alle 10:30; attività amministrativa offline dalle 13:00 alle 13:15.",
+      "fatti": [
+        3,
+        4
+      ]
+    },
+    {
+      "testo": "Primo evento di sessione registrato alle 08:00, ultimo alle 14:00.",
+      "fatti": [
+        6
+      ]
+    }
+  ],
+  "testo": "Nella giornata di lunedì 5 ottobre 2026 non risultano fasce con attività informatica rilevata dalla postazione. Il dipendente ha dichiarato le seguenti attività non rilevabili dalla postazione: riunione dalle 10:00 alle 10:30; attività amministrativa offline dalle 13:00 alle 13:15. Primo evento di sessione registrato alle 08:00, ultimo alle 14:00.",
+  "esito": "testo_standard",
+  "controllo": {
+    "esito": "superato",
+    "problemi": [],
+    "tentativi": []
+  },
+  "prestazioni": {
+    "secondi_totali": null,
+    "secondi_caricamento": null,
+    "secondi_generazione": null,
+    "token_prompt": null,
+    "token_generati": null,
+    "ram_picco_mb": null
+  },
+  "riscritture": 0,
+  "origine_testo": "testo_standard",
+  "verificata_dal_dipendente": false,
+  "verificata_il": null
+}

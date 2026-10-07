@@ -1,0 +1,1350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/smart-working-istituzionale/schema/giornaliero/4",
+  "title": "Resoconto giornaliero minimizzato — schema /4",
+  "description": "Uscita dell'aggregatore deterministico. Nessun nome di file, percorso, eseguibile, oggetto di mail o URL. Dati automatici (origine: automatica) e dichiarati dal dipendente (origine: dichiarata) restano separati.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "giorno",
+    "fuso",
+    "dipendente",
+    "versioni",
+    "presa_visione",
+    "modalita",
+    "copertura_fonti",
+    "origine_dati",
+    "classificazione",
+    "sessione",
+    "raccolta",
+    "fasce",
+    "totali",
+    "manuali",
+    "osservazioni_dipendente",
+    "segnalazioni_dipendente",
+    "avvisi",
+    "avvisi_revisione",
+    "sintesi_ai",
+    "integrita"
+  ],
+  "properties": {
+    "schema": {
+      "const": "rendiconto-sw/giornaliero/4"
+    },
+    "giorno": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "fuso": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "dipendente": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nome": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "ufficio": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "matricola": {
+          "type": "string",
+          "maxLength": 40
+        }
+      }
+    },
+    "versioni": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 40
+      },
+      "required": [
+        "aggregatore"
+      ]
+    },
+    "presa_visione": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "versione",
+            "data"
+          ],
+          "properties": {
+            "versione": {
+              "type": "string",
+              "maxLength": 40
+            },
+            "data": {
+              "type": "string",
+              "maxLength": 40
+            },
+            "sha256_testo": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "tipo": {
+              "type": "string",
+              "maxLength": 80
+            }
+          }
+        }
+      ]
+    },
+    "modalita": {
+      "enum": [
+        "consuntivo",
+        "collector"
+      ]
+    },
+    "copertura_fonti": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9_]{1,40}$"
+      },
+      "additionalProperties": {
+        "enum": [
+          "completa",
+          "parziale",
+          "non_disponibile",
+          "non_installato"
+        ]
+      }
+    },
+    "origine_dati": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z_.]{1,40}$"
+      },
+      "additionalProperties": {
+        "enum": [
+          "automatica",
+          "dichiarata",
+          "combinata"
+        ]
+      },
+      "properties": {
+        "sessione": {
+          "const": "automatic"
+        },
+        "fasce": {
+          "const": "automatic"
+        },
+        "totali.rilevati": {
+          "const": "automatic"
+        },
+        "classificazione": {
+          "const": "automatic"
+        },
+        "avvisi": {
+          "const": "automatic"
+        },
+        "raccolta": {
+          "const": "automatic"
+        },
+        "manuali": {
+          "const": "declared"
+        },
+        "osservazioni_dipendente": {
+          "const": "observation"
+        },
+        "segnalazioni_dipendente": {
+          "const": "observation"
+        },
+        "sintesi_ai": {
+          "const": "AI-generated"
+        }
+      },
+      "required": [
+        "sessione",
+        "fasce",
+        "totali.rilevati",
+        "classificazione",
+        "avvisi",
+        "raccolta",
+        "manuali",
+        "osservazioni_dipendente",
+        "segnalazioni_dipendente",
+        "sintesi_ai"
+      ]
+    },
+    "classificazione": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "versione_mappa",
+        "applicazioni",
+        "categorie",
+        "siti"
+      ],
+      "properties": {
+        "versione_mappa": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "applicazioni": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9_]{1,40}$"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "etichetta",
+              "categoria"
+            ],
+            "properties": {
+              "etichetta": {
+                "type": "string",
+                "maxLength": 60
+              },
+              "categoria": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        },
+        "categorie": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9_]{1,40}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 60
+          }
+        },
+        "siti": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z0-9_]{1,40}$"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "etichetta",
+              "categoria"
+            ],
+            "properties": {
+              "etichetta": {
+                "type": "string",
+                "maxLength": 60
+              },
+              "categoria": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        }
+      }
+    },
+    "raccolta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pause"
+      ],
+      "description": "Pause della raccolta chieste dal dipendente («Pausa raccolta»)",
+      "properties": {
+        "pause": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "inizio",
+              "fine",
+              "dalle",
+              "alle"
+            ],
+            "properties": {
+              "inizio": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "fine": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "dalle": {
+                "$ref": "#/$defs/ora"
+              },
+              "alle": {
+                "$ref": "#/$defs/ora_o_null"
+              }
+            }
+          }
+        }
+      }
+    },
+    "sessione": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stato_iniziale",
+        "primo_evento",
+        "ultimo_evento",
+        "eventi"
+      ],
+      "properties": {
+        "stato_iniziale": {
+          "$ref": "#/$defs/stato_sessione"
+        },
+        "primo_evento": {
+          "$ref": "#/$defs/ora_o_null"
+        },
+        "ultimo_evento": {
+          "$ref": "#/$defs/ora_o_null"
+        },
+        "eventi": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ora",
+              "ts",
+              "evento"
+            ],
+            "properties": {
+              "ora": {
+                "$ref": "#/$defs/ora"
+              },
+              "ts": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "evento": {
+                "enum": [
+                  "accesso",
+                  "blocco",
+                  "sblocco",
+                  "disconnessione",
+                  "riconnessione",
+                  "sospensione",
+                  "ripresa",
+                  "chiusura",
+                  "spegnimento",
+                  "avvio_raccolta",
+                  "fine_raccolta"
+                ]
+              },
+              "implicito": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "fasce": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "n",
+          "inizio",
+          "fine",
+          "ora",
+          "stato",
+          "origine",
+          "app",
+          "categorie",
+          "siti",
+          "evidenze",
+          "rete",
+          "note_tecniche"
+        ],
+        "properties": {
+          "n": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "inizio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fine": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ora": {
+            "$ref": "#/$defs/ora"
+          },
+          "stato": {
+            "$ref": "#/$defs/stato_fascia"
+          },
+          "origine": {
+            "const": "automatica"
+          },
+          "app": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "categorie": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "siti": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            },
+            "description": "siti della whitelist riconosciuti (solo etichette, mai URL)"
+          },
+          "evidenze": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+              "^(attivita|app|web|rete|posta)$": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "rete": {
+            "type": "boolean"
+          },
+          "note_tecniche": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "sblocco_implicito",
+                "cambio_orario"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "totali": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rilevati",
+        "con_manuali"
+      ],
+      "properties": {
+        "rilevati": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "durata_fascia_min",
+            "numero_fasce",
+            "fasce_per_stato",
+            "prima_attivita",
+            "ultima_attivita",
+            "per_applicazione",
+            "per_categoria",
+            "per_sito",
+            "fasce_con_rete",
+            "fasce_con_note_tecniche"
+          ],
+          "properties": {
+            "durata_fascia_min": {
+              "enum": [
+                15,
+                20,
+                30,
+                60
+              ]
+            },
+            "numero_fasce": {
+              "type": "integer",
+              "minimum": 23,
+              "maximum": 100
+            },
+            "fasce_per_stato": {
+              "$ref": "#/$defs/per_stato"
+            },
+            "prima_attivita": {
+              "$ref": "#/$defs/ora_o_null"
+            },
+            "ultima_attivita": {
+              "$ref": "#/$defs/ora_o_null"
+            },
+            "per_applicazione": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "app",
+                  "fasce"
+                ],
+                "properties": {
+                  "app": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "fasce": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            "per_categoria": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "categoria",
+                  "fasce"
+                ],
+                "properties": {
+                  "categoria": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "fasce": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            "per_sito": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "sito",
+                  "fasce"
+                ],
+                "properties": {
+                  "sito": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "fasce": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            },
+            "fasce_con_rete": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "fasce_con_note_tecniche": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "con_manuali": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "numero_attivita_dichiarate"
+          ],
+          "properties": {
+            "numero_attivita_dichiarate": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "manuali": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "categoria",
+          "inizio",
+          "fine",
+          "minuti",
+          "descrizione",
+          "origine"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^m[0-9]+$"
+          },
+          "categoria": {
+            "enum": [
+              "riunione",
+              "telefonata",
+              "cartaceo",
+              "sopralluogo",
+              "formazione",
+              "altro",
+              "videoconferenza",
+              "amministrativa_offline"
+            ]
+          },
+          "inizio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fine": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "minuti": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "descrizione": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "origine": {
+            "const": "dichiarata"
+          },
+          "ritagliata": {
+            "const": true
+          }
+        }
+      }
+    },
+    "osservazioni_dipendente": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "segnalazioni_dipendente": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "campo",
+          "fascia_da",
+          "fascia_a",
+          "dalle",
+          "alle",
+          "nota",
+          "origine"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^s[0-9]+$"
+          },
+          "campo": {
+            "enum": [
+              "stato",
+              "applicazioni",
+              "categorie",
+              "rete",
+              "sessione",
+              "posta",
+              "totali",
+              "altro"
+            ]
+          },
+          "fascia_da": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "fascia_a": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "dalle": {
+            "$ref": "#/$defs/ora_o_null"
+          },
+          "alle": {
+            "$ref": "#/$defs/ora_o_null"
+          },
+          "nota": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "origine": {
+            "const": "dichiarata"
+          }
+        }
+      }
+    },
+    "avvisi": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      }
+    },
+    "avvisi_revisione": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 300
+      }
+    },
+    "sintesi_ai": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/sintesi_ai"
+        }
+      ]
+    },
+    "integrita": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sigillo_tecnico",
+        "sigillo_finale"
+      ],
+      "properties": {
+        "sigillo_tecnico": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/sigillo"
+            }
+          ]
+        },
+        "sigillo_finale": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/sigillo"
+            }
+          ]
+        }
+      }
+    },
+    "dati_tecnici_postazione": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nome_macchina",
+        "tipo",
+        "sistema_operativo",
+        "processore",
+        "ram_gb"
+      ],
+      "properties": {
+        "nome_macchina": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "tipo": {
+          "enum": [
+            "VDI",
+            "PC fisso"
+          ]
+        },
+        "sistema_operativo": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "processore": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "ram_gb": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1048576
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sintesi_ai": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Sintesi della giornata redatta dal modello locale (M5 AI-LIGHT / M6 AI-STANDARD) o dal testo standard, con l'esito del controllo anti-invenzione. Il dipendente può chiedere «Riscrivi» (al massimo 3 volte) o modificare il testo: allora origine_testo = dichiarata, il testo generato resta in testo_originale e il controllo del testo modificato in controllo_modifica. Fuori dal sigillo tecnico, coperta dal sigillo finale.",
+      "required": [
+        "versione_redattore",
+        "generata_il",
+        "motore",
+        "fatti",
+        "impronta_fatti",
+        "frasi",
+        "testo",
+        "esito",
+        "controllo",
+        "prestazioni",
+        "verificata_dal_dipendente",
+        "verificata_il",
+        "riscritture",
+        "origine_testo"
+      ],
+      "properties": {
+        "versione_redattore": {
+          "type": "string"
+        },
+        "generata_il": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "motore": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tipo",
+            "modello",
+            "runtime",
+            "temperatura",
+            "seme"
+          ],
+          "properties": {
+            "tipo": {
+              "enum": [
+                "llama.cpp",
+                "ollama",
+                "testo_standard"
+              ]
+            },
+            "modello": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "runtime": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "temperatura": {
+              "const": 0
+            },
+            "seme": {
+              "type": "integer"
+            },
+            "profilo": {
+              "enum": [
+                "AI-LIGHT",
+                "AI-STANDARD",
+                null
+              ]
+            }
+          }
+        },
+        "fatti": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "testo",
+              "origine",
+              "tipo"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "testo": {
+                "type": "string",
+                "maxLength": 900
+              },
+              "origine": {
+                "enum": [
+                  "automatico",
+                  "dichiarato",
+                  "combinato",
+                  "osservazione"
+                ]
+              },
+              "tipo": {
+                "type": "string",
+                "pattern": "^[a-z_]{1,30}$"
+              }
+            }
+          }
+        },
+        "impronta_fatti": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "frasi": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "testo",
+              "fatti"
+            ],
+            "properties": {
+              "testo": {
+                "type": "string",
+                "maxLength": 600
+              },
+              "fatti": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        },
+        "testo": {
+          "type": "string",
+          "maxLength": 3000
+        },
+        "esito": {
+          "enum": [
+            "verificata_ai",
+            "testo_standard",
+            "modificata_dal_dipendente"
+          ]
+        },
+        "controllo": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "esito",
+            "problemi",
+            "tentativi"
+          ],
+          "properties": {
+            "esito": {
+              "enum": [
+                "superato",
+                "non_superato"
+              ]
+            },
+            "problemi": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tentativi": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "n",
+                  "esito",
+                  "problemi",
+                  "frasi",
+                  "secondi"
+                ],
+                "properties": {
+                  "n": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "esito": {
+                    "enum": [
+                      "superato",
+                      "non_superato",
+                      "errore_motore"
+                    ]
+                  },
+                  "problemi": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "frasi": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "testo",
+                        "fatti"
+                      ],
+                      "properties": {
+                        "testo": {
+                          "type": "string",
+                          "maxLength": 600
+                        },
+                        "fatti": {
+                          "type": "array",
+                          "items": {
+                            "type": "integer",
+                            "minimum": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "secondi": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "token_generati": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "secondi_prompt": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "prestazioni": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "secondi_totali",
+            "secondi_caricamento",
+            "secondi_generazione",
+            "token_prompt",
+            "token_generati",
+            "ram_picco_mb"
+          ],
+          "properties": {
+            "secondi_totali": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "secondi_caricamento": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "secondi_generazione": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "token_prompt": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "token_generati": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "ram_picco_mb": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "tentativo_saltato_per_tempo": {
+              "type": "boolean",
+              "description": "secondo tentativo non eseguito perché avrebbe superato il tempo massimo (testo standard)"
+            },
+            "ram_picco_privato_mb": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            }
+          }
+        },
+        "verificata_dal_dipendente": {
+          "type": "boolean"
+        },
+        "verificata_il": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "riscritture": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "origine_testo": {
+          "enum": [
+            "ai",
+            "testo_standard",
+            "dichiarata"
+          ],
+          "description": "chi ha scritto il testo attuale: il modello (verificato dal controllo), il testo standard o il dipendente (dichiarato)"
+        },
+        "testo_originale": {
+          "type": "string",
+          "maxLength": 3000
+        },
+        "frasi_originali": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "testo",
+              "fatti"
+            ],
+            "properties": {
+              "testo": {
+                "type": "string",
+                "maxLength": 600
+              },
+              "fatti": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        },
+        "controllo_modifica": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "esito",
+            "problemi",
+            "accettata_con_avvisi"
+          ],
+          "properties": {
+            "esito": {
+              "enum": [
+                "superato",
+                "non_superato"
+              ]
+            },
+            "problemi": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "accettata_con_avvisi": {
+              "type": "boolean"
+            }
+          }
+        },
+        "modificata_il": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "scelta_profilo": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "profilo_richiesto": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "profilo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "motivo": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]{1,40}$"
+    },
+    "ora": {
+      "type": "string",
+      "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+    },
+    "ora_o_null": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^(([01][0-9]|2[0-3]):[0-5][0-9]|24:00)$"
+        }
+      ]
+    },
+    "stato_sessione": {
+      "enum": [
+        "attiva",
+        "bloccata",
+        "disconnessa",
+        "sospesa",
+        "chiusa",
+        "sconosciuta"
+      ]
+    },
+    "stato_fascia": {
+      "enum": [
+        "attivita_rilevata",
+        "nessuna_attivita_informatica_rilevata",
+        "sessione_bloccata",
+        "sessione_disconnessa",
+        "sessione_chiusa",
+        "raccolta_sospesa",
+        "dato_non_disponibile"
+      ]
+    },
+    "per_stato": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attivita_rilevata",
+        "nessuna_attivita_informatica_rilevata",
+        "sessione_bloccata",
+        "sessione_disconnessa",
+        "sessione_chiusa",
+        "raccolta_sospesa",
+        "dato_non_disponibile"
+      ],
+      "properties": {
+        "attivita_rilevata": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nessuna_attivita_informatica_rilevata": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sessione_bloccata": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sessione_disconnessa": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sessione_chiusa": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raccolta_sospesa": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dato_non_disponibile": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "sigillo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tipo",
+        "sha256",
+        "creato_il",
+        "impronta_chiave",
+        "algoritmo",
+        "codice",
+        "firma",
+        "chiave_pubblica"
+      ],
+      "properties": {
+        "tipo": {
+          "enum": [
+            "tecnico",
+            "finale"
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "creato_il": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "impronta_chiave": {
+          "type": "string",
+          "pattern": "^[0-9A-F]{4}( [0-9A-F]{4}){4}$"
+        },
+        "algoritmo": {
+          "const": "Ed25519"
+        },
+        "codice": {
+          "type": "string",
+          "pattern": "^[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$"
+        },
+        "firma": {
+          "type": "string"
+        },
+        "chiave_pubblica": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

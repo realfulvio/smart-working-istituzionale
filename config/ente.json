@@ -1,0 +1,9 @@
+{
+  "_istruzioni": "Configurazione neutra condivisa, personalizzazione tramite overlay locale.",
+  "nome": "Il tuo Ente",
+  "sottotitolo": "",
+  "assistenza": "",
+  "logo": "../applicazione/assets/ente-segnaposto.png",
+  "colori": {},
+  "dati_tecnici_postazione": true
+}
