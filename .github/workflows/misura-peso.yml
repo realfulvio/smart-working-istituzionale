@@ -1,0 +1,32 @@
+name: misura-peso
+
+# Costruisce il pacchetto come in tools/pacchetto/build_app.ps1 e ne misura peso, avvio e memoria del processo di raccolta.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["misura/**", "ottimizza/**"]
+
+jobs:
+  misura:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Costruzione del pacchetto
+        shell: pwsh
+        run: |
+          $sw = [Diagnostics.Stopwatch]::StartNew()
+          & .\tools\pacchetto\build_app.ps1
+          if ($LASTEXITCODE -ne 0) { throw "build non riuscita" }
+          "Costruzione: $([math]::Round($sw.Elapsed.TotalSeconds)) s" | Add-Content $env:GITHUB_STEP_SUMMARY
+      - name: Misura
+        shell: pwsh
+        run: ./tools/misura_peso.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: misura
+          path: misura.json

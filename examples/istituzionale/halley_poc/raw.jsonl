@@ -1,0 +1,17 @@
+{"tipo": "meta", "giorno": "2026-10-05", "fuso": "Europe/Rome", "modalita": "collector", "dipendente": {"nome": "Rossi Maria (ESEMPIO)", "ufficio": "Ufficio dimostrativo"}, "copertura_fonti": {"sessione": "completa", "app": "parziale", "attivita": "parziale", "rete": "non_installato", "browser": "non_installato"}}
+{"tipo": "sessione", "ts": "2026-10-05T08:00:00+02:00", "evento": "avvio_raccolta"}
+{"tipo": "app", "ts": "2026-10-05T08:01:00+02:00", "exe": "WINWORD.EXE"}
+{"tipo": "app", "ts": "2026-10-05T08:04:00+02:00", "exe": "OUTLOOK.EXE"}
+{"tipo": "app", "ts": "2026-10-05T08:15:00+02:00", "exe": "OUTLOOK.EXE"}
+{"tipo": "app", "ts": "2026-10-05T08:30:00+02:00", "exe": "WINWORD.EXE"}
+{"tipo": "sessione", "ts": "2026-10-05T09:00:00+02:00", "evento": "blocco"}
+{"tipo": "sessione", "ts": "2026-10-05T09:30:00+02:00", "evento": "sblocco"}
+{"tipo": "app", "ts": "2026-10-05T09:31:00+02:00", "exe": "WINWORD.EXE"}
+{"tipo": "sessione", "ts": "2026-10-05T11:00:00+02:00", "evento": "disconnessione"}
+{"tipo": "sessione", "ts": "2026-10-05T11:30:00+02:00", "evento": "riconnessione"}
+{"tipo": "app", "ts": "2026-10-05T12:00:00+02:00", "exe": "WINWORD.EXE"}
+{"tipo": "web", "ts": "2026-10-05T10:02:00+02:00", "sito": "halley"}
+{"tipo": "sessione", "ts": "2026-10-05T14:00:00+02:00", "evento": "fine_raccolta"}
+{"tipo": "manuale", "inizio": "2026-10-05T10:00:00+02:00", "fine": "2026-10-05T10:30:00+02:00", "categoria": "riunione", "descrizione": "Confronto organizzativo (ESEMPIO)"}
+{"tipo": "manuale", "inizio": "2026-10-05T13:00:00+02:00", "fine": "2026-10-05T13:15:00+02:00", "categoria": "amministrativa_offline", "descrizione": "Attività offline (ESEMPIO)"}
+{"tipo": "osservazione", "testo": "Giornata inventata, destinata esclusivamente a test e demo."}

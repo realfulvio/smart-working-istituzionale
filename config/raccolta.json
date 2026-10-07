@@ -1,0 +1,6 @@
+{
+  "_istruzioni": "Policy CED. Fasce ammesse: 15 (default), 20, 30, 60 minuti. Riavviare i processi dopo una modifica. Rete e Halley non abilitabili nella V1: PoC separati. Retention: null finché validata dall'Ente; quando validata impostare giorni interi >=1 e data di decorrenza YYYY-MM-DD. Solo raw di nuove giornate marcate, confermate e con sigilli verificati sono eleggibili. Nessun dato storico viene cancellato automaticamente.",
+  "durata_fascia_min": 15,
+  "retention_raw_giorni": null,
+  "retention_da_data": null
+}

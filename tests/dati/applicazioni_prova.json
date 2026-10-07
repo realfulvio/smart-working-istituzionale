@@ -1,0 +1,118 @@
+{
+ "_istruzioni": "Configurazione di PROVA per i test (dati inventati, domini .test): non è il predefinito del programma.",
+ "versione": "2026-10-06.1",
+ "profili": {
+  "generale": {
+   "descrizione": "Siti di lavoro comuni a tutti i dipendenti"
+  },
+  "sistemi_informativi": {
+   "descrizione": "Strumenti di amministrazione dei sistemi: solo per il personale dei Sistemi Informativi (profilo facoltativo, attivato dal CED sulla postazione)"
+  }
+ },
+ "esclusi": {
+  "escluso.esempio.test": "Dominio di prova escluso: mai sito di lavoro"
+ },
+ "categorie": {
+  "office": "Strumenti d'ufficio",
+  "posta": "Posta elettronica",
+  "halley": "Gestionale Halley",
+  "web_generico": "Navigazione web",
+  "rete": "Traffico di rete",
+  "interazione_postazione": "Uso della postazione",
+  "videoconferenza": "Videoconferenza",
+  "portali_pa": "Portali della Pubblica Amministrazione",
+  "servizi_comune": "Servizi online dell'Ente",
+  "territorio": "Cartografia e territorio",
+  "acquisti_gare": "Acquisti e gare telematiche",
+  "assistenza": "Assistenza e segnalazioni",
+  "formazione": "Formazione",
+  "amministrazione_sistemi": "Amministrazione dei sistemi informativi",
+  "sicurezza_informatica": "Sicurezza informatica"
+ },
+ "applicazioni": {
+  "WINWORD.EXE": {
+   "id": "word",
+   "etichetta": "Microsoft Word",
+   "categoria": "office"
+  },
+  "EXCEL.EXE": {
+   "id": "excel",
+   "etichetta": "Microsoft Excel",
+   "categoria": "office"
+  },
+  "POWERPNT.EXE": {
+   "id": "powerpoint",
+   "etichetta": "Microsoft PowerPoint",
+   "categoria": "office"
+  },
+  "SOFFICE.BIN": {
+   "id": "libreoffice",
+   "etichetta": "LibreOffice",
+   "categoria": "office"
+  },
+  "SOFFICE.EXE": {
+   "id": "libreoffice",
+   "etichetta": "LibreOffice",
+   "categoria": "office"
+  },
+  "ACRORD32.EXE": {
+   "id": "pdf",
+   "etichetta": "Lettore PDF",
+   "categoria": "office"
+  },
+  "ACROBAT.EXE": {
+   "id": "pdf",
+   "etichetta": "Lettore PDF",
+   "categoria": "office"
+  },
+  "NOTEPAD.EXE": {
+   "id": "blocco_note",
+   "etichetta": "Blocco note",
+   "categoria": "office"
+  },
+  "OUTLOOK.EXE": {
+   "id": "outlook",
+   "etichetta": "Microsoft Outlook",
+   "categoria": "posta"
+  },
+  "THUNDERBIRD.EXE": {
+   "id": "thunderbird",
+   "etichetta": "Thunderbird",
+   "categoria": "posta"
+  },
+  "CHROME.EXE": {
+   "id": "browser",
+   "etichetta": "Browser",
+   "categoria": "web_generico"
+  },
+  "MSEDGE.EXE": {
+   "id": "browser",
+   "etichetta": "Browser",
+   "categoria": "web_generico"
+  },
+  "FIREFOX.EXE": {
+   "id": "browser",
+   "etichetta": "Browser",
+   "categoria": "web_generico"
+  },
+  "MS-TEAMS.EXE": {
+   "id": "teams",
+   "etichetta": "Microsoft Teams",
+   "categoria": "videoconferenza"
+  },
+  "ZOOM.EXE": {
+   "id": "zoom",
+   "etichetta": "Zoom",
+   "categoria": "videoconferenza"
+  }
+ },
+ "siti": {
+  "halley": {
+   "etichetta": "Halley",
+   "categoria": "halley",
+   "domini": [
+    "gestionale.esempio.test"
+   ]
+  }
+ }
+}

@@ -1,0 +1,122 @@
+{
+  "versione_redattore": "m7-2",
+  "generata_il": "2026-10-05T14:00:00+02:00",
+  "motore": {
+    "tipo": "testo_standard",
+    "modello": null,
+    "runtime": null,
+    "temperatura": 0,
+    "seme": 42,
+    "profilo": null
+  },
+  "fatti": [
+    {
+      "id": 1,
+      "testo": "Giornata del resoconto: lunedì 5 ottobre 2026.",
+      "origine": "automatico",
+      "tipo": "giorno"
+    },
+    {
+      "id": 2,
+      "testo": "Attività informatica rilevata in 5 fasce da 15 minuti.",
+      "origine": "automatico",
+      "tipo": "totale_rilevato"
+    },
+    {
+      "id": 3,
+      "testo": "La prima fascia con attività informatica rilevata inizia alle 08:00; l'ultima termina alle 12:15.",
+      "origine": "automatico",
+      "tipo": "orari"
+    },
+    {
+      "id": 4,
+      "testo": "Categorie di attività rilevate: Applicazione di posta elettronica, Strumenti d'ufficio.",
+      "origine": "automatico",
+      "tipo": "categorie"
+    },
+    {
+      "id": 5,
+      "testo": "Attività dichiarata dal dipendente (riunione) dalle 10:00 alle 10:30, 30 minuti: \"Confronto organizzativo (ESEMPIO)\".",
+      "origine": "dichiarato",
+      "tipo": "manuale"
+    },
+    {
+      "id": 6,
+      "testo": "Attività dichiarata dal dipendente (attività amministrativa offline) dalle 13:00 alle 13:15, 15 minuti: \"Attività offline (ESEMPIO)\".",
+      "origine": "dichiarato",
+      "tipo": "manuale"
+    },
+    {
+      "id": 7,
+      "testo": "Osservazioni dichiarate dal dipendente: \"Giornata inventata, destinata esclusivamente a test e demo\".",
+      "origine": "osservazione",
+      "tipo": "osservazioni"
+    },
+    {
+      "id": 8,
+      "testo": "Tra le 08:00 e le 12:15, oltre all'attività rilevata: sessione attiva senza attività informatica rilevata in 8 fasce; sessione bloccata in 2 fasce; sessione disconnessa in 2 fasce.",
+      "origine": "automatico",
+      "tipo": "finestra"
+    },
+    {
+      "id": 9,
+      "testo": "Primo evento di sessione registrato alle 08:00, ultimo alle 14:00.",
+      "origine": "automatico",
+      "tipo": "sessione"
+    },
+    {
+      "id": 10,
+      "testo": "Applicazioni rilevate: Microsoft Outlook, Microsoft Word.",
+      "origine": "automatico",
+      "tipo": "applicazioni"
+    }
+  ],
+  "impronta_fatti": "79759155c7ea11ef6ed19f336bb078b73ff12f948ed1b2f85e53751bdc48ea02",
+  "frasi": [
+    {
+      "testo": "Nella giornata di lunedì 5 ottobre 2026 la prima fascia con attività informatica rilevata inizia alle 08:00 e l'ultima termina alle 12:15.",
+      "fatti": [
+        1,
+        3
+      ]
+    },
+    {
+      "testo": "Risulta attività informatica rilevata in 5 fasce da 15 minuti.",
+      "fatti": [
+        2
+      ]
+    },
+    {
+      "testo": "Le categorie di attività rilevate sono: Applicazione di posta elettronica, Strumenti d'ufficio.",
+      "fatti": [
+        4
+      ]
+    },
+    {
+      "testo": "Il dipendente ha dichiarato le seguenti attività non rilevabili dalla postazione: riunione dalle 10:00 alle 10:30; attività amministrativa offline dalle 13:00 alle 13:15.",
+      "fatti": [
+        5,
+        6
+      ]
+    }
+  ],
+  "testo": "Nella giornata di lunedì 5 ottobre 2026 la prima fascia con attività informatica rilevata inizia alle 08:00 e l'ultima termina alle 12:15. Risulta attività informatica rilevata in 5 fasce da 15 minuti. Le categorie di attività rilevate sono: Applicazione di posta elettronica, Strumenti d'ufficio. Il dipendente ha dichiarato le seguenti attività non rilevabili dalla postazione: riunione dalle 10:00 alle 10:30; attività amministrativa offline dalle 13:00 alle 13:15.",
+  "esito": "testo_standard",
+  "controllo": {
+    "esito": "superato",
+    "problemi": [],
+    "tentativi": []
+  },
+  "prestazioni": {
+    "secondi_totali": null,
+    "secondi_caricamento": null,
+    "secondi_generazione": null,
+    "token_prompt": null,
+    "token_generati": null,
+    "ram_picco_mb": null
+  },
+  "riscritture": 0,
+  "origine_testo": "testo_standard",
+  "verificata_dal_dipendente": false,
+  "verificata_il": null
+}

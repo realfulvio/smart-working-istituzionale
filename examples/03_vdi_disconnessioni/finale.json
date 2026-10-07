@@ -1,0 +1,1938 @@
+{
+ "schema": "rendiconto-sw/giornaliero/3",
+ "giorno": "2026-10-07",
+ "fuso": "Europe/Rome",
+ "dipendente": {
+  "nome": "Rossi Maria (ESEMPIO)",
+  "account": "ENTE\\esempio",
+  "ufficio": "Ufficio Tributi"
+ },
+ "postazione": {
+  "host": "VD-0042",
+  "tipo": "vdi",
+  "ram_gb": 8,
+  "profilo_ai": {
+   "profilo": "AI-LIGHT",
+   "modello_indicativo": "~1,5–1,7B parametri",
+   "criterio": "ram_rilevata"
+  }
+ },
+ "versioni": {
+  "collector": "consuntivo-v3-lettori",
+  "aggregatore": "4.0.0a5",
+  "mappa_applicazioni": "2026-10-06.1"
+ },
+ "presa_visione": {
+  "versione": "2026-10-01.1",
+  "data": "2026-10-01T08:10:00+02:00"
+ },
+ "modalita": "consuntivo",
+ "copertura_fonti": {
+  "app": "parziale",
+  "attivita": "non_installato",
+  "browser": "non_installato",
+  "rete": "non_installato",
+  "sessione": "parziale"
+ },
+ "origine_dati": {
+  "sessione": "automatica",
+  "fasce": "automatica",
+  "totali.rilevati": "automatica",
+  "classificazione": "automatica",
+  "avvisi": "automatica",
+  "raccolta": "automatica",
+  "manuali": "dichiarata",
+  "osservazioni_dipendente": "dichiarata",
+  "segnalazioni_dipendente": "dichiarata",
+  "totali.con_manuali": "combinata"
+ },
+ "classificazione": {
+  "versione_mappa": "2026-10-06.1",
+  "applicazioni": {
+   "browser": {
+    "etichetta": "Browser",
+    "categoria": "web_generico"
+   },
+   "word": {
+    "etichetta": "Microsoft Word",
+    "categoria": "office"
+   }
+  },
+  "categorie": {
+   "halley": "Gestionale Halley",
+   "office": "Strumenti d'ufficio"
+  },
+  "siti": {
+   "halley": {
+    "etichetta": "Halley",
+    "categoria": "halley"
+   }
+  }
+ },
+ "sessione": {
+  "stato_iniziale": "disconnessa",
+  "primo_evento": "08:05",
+  "ultimo_evento": "15:25",
+  "eventi": [
+   {
+    "ora": "08:05",
+    "ts": "2026-10-07T08:05:00+02:00",
+    "evento": "riconnessione"
+   },
+   {
+    "ora": "09:10",
+    "ts": "2026-10-07T09:10:00+02:00",
+    "evento": "blocco"
+   },
+   {
+    "ora": "09:40",
+    "ts": "2026-10-07T09:40:00+02:00",
+    "evento": "sblocco",
+    "implicito": true
+   },
+   {
+    "ora": "10:30",
+    "ts": "2026-10-07T10:30:00+02:00",
+    "evento": "disconnessione"
+   },
+   {
+    "ora": "10:52",
+    "ts": "2026-10-07T10:52:00+02:00",
+    "evento": "riconnessione"
+   },
+   {
+    "ora": "11:31",
+    "ts": "2026-10-07T11:31:00+02:00",
+    "evento": "disconnessione"
+   },
+   {
+    "ora": "11:33",
+    "ts": "2026-10-07T11:33:00+02:00",
+    "evento": "riconnessione"
+   },
+   {
+    "ora": "12:35",
+    "ts": "2026-10-07T12:35:00+02:00",
+    "evento": "disconnessione"
+   },
+   {
+    "ora": "14:30",
+    "ts": "2026-10-07T14:30:00+02:00",
+    "evento": "riconnessione"
+   },
+   {
+    "ora": "15:25",
+    "ts": "2026-10-07T15:25:00+02:00",
+    "evento": "disconnessione"
+   }
+  ],
+  "minuti_per_stato": {
+   "bloccata": 30,
+   "disconnessa": 1139,
+   "attiva": 271
+  }
+ },
+ "raccolta": {
+  "pause": [],
+  "minuti_sospesa": 0
+ },
+ "fasce": [
+  {
+   "n": 0,
+   "inizio": "2026-10-07T00:00:00+02:00",
+   "fine": "2026-10-07T00:15:00+02:00",
+   "ora": "00:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 1,
+   "inizio": "2026-10-07T00:15:00+02:00",
+   "fine": "2026-10-07T00:30:00+02:00",
+   "ora": "00:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 2,
+   "inizio": "2026-10-07T00:30:00+02:00",
+   "fine": "2026-10-07T00:45:00+02:00",
+   "ora": "00:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 3,
+   "inizio": "2026-10-07T00:45:00+02:00",
+   "fine": "2026-10-07T01:00:00+02:00",
+   "ora": "00:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 4,
+   "inizio": "2026-10-07T01:00:00+02:00",
+   "fine": "2026-10-07T01:15:00+02:00",
+   "ora": "01:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 5,
+   "inizio": "2026-10-07T01:15:00+02:00",
+   "fine": "2026-10-07T01:30:00+02:00",
+   "ora": "01:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 6,
+   "inizio": "2026-10-07T01:30:00+02:00",
+   "fine": "2026-10-07T01:45:00+02:00",
+   "ora": "01:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 7,
+   "inizio": "2026-10-07T01:45:00+02:00",
+   "fine": "2026-10-07T02:00:00+02:00",
+   "ora": "01:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 8,
+   "inizio": "2026-10-07T02:00:00+02:00",
+   "fine": "2026-10-07T02:15:00+02:00",
+   "ora": "02:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 9,
+   "inizio": "2026-10-07T02:15:00+02:00",
+   "fine": "2026-10-07T02:30:00+02:00",
+   "ora": "02:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 10,
+   "inizio": "2026-10-07T02:30:00+02:00",
+   "fine": "2026-10-07T02:45:00+02:00",
+   "ora": "02:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 11,
+   "inizio": "2026-10-07T02:45:00+02:00",
+   "fine": "2026-10-07T03:00:00+02:00",
+   "ora": "02:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 12,
+   "inizio": "2026-10-07T03:00:00+02:00",
+   "fine": "2026-10-07T03:15:00+02:00",
+   "ora": "03:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 13,
+   "inizio": "2026-10-07T03:15:00+02:00",
+   "fine": "2026-10-07T03:30:00+02:00",
+   "ora": "03:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 14,
+   "inizio": "2026-10-07T03:30:00+02:00",
+   "fine": "2026-10-07T03:45:00+02:00",
+   "ora": "03:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 15,
+   "inizio": "2026-10-07T03:45:00+02:00",
+   "fine": "2026-10-07T04:00:00+02:00",
+   "ora": "03:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 16,
+   "inizio": "2026-10-07T04:00:00+02:00",
+   "fine": "2026-10-07T04:15:00+02:00",
+   "ora": "04:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 17,
+   "inizio": "2026-10-07T04:15:00+02:00",
+   "fine": "2026-10-07T04:30:00+02:00",
+   "ora": "04:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 18,
+   "inizio": "2026-10-07T04:30:00+02:00",
+   "fine": "2026-10-07T04:45:00+02:00",
+   "ora": "04:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 19,
+   "inizio": "2026-10-07T04:45:00+02:00",
+   "fine": "2026-10-07T05:00:00+02:00",
+   "ora": "04:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 20,
+   "inizio": "2026-10-07T05:00:00+02:00",
+   "fine": "2026-10-07T05:15:00+02:00",
+   "ora": "05:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 21,
+   "inizio": "2026-10-07T05:15:00+02:00",
+   "fine": "2026-10-07T05:30:00+02:00",
+   "ora": "05:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 22,
+   "inizio": "2026-10-07T05:30:00+02:00",
+   "fine": "2026-10-07T05:45:00+02:00",
+   "ora": "05:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 23,
+   "inizio": "2026-10-07T05:45:00+02:00",
+   "fine": "2026-10-07T06:00:00+02:00",
+   "ora": "05:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 24,
+   "inizio": "2026-10-07T06:00:00+02:00",
+   "fine": "2026-10-07T06:15:00+02:00",
+   "ora": "06:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 25,
+   "inizio": "2026-10-07T06:15:00+02:00",
+   "fine": "2026-10-07T06:30:00+02:00",
+   "ora": "06:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 26,
+   "inizio": "2026-10-07T06:30:00+02:00",
+   "fine": "2026-10-07T06:45:00+02:00",
+   "ora": "06:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 27,
+   "inizio": "2026-10-07T06:45:00+02:00",
+   "fine": "2026-10-07T07:00:00+02:00",
+   "ora": "06:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 28,
+   "inizio": "2026-10-07T07:00:00+02:00",
+   "fine": "2026-10-07T07:15:00+02:00",
+   "ora": "07:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 29,
+   "inizio": "2026-10-07T07:15:00+02:00",
+   "fine": "2026-10-07T07:30:00+02:00",
+   "ora": "07:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 30,
+   "inizio": "2026-10-07T07:30:00+02:00",
+   "fine": "2026-10-07T07:45:00+02:00",
+   "ora": "07:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 31,
+   "inizio": "2026-10-07T07:45:00+02:00",
+   "fine": "2026-10-07T08:00:00+02:00",
+   "ora": "07:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 32,
+   "inizio": "2026-10-07T08:00:00+02:00",
+   "fine": "2026-10-07T08:15:00+02:00",
+   "ora": "08:00",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 33,
+   "inizio": "2026-10-07T08:15:00+02:00",
+   "fine": "2026-10-07T08:30:00+02:00",
+   "ora": "08:15",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 34,
+   "inizio": "2026-10-07T08:30:00+02:00",
+   "fine": "2026-10-07T08:45:00+02:00",
+   "ora": "08:30",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 3,
+    "web": 3
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 35,
+   "inizio": "2026-10-07T08:45:00+02:00",
+   "fine": "2026-10-07T09:00:00+02:00",
+   "ora": "08:45",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 36,
+   "inizio": "2026-10-07T09:00:00+02:00",
+   "fine": "2026-10-07T09:15:00+02:00",
+   "ora": "09:00",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 1,
+    "web": 1
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 37,
+   "inizio": "2026-10-07T09:15:00+02:00",
+   "fine": "2026-10-07T09:30:00+02:00",
+   "ora": "09:15",
+   "stato": "sessione_bloccata",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 38,
+   "inizio": "2026-10-07T09:30:00+02:00",
+   "fine": "2026-10-07T09:45:00+02:00",
+   "ora": "09:30",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 1,
+    "web": 1
+   },
+   "rete": 0,
+   "note_tecniche": [
+    "sblocco_implicito"
+   ]
+  },
+  {
+   "n": 39,
+   "inizio": "2026-10-07T09:45:00+02:00",
+   "fine": "2026-10-07T10:00:00+02:00",
+   "ora": "09:45",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 3,
+    "web": 3
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 40,
+   "inizio": "2026-10-07T10:00:00+02:00",
+   "fine": "2026-10-07T10:15:00+02:00",
+   "ora": "10:00",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 41,
+   "inizio": "2026-10-07T10:15:00+02:00",
+   "fine": "2026-10-07T10:30:00+02:00",
+   "ora": "10:15",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 42,
+   "inizio": "2026-10-07T10:30:00+02:00",
+   "fine": "2026-10-07T10:45:00+02:00",
+   "ora": "10:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 43,
+   "inizio": "2026-10-07T10:45:00+02:00",
+   "fine": "2026-10-07T11:00:00+02:00",
+   "ora": "10:45",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "word"
+   ],
+   "categorie": [
+    "office"
+   ],
+   "siti": [],
+   "evidenze": {
+    "app": 1
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 44,
+   "inizio": "2026-10-07T11:00:00+02:00",
+   "fine": "2026-10-07T11:15:00+02:00",
+   "ora": "11:00",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "word"
+   ],
+   "categorie": [
+    "office"
+   ],
+   "siti": [],
+   "evidenze": {
+    "app": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 45,
+   "inizio": "2026-10-07T11:15:00+02:00",
+   "fine": "2026-10-07T11:30:00+02:00",
+   "ora": "11:15",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "word"
+   ],
+   "categorie": [
+    "office"
+   ],
+   "siti": [],
+   "evidenze": {
+    "app": 2
+   },
+   "rete": 0,
+   "note_tecniche": [
+    "cambio_orario"
+   ]
+  },
+  {
+   "n": 46,
+   "inizio": "2026-10-07T11:30:00+02:00",
+   "fine": "2026-10-07T11:45:00+02:00",
+   "ora": "11:30",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": [
+    "cambio_orario"
+   ]
+  },
+  {
+   "n": 47,
+   "inizio": "2026-10-07T11:45:00+02:00",
+   "fine": "2026-10-07T12:00:00+02:00",
+   "ora": "11:45",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser",
+    "word"
+   ],
+   "categorie": [
+    "halley",
+    "office"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 4,
+    "web": 3
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 48,
+   "inizio": "2026-10-07T12:00:00+02:00",
+   "fine": "2026-10-07T12:15:00+02:00",
+   "ora": "12:00",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 49,
+   "inizio": "2026-10-07T12:15:00+02:00",
+   "fine": "2026-10-07T12:30:00+02:00",
+   "ora": "12:15",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 3,
+    "web": 3
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 50,
+   "inizio": "2026-10-07T12:30:00+02:00",
+   "fine": "2026-10-07T12:45:00+02:00",
+   "ora": "12:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 51,
+   "inizio": "2026-10-07T12:45:00+02:00",
+   "fine": "2026-10-07T13:00:00+02:00",
+   "ora": "12:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 52,
+   "inizio": "2026-10-07T13:00:00+02:00",
+   "fine": "2026-10-07T13:15:00+02:00",
+   "ora": "13:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 53,
+   "inizio": "2026-10-07T13:15:00+02:00",
+   "fine": "2026-10-07T13:30:00+02:00",
+   "ora": "13:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 54,
+   "inizio": "2026-10-07T13:30:00+02:00",
+   "fine": "2026-10-07T13:45:00+02:00",
+   "ora": "13:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 55,
+   "inizio": "2026-10-07T13:45:00+02:00",
+   "fine": "2026-10-07T14:00:00+02:00",
+   "ora": "13:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 56,
+   "inizio": "2026-10-07T14:00:00+02:00",
+   "fine": "2026-10-07T14:15:00+02:00",
+   "ora": "14:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 57,
+   "inizio": "2026-10-07T14:15:00+02:00",
+   "fine": "2026-10-07T14:30:00+02:00",
+   "ora": "14:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 58,
+   "inizio": "2026-10-07T14:30:00+02:00",
+   "fine": "2026-10-07T14:45:00+02:00",
+   "ora": "14:30",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 3,
+    "web": 3
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 59,
+   "inizio": "2026-10-07T14:45:00+02:00",
+   "fine": "2026-10-07T15:00:00+02:00",
+   "ora": "14:45",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 2,
+    "web": 2
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 60,
+   "inizio": "2026-10-07T15:00:00+02:00",
+   "fine": "2026-10-07T15:15:00+02:00",
+   "ora": "15:00",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 3,
+    "web": 3
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 61,
+   "inizio": "2026-10-07T15:15:00+02:00",
+   "fine": "2026-10-07T15:30:00+02:00",
+   "ora": "15:15",
+   "stato": "attivita_rilevata",
+   "origine": "automatica",
+   "app": [
+    "browser"
+   ],
+   "categorie": [
+    "halley"
+   ],
+   "siti": [
+    "halley"
+   ],
+   "evidenze": {
+    "app": 1,
+    "web": 1
+   },
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 62,
+   "inizio": "2026-10-07T15:30:00+02:00",
+   "fine": "2026-10-07T15:45:00+02:00",
+   "ora": "15:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 63,
+   "inizio": "2026-10-07T15:45:00+02:00",
+   "fine": "2026-10-07T16:00:00+02:00",
+   "ora": "15:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 64,
+   "inizio": "2026-10-07T16:00:00+02:00",
+   "fine": "2026-10-07T16:15:00+02:00",
+   "ora": "16:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 65,
+   "inizio": "2026-10-07T16:15:00+02:00",
+   "fine": "2026-10-07T16:30:00+02:00",
+   "ora": "16:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 66,
+   "inizio": "2026-10-07T16:30:00+02:00",
+   "fine": "2026-10-07T16:45:00+02:00",
+   "ora": "16:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 67,
+   "inizio": "2026-10-07T16:45:00+02:00",
+   "fine": "2026-10-07T17:00:00+02:00",
+   "ora": "16:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 68,
+   "inizio": "2026-10-07T17:00:00+02:00",
+   "fine": "2026-10-07T17:15:00+02:00",
+   "ora": "17:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 69,
+   "inizio": "2026-10-07T17:15:00+02:00",
+   "fine": "2026-10-07T17:30:00+02:00",
+   "ora": "17:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 70,
+   "inizio": "2026-10-07T17:30:00+02:00",
+   "fine": "2026-10-07T17:45:00+02:00",
+   "ora": "17:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 71,
+   "inizio": "2026-10-07T17:45:00+02:00",
+   "fine": "2026-10-07T18:00:00+02:00",
+   "ora": "17:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 72,
+   "inizio": "2026-10-07T18:00:00+02:00",
+   "fine": "2026-10-07T18:15:00+02:00",
+   "ora": "18:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 73,
+   "inizio": "2026-10-07T18:15:00+02:00",
+   "fine": "2026-10-07T18:30:00+02:00",
+   "ora": "18:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 74,
+   "inizio": "2026-10-07T18:30:00+02:00",
+   "fine": "2026-10-07T18:45:00+02:00",
+   "ora": "18:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 75,
+   "inizio": "2026-10-07T18:45:00+02:00",
+   "fine": "2026-10-07T19:00:00+02:00",
+   "ora": "18:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 76,
+   "inizio": "2026-10-07T19:00:00+02:00",
+   "fine": "2026-10-07T19:15:00+02:00",
+   "ora": "19:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 77,
+   "inizio": "2026-10-07T19:15:00+02:00",
+   "fine": "2026-10-07T19:30:00+02:00",
+   "ora": "19:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 78,
+   "inizio": "2026-10-07T19:30:00+02:00",
+   "fine": "2026-10-07T19:45:00+02:00",
+   "ora": "19:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 79,
+   "inizio": "2026-10-07T19:45:00+02:00",
+   "fine": "2026-10-07T20:00:00+02:00",
+   "ora": "19:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 80,
+   "inizio": "2026-10-07T20:00:00+02:00",
+   "fine": "2026-10-07T20:15:00+02:00",
+   "ora": "20:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 81,
+   "inizio": "2026-10-07T20:15:00+02:00",
+   "fine": "2026-10-07T20:30:00+02:00",
+   "ora": "20:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 82,
+   "inizio": "2026-10-07T20:30:00+02:00",
+   "fine": "2026-10-07T20:45:00+02:00",
+   "ora": "20:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 83,
+   "inizio": "2026-10-07T20:45:00+02:00",
+   "fine": "2026-10-07T21:00:00+02:00",
+   "ora": "20:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 84,
+   "inizio": "2026-10-07T21:00:00+02:00",
+   "fine": "2026-10-07T21:15:00+02:00",
+   "ora": "21:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 85,
+   "inizio": "2026-10-07T21:15:00+02:00",
+   "fine": "2026-10-07T21:30:00+02:00",
+   "ora": "21:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 86,
+   "inizio": "2026-10-07T21:30:00+02:00",
+   "fine": "2026-10-07T21:45:00+02:00",
+   "ora": "21:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 87,
+   "inizio": "2026-10-07T21:45:00+02:00",
+   "fine": "2026-10-07T22:00:00+02:00",
+   "ora": "21:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 88,
+   "inizio": "2026-10-07T22:00:00+02:00",
+   "fine": "2026-10-07T22:15:00+02:00",
+   "ora": "22:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 89,
+   "inizio": "2026-10-07T22:15:00+02:00",
+   "fine": "2026-10-07T22:30:00+02:00",
+   "ora": "22:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 90,
+   "inizio": "2026-10-07T22:30:00+02:00",
+   "fine": "2026-10-07T22:45:00+02:00",
+   "ora": "22:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 91,
+   "inizio": "2026-10-07T22:45:00+02:00",
+   "fine": "2026-10-07T23:00:00+02:00",
+   "ora": "22:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 92,
+   "inizio": "2026-10-07T23:00:00+02:00",
+   "fine": "2026-10-07T23:15:00+02:00",
+   "ora": "23:00",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 93,
+   "inizio": "2026-10-07T23:15:00+02:00",
+   "fine": "2026-10-07T23:30:00+02:00",
+   "ora": "23:15",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 94,
+   "inizio": "2026-10-07T23:30:00+02:00",
+   "fine": "2026-10-07T23:45:00+02:00",
+   "ora": "23:30",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  },
+  {
+   "n": 95,
+   "inizio": "2026-10-07T23:45:00+02:00",
+   "fine": "2026-10-08T00:00:00+02:00",
+   "ora": "23:45",
+   "stato": "sessione_disconnessa",
+   "origine": "automatica",
+   "app": [],
+   "categorie": [],
+   "siti": [],
+   "evidenze": {},
+   "rete": 0,
+   "note_tecniche": []
+  }
+ ],
+ "totali": {
+  "rilevati": {
+   "durata_fascia_min": 15,
+   "numero_fasce": 96,
+   "fasce_per_stato": {
+    "attivita_rilevata": 20,
+    "nessuna_attivita_informatica_rilevata": 0,
+    "sessione_bloccata": 1,
+    "sessione_disconnessa": 75,
+    "sessione_chiusa": 0,
+    "raccolta_sospesa": 0,
+    "dato_non_disponibile": 0
+   },
+   "minuti_per_stato": {
+    "attivita_rilevata": 300,
+    "nessuna_attivita_informatica_rilevata": 0,
+    "sessione_bloccata": 15,
+    "sessione_disconnessa": 1125,
+    "sessione_chiusa": 0,
+    "raccolta_sospesa": 0,
+    "dato_non_disponibile": 0
+   },
+   "minuti_attivita_rilevata": 300,
+   "prima_attivita": "08:00",
+   "ultima_attivita": "15:30",
+   "per_applicazione": [
+    {
+     "app": "browser",
+     "fasce": 17,
+     "minuti": 255
+    },
+    {
+     "app": "word",
+     "fasce": 4,
+     "minuti": 60
+    }
+   ],
+   "per_categoria": [
+    {
+     "categoria": "halley",
+     "fasce": 17,
+     "minuti": 255
+    },
+    {
+     "categoria": "office",
+     "fasce": 4,
+     "minuti": 60
+    }
+   ],
+   "per_sito": [
+    {
+     "sito": "halley",
+     "fasce": 17,
+     "minuti": 255
+    }
+   ],
+   "fasce_con_rete": 0,
+   "operazioni_rete": 0,
+   "fasce_con_note_tecniche": 3
+  },
+  "con_manuali": {
+   "minuti_manuali": 110,
+   "minuti_manuali_sovrapposti": 30,
+   "minuti_complessivi": 380
+  }
+ },
+ "manuali": [
+  {
+   "id": "m1",
+   "categoria": "formazione",
+   "inizio": "2026-10-07T12:40:00+02:00",
+   "fine": "2026-10-07T13:30:00+02:00",
+   "minuti": 50,
+   "descrizione": "Webinar ANUSCA (da cellulare)",
+   "origine": "dichiarata"
+  },
+  {
+   "id": "m2",
+   "categoria": "altro",
+   "inizio": "2026-10-07T15:00:00+02:00",
+   "fine": "2026-10-07T16:00:00+02:00",
+   "minuti": 60,
+   "descrizione": "Archiviazione pratiche",
+   "origine": "dichiarata"
+  }
+ ],
+ "osservazioni_dipendente": "VDI lenta, molte disconnessioni.",
+ "segnalazioni_dipendente": [
+  {
+   "id": "s1",
+   "campo": "stato",
+   "fascia_da": 37,
+   "fascia_a": 38,
+   "dalle": "09:15",
+   "alle": "09:45",
+   "nota": "Risulta sessione bloccata, ma stavo consultando una pratica su Halley: la VDI non ha registrato lo sblocco.",
+   "origine": "dichiarata"
+  }
+ ],
+ "avvisi": [
+  "riga 72: campo vietato 'file' scartato (privacy)",
+  "1 eventi fuori dalla giornata ignorati (appartengono al giorno precedente o successivo)",
+  "1 nomi di applicazione non conformi scartati (ammessi solo identificativi a-z0-9_)",
+  "1 eventi duplicati scartati",
+  "cambio dell'ora di sistema alle 11:34 (-300 s): le fasce vicine sono marcate 'cambio_orario' e i loro orari possono essere imprecisi",
+  "1 sblocchi impliciti: attività della postazione con sessione non attiva (evento di sblocco/accesso non registrato dalla fonte)"
+ ],
+ "avvisi_revisione": [],
+ "sintesi_ai": {
+  "versione_redattore": "m7-2",
+  "generata_il": "2026-10-07T16:20:00+02:00",
+  "motore": {
+   "tipo": "testo_standard",
+   "modello": null,
+   "runtime": null,
+   "temperatura": 0,
+   "seme": 42,
+   "profilo": null
+  },
+  "fatti": [
+   {
+    "id": 1,
+    "testo": "Giornata del resoconto: mercoledì 7 ottobre 2026.",
+    "origine": "automatico",
+    "tipo": "giorno"
+   },
+   {
+    "id": 2,
+    "testo": "Attività informatica rilevata in 20 fasce da 15 minuti.",
+    "origine": "automatico",
+    "tipo": "totale_rilevato"
+   },
+   {
+    "id": 3,
+    "testo": "La prima fascia con attività informatica rilevata inizia alle 08:00; l'ultima termina alle 15:30.",
+    "origine": "automatico",
+    "tipo": "orari"
+   },
+   {
+    "id": 4,
+    "testo": "Categorie di attività rilevate: Gestionale Halley, Strumenti d'ufficio.",
+    "origine": "automatico",
+    "tipo": "categorie"
+   },
+   {
+    "id": 5,
+    "testo": "Attività dichiarata dal dipendente (formazione) dalle 12:40 alle 13:30, 50 minuti: \"Webinar ANUSCA (da cellulare)\".",
+    "origine": "dichiarato",
+    "tipo": "manuale"
+   },
+   {
+    "id": 6,
+    "testo": "Attività dichiarata dal dipendente (altra attività) dalle 15:00 alle 16:00, 60 minuti (1 ora): \"Archiviazione pratiche\".",
+    "origine": "dichiarato",
+    "tipo": "manuale"
+   },
+   {
+    "id": 7,
+    "testo": "Segnalazione del dipendente su un dato tecnico (stato) per la fascia 09:15–09:45: \"Risulta sessione bloccata, ma stavo consultando una pratica su Halley: la VDI non ha registrato lo sblocco\".",
+    "origine": "dichiarato",
+    "tipo": "segnalazione"
+   },
+   {
+    "id": 8,
+    "testo": "Osservazioni dichiarate dal dipendente: \"VDI lenta, molte disconnessioni\".",
+    "origine": "dichiarato",
+    "tipo": "osservazioni"
+   },
+   {
+    "id": 9,
+    "testo": "Tra le 08:00 e le 15:30, oltre all'attività rilevata: sessione bloccata in 1 fascia; sessione disconnessa in 9 fasce.",
+    "origine": "automatico",
+    "tipo": "finestra"
+   },
+   {
+    "id": 10,
+    "testo": "Primo evento di sessione registrato alle 08:05, ultimo alle 15:25.",
+    "origine": "automatico",
+    "tipo": "sessione"
+   },
+   {
+    "id": 11,
+    "testo": "Applicazioni rilevate: Browser, Microsoft Word.",
+    "origine": "automatico",
+    "tipo": "applicazioni"
+   },
+   {
+    "id": 12,
+    "testo": "Siti di lavoro riconosciuti: Halley.",
+    "origine": "automatico",
+    "tipo": "siti"
+   }
+  ],
+  "impronta_fatti": "29b1e958d97621134c4c28c9ab5ea9e9d22c73acd7978624f3f0cbf1bbeaef80",
+  "frasi": [
+   {
+    "testo": "Nella giornata di mercoledì 7 ottobre 2026 la prima fascia con attività informatica rilevata inizia alle 08:00 e l'ultima termina alle 15:30.",
+    "fatti": [
+     1,
+     3
+    ]
+   },
+   {
+    "testo": "Risulta attività informatica rilevata in 20 fasce da 15 minuti.",
+    "fatti": [
+     2
+    ]
+   },
+   {
+    "testo": "Le categorie di attività rilevate sono: Gestionale Halley, Strumenti d'ufficio.",
+    "fatti": [
+     4
+    ]
+   },
+   {
+    "testo": "Il dipendente ha dichiarato le seguenti attività non rilevabili dalla postazione: formazione dalle 12:40 alle 13:30; altra attività dalle 15:00 alle 16:00.",
+    "fatti": [
+     5,
+     6
+    ]
+   },
+   {
+    "testo": "Sono presenti segnalazioni del dipendente su dati tecnici, riportate nel resoconto.",
+    "fatti": [
+     7
+    ]
+   }
+  ],
+  "testo": "Nella giornata di mercoledì 7 ottobre 2026 la prima fascia con attività informatica rilevata inizia alle 08:00 e l'ultima termina alle 15:30. Risulta attività informatica rilevata in 20 fasce da 15 minuti. Le categorie di attività rilevate sono: Gestionale Halley, Strumenti d'ufficio. Il dipendente ha dichiarato le seguenti attività non rilevabili dalla postazione: formazione dalle 12:40 alle 13:30; altra attività dalle 15:00 alle 16:00. Sono presenti segnalazioni del dipendente su dati tecnici, riportate nel resoconto.",
+  "esito": "testo_standard",
+  "controllo": {
+   "esito": "superato",
+   "problemi": [],
+   "tentativi": []
+  },
+  "prestazioni": {
+   "secondi_totali": null,
+   "secondi_caricamento": null,
+   "secondi_generazione": null,
+   "token_prompt": null,
+   "token_generati": null,
+   "ram_picco_mb": null
+  },
+  "riscritture": 0,
+  "origine_testo": "testo_standard",
+  "verificata_dal_dipendente": true,
+  "verificata_il": "2026-10-07T16:25:00+02:00"
+ },
+ "integrita": {
+  "sigillo_tecnico": {
+   "tipo": "tecnico",
+   "sha256": "24934593b3407c2520f41ec479c1ddcdc5982383dc0e79f2b72ddc90e0a86b76",
+   "creato_il": "2026-10-07T16:05:00+02:00",
+   "impronta_chiave": "0F70 174C 97C7 541C D6AF",
+   "algoritmo": "Ed25519",
+   "codice": "EUKW-ME7V-JB8C",
+   "firma": "Hs/Hm4WxHfOdxqzDdgsshDbnvYKmEg1cvRPCGxHYrrM8SdcHRfIkxpBIp3yZOwiYTwekR+O5I+6lssc+Vpw+DQ==",
+   "chiave_pubblica": "1p1RMuB6Fbq1z92QbgLAkz6YWD6v8C4VIRkrHqcytyE=",
+   "account": "esempio",
+   "pc": "PC-ESEMPIO"
+  },
+  "sigillo_finale": {
+   "tipo": "finale",
+   "sha256": "0802f3ebd7ed8d81d1d861244f8f43ad75d6c7b3c8c6a04a71a0410f651516cd",
+   "creato_il": "2026-10-07T16:30:00+02:00",
+   "impronta_chiave": "0F70 174C 97C7 541C D6AF",
+   "algoritmo": "Ed25519",
+   "codice": "BABR-H48Z-7YG2",
+   "firma": "JXzPJWPUnibwnuadu33znWDxN13T1jdltPfP3lMqvnkBTEyalFzpr+d/G/i/uRDxbZM8ks5cGDdiHxNWKN3GCg==",
+   "chiave_pubblica": "1p1RMuB6Fbq1z92QbgLAkz6YWD6v8C4VIRkrHqcytyE=",
+   "account": "esempio",
+   "pc": "PC-ESEMPIO"
+  }
+ }
+}

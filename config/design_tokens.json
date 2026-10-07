@@ -1,0 +1,22 @@
+{
+  "_fonte": "Palette neutra istituzionale, colori decorativi senza testo bianco.",
+  "primary": "#0066CC",
+  "primary-action": "#0066CC",
+  "primary-700": "#004D99",
+  "primary-800": "#004080",
+  "primary-900": "#001A4D",
+  "primary-tint-1": "#E6EEFF",
+  "primary-tint-2": "#C4DCF5",
+  "stemma-blue": "#0066CC",
+  "stemma-gold": "#D9E5F2",
+  "text": "#1A1A1A",
+  "text-muted": "#5D7083",
+  "surface": "#FFFFFF",
+  "surface-alt": "#F5F5F5",
+  "border": "#D4D4D4",
+  "dark": "#17334F",
+  "success": "#008055",
+  "warning": "#995C00",
+  "danger": "#CC334D",
+  "stemma-black": "#1A1A1A"
+}

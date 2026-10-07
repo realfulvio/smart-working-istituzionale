@@ -1,0 +1,8 @@
+cryptography>=42
+jsonschema>=4.20
+reportlab>=4.2      # PDF del resoconto (M7)
+pypdf>=5            # allegato JSON nel PDF e verificatore (M7)
+pytest>=8
+pywin32; sys_platform == "win32"
+tzdata>=2024.1; sys_platform == "win32"
+pyinstaller>=6; sys_platform == "win32"   # solo per costruire gli eseguibili (collector, app, verificatore)

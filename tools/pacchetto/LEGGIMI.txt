@@ -1,0 +1,25 @@
+Smart Working Istituzionale (Rendiconto SW) 4.1.1 - pacchetto di installazione
+
+Installazione (per ogni dipendente, senza diritti di amministratore):
+  powershell -ExecutionPolicy Bypass -File ".\installa.ps1"
+Disinstallazione:
+  powershell -ExecutionPolicy Bypass -File ".\disinstalla.ps1"
+  oppure: Impostazioni → App → Rendiconto SW (voce per utente, HKCU)
+  I dati restano; per eliminarli (con conferma per categoria):
+  powershell -ExecutionPolicy Bypass -File disinstalla.ps1 -RimuoviDati
+  I PDF in Documenti\Rendiconti lavoro agile non vengono mai cancellati.
+
+Contenuto: app\ (applicazione e verificatore), ai\ (solo llama-server.exe + DLL e modelli), licenze\.
+Cache dell'assistente: %LOCALAPPDATA%\RendicontoSW\cache_ai. Dati: %LOCALAPPDATA%\RendicontoSW.
+
+Controlli dell'installatore: versione (VERSIONE.txt), app in esecuzione, spazio disco,
+impronte SHA-256 (tutti i file copiati devono essere in SHA256SUMS.txt; verifica anche sulla copia),
+scambio atomico con rollback. Collegamenti: cartella di lavoro = Documenti (non la cartella di installazione).
+
+ATTENZIONE: gli eseguibili non sono ancora firmati (TODO: certificato di firma dell'Ente).
+SHA256SUMS.txt non è autenticato finché non c'è code signing. Non aggiungere esclusioni
+all'antivirus. Non usare Unblock-File in massa. Se SmartScreen chiede conferma: «Altre
+informazioni» → «Esegui comunque» solo se ti fidi della fonte CED. Se al primo avvio compare
+«Accesso negato» (ASR), riprova una volta.
+Distribuzione ai colleghi solo dopo la firma e dopo i prerequisiti normativi (informativa, accordo).
+Assistenza: Sistemi Informativi dell'Ente (vedi config/ente.json)
