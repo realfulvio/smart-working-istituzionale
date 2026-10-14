@@ -24,6 +24,8 @@ def prepara(dest):
         cfg["logo"] = "identita.png"
     (dest / "ente.json").write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
     overlay=edizione.cartella()
+    if overlay and (overlay / "icone").is_dir():
+        shutil.copytree(overlay / "icone", dest / "icone")
     if overlay and (overlay / "storico").is_dir():
         shutil.copytree(overlay / "storico",dest / "storico",dirs_exist_ok=True)
         for meta in (dest / "storico").glob("ente_*.json"):

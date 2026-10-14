@@ -38,7 +38,7 @@ def test_profili_restano_ma_solo_halley():
     assert ced.versione == CFG["versione"] + "+sistemi_informativi" and gen.versione == CFG["versione"]
     for m in (gen, ced):
         assert set(m.siti) == {"halley"} and m.da_dominio("gestionale.esempio.test") == "halley"
-        for altro in ("198.51.100.20", "console-edr.esempio.test", "www2.x-desk.it", "servizi2.inps.it",
+        for altro in ("198.51.100.20", "console-edr.esempio.test", "www2.helpdesk.esempio.test", "servizi2.inps.it",
                       "srv-vcenter6.ente.invalid", "portale.esempio.test"):
             assert m.da_dominio(altro) == "", altro
 
@@ -95,45 +95,45 @@ def test_configurazione_solo_halley():
 
 @pytest.mark.parametrize("vietato", ["youtube", "maps.google", "google.", "facebook", "instagram", "whatsapp", "telegram",
                                      "amazon", "aliexpress", "ebay", "netflix", "spotify", "repubblica", "corriere",
-                                     "poste.it", "paypal", "chatgpt", "openvpn", "bitwarden", "day.it", "noipa"])
+                                     "poste.it", "paypal", "booking", "openvpn", "bitwarden", "day.it", "noipa"])
 def test_nessun_sito_personale_in_mappatura(vietato):
     assert not any(vietato in d for d in tutti_i_domini())
 
 
 # ------------------------------------------------------------------------------------------ host con porta / URL
 HALLEY_URL = "https://gestionale.esempio.test:8443/halley/main.php?sessione=AbC123tok&utente=x#menu"
-XDESK_URL = "https://www2.x-desk.it/area-clienti/ticket?id=987654"
+HELPDESK_URL = "https://www2.helpdesk.esempio.test/area-clienti/ticket?id=987654"
 
 
 @pytest.mark.parametrize("valore, host", [
     (HALLEY_URL, "gestionale.esempio.test"), ("gestionale.esempio.test:8443", "gestionale.esempio.test"),
-    (XDESK_URL, "www2.x-desk.it"), ("WWW2.X-Desk.it.", "www2.x-desk.it"), ("https://u:p@198.51.100.20:443/x", "198.51.100.20"),
+    (HELPDESK_URL, "www2.helpdesk.esempio.test"), ("WWW2.HelpDesk.Esempio.TEST.", "www2.helpdesk.esempio.test"), ("https://u:p@198.51.100.20:443/x", "198.51.100.20"),
     ("[::1]:8080", ""), ("", "")])
 def test_solo_host(valore, host):
     assert mappa.solo_host(valore) == host
 
 
-def test_halley_8443_e_x_desk_riconosciuti_senza_porta_percorso_query():
+def test_halley_8443_e_helpdesk_riconosciuti_senza_porta_percorso_query():
     m = mappa.Mappa.predefinita()
     assert m.da_dominio("gestionale.esempio.test:8443") == m.da_dominio(HALLEY_URL) == "halley"
-    assert m.da_dominio("www2.x-desk.it") == m.da_dominio(XDESK_URL) == ""                 # B6: solo Halley
+    assert m.da_dominio("www2.helpdesk.esempio.test") == m.da_dominio(HELPDESK_URL) == ""                 # B6: solo Halley
     assert mappa.Mappa.predefinita(["sistemi_informativi"]).da_dominio("198.51.100.20:8443") == ""
-    recs = [meta(), S("08:00", "accesso"), A("08:05", "browser"), W("08:06", HALLEY_URL), W("08:20", XDESK_URL),
+    recs = [meta(), S("08:00", "accesso"), A("08:05", "browser"), W("08:06", HALLEY_URL), W("08:20", HELPDESK_URL),
             {"tipo": "web", "ts": ts("08:31"), "dominio": "gestionale.esempio.test:8443", "url": HALLEY_URL}]
     doc = run(recs)
     assert fascia(doc, "08:00")["siti"] == ["halley"] and fascia(doc, "08:15")["siti"] == []
     assert fascia(doc, "08:30")["siti"] == ["halley"]
     out = json.dumps(doc)
     for vietato in ("8443", "AbC123tok", "sessione=", "main.php", "/halley", "area-clienti", "987654", "gestionale.esempio",
-                    "x-desk.it", "https://"):
+                    "helpdesk.esempio", "https://"):
         assert vietato not in out, vietato
     assert validate(doc) == []
 
 
-@pytest.mark.parametrize("host", ["escluso.esempio.test", "urlsand.esvalabs.com", "url.fornitore.esempio.test", "antispam02.fornitore.esempio.test",
-                                  "eu-west-1.protection.sophos.com", "us.list-manage.com", "www.fornitore.esempio.test",
-                                  "www.fornitore.esempio.test", "www.altro-fornitore.esempio.test", "ntp1.inrim.it", "128.1.0.227",
-                                  "www.mepa.it", "zendesk.com"])
+@pytest.mark.parametrize("host", ["escluso.esempio.test", "urlsand.antispam.esempio.test", "url.fornitore.esempio.test", "antispam02.fornitore.esempio.test",
+                                  "eu-west-1.protezione.esempio.test", "us.newsletter.esempio.test", "www.fornitore.esempio.test",
+                                  "www.fornitore.esempio.test", "www.altro-fornitore.esempio.test", "ntp1.inrim.it", "203.0.113.27",
+                                  "www.mepa.it", "ticket.esempio.test"])
 def test_link_di_passaggio_firme_e_sospetti_non_mappati(host):
     assert mappa.Mappa.predefinita(["sistemi_informativi"]).da_dominio(host) == ""
 

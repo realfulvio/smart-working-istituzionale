@@ -8,8 +8,8 @@ applicationSuite: DA_COMPLETARE
 url: "https://github.com/realfulvio/smart-working-istituzionale.git"
 landingURL: "https://github.com/realfulvio/smart-working-istituzionale"
 
-softwareVersion: "5.0.0"
-releaseDate: "2026-10-07"
+softwareVersion: "5.0.1"
+releaseDate: "2026-10-14"
 
 platforms:
   - windows

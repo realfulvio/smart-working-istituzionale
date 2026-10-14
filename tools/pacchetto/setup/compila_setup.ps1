@@ -155,6 +155,12 @@ $immaginiSetup = Join-Path $Uscita "immagini"
 python (Join-Path $PSScriptRoot "genera_immagini.py") --config (Join-Path $Pacchetto "app/_internal/config/ente.json") --output $immaginiSetup
 if ($LASTEXITCODE -ne 0) { Esci 3 "Generazione immagini edizione fallita." }
 $argomenti += ("/DImmagini=" + $immaginiSetup)
+# Icona del Setup dell'edizione del pacchetto (overlay materializzato in config\icone), altrimenti quella neutra
+$iconaSetup = Join-Path $Pacchetto "app\_internal\config\icone\setup.ico"
+if (-not (Test-Path -LiteralPath $iconaSetup)) { $iconaSetup = Join-Path $Pacchetto "app\_internal\applicazione\assets\icone\setup.ico" }
+if (-not (Test-Path -LiteralPath $iconaSetup)) { Esci 3 "Icona del Setup assente nel pacchetto (app\_internal\...\icone\setup.ico)." }
+Scrivi ("Icona del Setup: {0}" -f $iconaSetup)
+$argomenti += ("/DIconaSetup=" + $iconaSetup)
 $argomenti += $iss
 Scrivi ("Compilazione (può richiedere diversi minuti per 1,4 GB): {0} {1}" -f $isccExe, ($argomenti -join ' '))
 $t0 = Get-Date

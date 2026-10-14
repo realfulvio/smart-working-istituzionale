@@ -5,7 +5,7 @@
 <h1 align="center">Smart Working Istituzionale</h1>
 <p align="center"><b>La giornata, rivista da chi l’ha vissuta.</b><br>Il resoconto del lavoro agile per gli enti pubblici: poca raccolta, revisione del dipendente, PDF verificabile.</p>
 <p align="center">
-  <img alt="Versione 5.0.0" src="https://img.shields.io/badge/versione-5.0.0-0066CC">
+  <img alt="Versione 5.0.1" src="https://img.shields.io/badge/versione-5.0.1-0066CC">
   <a href="LICENSE"><img alt="Licenza EUPL-1.2" src="https://img.shields.io/badge/licenza-EUPL--1.2-0066CC"></a>
   <img alt="Windows 10 e 11" src="https://img.shields.io/badge/Windows-10%20%2F%2011-0066CC">
   <img alt="Python 3.12 verificato" src="https://img.shields.io/badge/Python-3.12-0066CC">
@@ -39,7 +39,19 @@ Il programma non invia automaticamente il resoconto. La consegna è una scelta m
 <a id="indice"></a>
 ## Indice
 
-[Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+[Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+
+<a id="novita-501"></a>
+## Novità 5.0.1
+
+| Novità | Cosa cambia nell’uso |
+|---|---|
+| **Icone sul Desktop** | Il Setup crea «Resoconto lavoro agile» e «Verifica resoconto» nel menu Start e, con un’opzione già spuntata, sul Desktop. La disinstallazione li rimuove. |
+| **Icona vicino all’orologio** | Con una giornata avviata, chiudere la finestra non chiude il programma: resta un’icona nell’area di notifica con l’avviso «la raccolta continua: riapri da qui». Dal menu: Apri, Pausa/Riprendi, Chiudi giornata ed Esci, con conferma; uscire con la giornata in corso la mette in pausa. L’icona mostra lo stato (attiva, in pausa, nessuna giornata) con colore e forma. |
+| **Ripresa dopo un riavvio** | Una giornata di oggi avviata e rimasta in corso riprende all’apertura o, con l’opzione del Setup, all’accesso a Windows. Senza «Avvia giornata», in pausa o per un altro giorno non parte nulla; il periodo a computer spento resta «sessione chiusa». |
+| **Icone nuove** | Programma, Verificatore, Setup e area di notifica ridisegnati e generati dai token grafici (`tools/crea_icone.py`), da 16 a 256 px. L’edizione neutra non ha stemmi. |
+
+La versione dell’impaginatore PDF resta 5.0.0: i PDF già emessi restano confrontabili dal Verificatore. Galleria e immagini qui sotto sono della 5.0.0.
 
 <a id="novita"></a>
 ## Novità 5.0.0
@@ -228,9 +240,9 @@ powershell -NoProfile -File tools/pacchetto/build_app.ps1 -Edizione neutra
 # tools/pacchetto/setup/compila_setup.ps1
 ```
 
-Il nome tecnico del Setup è `Setup_RendicontoSW_5.0.0.exe`, indipendente dall’edizione. Inno standard, senza bootstrapper: immagini, testi e pagina finale configurabili. La build controlla lo spazio libero prima della compressione. Parametri e codici di uscita in [LEGGIMI_SETUP.md](tools/pacchetto/setup/LEGGIMI_SETUP.md).
+Il nome tecnico del Setup è `Setup_RendicontoSW_5.0.1.exe`, indipendente dall’edizione. Inno standard, senza bootstrapper: immagini, testi e pagina finale configurabili. La build controlla lo spazio libero prima della compressione. Parametri e codici di uscita in [LEGGIMI_SETUP.md](tools/pacchetto/setup/LEGGIMI_SETUP.md).
 
-Installazione per utente in `%LOCALAPPDATA%\Programs\RendicontoSW`, collegamenti Start e voce in App installate (HKCU). Nessun servizio o attività pianificata; nessuna esclusione antivirus aggiunta dal Setup. Disinstallazione da App installate o `disinstalla.ps1`: i dati sono conservati. L’opzione separata `-RimuoviDati` richiede conferme per categoria e non elimina i PDF in Documenti. Runtime e modelli: versioni/licenze e impronte in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Installazione per utente in `%LOCALAPPDATA%\Programs\RendicontoSW`, collegamenti nel menu Start, sul Desktop e nell’Esecuzione automatica (le ultime due sono opzioni già spuntate nel wizard) e voce in App installate (HKCU). Nessun servizio o attività pianificata; nessuna esclusione antivirus aggiunta dal Setup. Disinstallazione da App installate o `disinstalla.ps1`: i dati sono conservati. L’opzione separata `-RimuoviDati` richiede conferme per categoria e non elimina i PDF in Documenti. Runtime e modelli: versioni/licenze e impronte in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 </details>
 

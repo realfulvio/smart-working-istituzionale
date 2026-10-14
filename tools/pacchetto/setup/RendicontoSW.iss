@@ -1,4 +1,4 @@
-﻿; Rendiconto SW 4.3.0 — Setup guidato (Inno Setup 6, lingua italiana, per utente, nessun diritto di amministratore).
+﻿; Rendiconto SW — Setup guidato (Inno Setup 6, lingua italiana, per utente, nessun diritto di amministratore).
 ; Smart Working Istituzionale
 ;
 ; Compilazione (vedi compila_setup.ps1, che prima verifica SHA256SUMS.txt e trova/installa ISCC):
@@ -16,6 +16,9 @@
 ; se eliminare anche i resoconti salvati (disinstalla.ps1 -RimuoviDati -Forza; i PDF in Documenti non si toccano).
 ; Una sola voce in «App installate»: dopo l'installazione il Setup toglie la voce HKCU «RendicontoSW» scritta da
 ; installa.ps1 (solo se punta alla stessa cartella) e resta quella di Inno.
+; Collegamenti ([Icons], creati da Inno dopo installa.ps1 e solo se è riuscito): menu Start sempre; Desktop e
+; «Esecuzione automatica» come opzioni già spuntate nel wizard ([Tasks]). La disinstallazione li rimuove (registro di
+; Inno, più disinstalla.ps1 che toglie ogni .lnk che punta alla cartella del programma).
 
 #if Ver < EncodeVer(6, 4, 0)
   #error Serve Inno Setup 6.4 o successivo (consigliato 6.7.3: winget install --id JRSoftware.InnoSetup -e --scope user)
@@ -24,9 +27,13 @@
 #ifndef NomeEnte
   #define NomeEnte "Il tuo Ente"
 #endif
-#define AppVer "5.0.0"
+#define AppVer "5.0.1"
 #ifndef Immagini
   #define Immagini SourcePath
+#endif
+; Icona del Setup: quella dell'edizione (compila_setup.ps1 la prende dal pacchetto), altrimenti la neutra
+#ifndef IconaSetup
+  #define IconaSetup "..\..\..\applicazione\assets\icone\setup.ico"
 #endif
 
 #ifndef Pacchetto
@@ -71,7 +78,8 @@ DefaultDirName={localappdata}\Programs\RendicontoSW
 UsePreviousAppDir=no
 DisableDirPage=yes
 DisableProgramGroupPage=yes
-; Benvenuto → Informativa breve → «Installa» → Fine (niente pagina «Pronto»: il pulsante diventa «Installa»)
+; Benvenuto → Informativa breve → Opzioni (icone sul Desktop, ripresa all'accesso) → «Installa» → Fine
+; (niente pagina «Pronto»: sulla pagina delle opzioni il pulsante diventa «Installa»)
 DisableReadyPage=yes
 DisableWelcomePage=no
 InfoBeforeFile=informativa_breve.rtf
@@ -100,7 +108,7 @@ ShowLanguageDialog=no
 WizardStyle=modern
 WizardImageFile={#Immagini}\wizard_100.bmp,{#Immagini}\wizard_150.bmp,{#Immagini}\wizard_200.bmp
 WizardSmallImageFile={#Immagini}\wizard_piccola_100.bmp,{#Immagini}\wizard_piccola_150.bmp,{#Immagini}\wizard_piccola_200.bmp
-SetupIconFile=..\..\..\applicazione\assets\rendiconto.ico
+SetupIconFile={#IconaSetup}
 OutputBaseFilename=Setup_RendicontoSW_{#AppVer}
 ; Compressione: LZMA2 per file (il modello GGUF è già compresso: lo «solid» allunga solo i tempi).
 ; Un unico Setup.exe finché il compresso resta sotto 4,2 GB (pacchetto attuale ≈ 1,4 GB); /DDividi=1 per i file setup-*.bin.
@@ -123,16 +131,19 @@ Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 [Messages]
 SetupWindowTitle=Installazione - %1
 WelcomeLabel1=Benvenuto nell'installazione di Rendiconto SW
-WelcomeLabel2=Rendiconto SW {#AppVer} ti aiuta a preparare il resoconto della giornata di lavoro agile.%n%nL'installazione è solo per il tuo utente e non richiede diritti di amministratore. Se Rendiconto SW è aperto, chiudilo prima di proseguire (con una giornata in corso premi prima «Pausa»).%n%nNella pagina successiva trovi, in breve, che cosa registra l'app e che cosa non registra mai.
+WelcomeLabel2=Rendiconto SW {#AppVer} ti aiuta a preparare il resoconto della giornata di lavoro agile.%n%nL'installazione è solo per il tuo utente e non richiede diritti di amministratore. Se Rendiconto SW è aperto, chiudilo prima di proseguire (con una giornata in corso premi prima «Pausa»; se resta l'icona vicino all'orologio usa il suo menu «Esci…»).%n%nNella pagina successiva trovi, in breve, che cosa registra l'app e che cosa non registra mai.
 ClickNext=Premi «Avanti» per continuare oppure «Annulla» per uscire.
 WizardInfoBefore=Informativa breve
 InfoBeforeLabel=Che cosa registra Rendiconto SW e che cosa non registra mai.
-InfoBeforeClickLabel=Quando sei pronto, premi «Installa».
+InfoBeforeClickLabel=Premi «Avanti» per scegliere le opzioni.
+WizardSelectTasks=Opzioni
+SelectTasksDesc=Icone sul Desktop e ripresa della giornata dopo un riavvio.
+SelectTasksLabel2=Scegli le opzioni, poi premi «Installa». Nel menu Start le voci «Resoconto lavoro agile» e «Verifica resoconto» si creano sempre.
 WizardInstalling=Installazione in corso
 InstallingLabel=Attendi: il Setup estrae il pacchetto, ne verifica le impronte SHA-256 e installa Rendiconto SW.
 FinishedHeadingLabel=Rendiconto SW è installato
-FinishedLabelNoIcons=Rendiconto SW {#AppVer} è installato per il tuo utente.%n%nLo trovi nel menu Start come «Resoconto lavoro agile»; il verificatore come «Verifica resoconto».
-FinishedLabel=Rendiconto SW {#AppVer} è installato per il tuo utente.%n%nLo trovi nel menu Start come «Resoconto lavoro agile»; il verificatore come «Verifica resoconto».
+FinishedLabelNoIcons=Rendiconto SW {#AppVer} è installato per il tuo utente.%n%nLo trovi nel menu Start (e sul Desktop, se l'hai scelto) come «Resoconto lavoro agile»; il verificatore come «Verifica resoconto».
+FinishedLabel=Rendiconto SW {#AppVer} è installato per il tuo utente.%n%nLo trovi nel menu Start (e sul Desktop, se l'hai scelto) come «Resoconto lavoro agile»; il verificatore come «Verifica resoconto».%n%nCon una giornata avviata, se chiudi la finestra il programma resta come icona vicino all'orologio.
 ClickFinish=Premi «Fine» per chiudere.
 SetupAborted=L'installazione non è stata completata e il computer è rimasto com'era.%n%nLeggi il messaggio precedente; se il problema persiste avvisa i Sistemi Informativi.
 ConfirmUninstall=Vuoi disinstallare %1?%n%nI resoconti salvati restano sul computer: alla fine ti verrà chiesto se vuoi eliminarli anche.
@@ -145,6 +156,25 @@ UninstalledAll=%1 è stato disinstallato.
 ; «App installate» (CreateUninstallRegKey=VoceUninstall).
 Source: "{#Pacchetto}\*"; DestDir: "{tmp}\pacchetto"; Excludes: "\SHA256SUMS.txt"; Flags: recursesubdirs createallsubdirs ignoreversion deleteafterinstall
 Source: "{#Pacchetto}\SHA256SUMS.txt"; DestDir: "{tmp}\pacchetto"; Flags: ignoreversion deleteafterinstall; AfterInstall: EseguiInstalla
+
+[Tasks]
+Name: "desktop"; Description: "Crea le icone sul Desktop («Resoconto lavoro agile» e «Verifica resoconto»)"; GroupDescription: "Collegamenti:"
+Name: "accesso"; Description: "All'accesso a Windows riprendi una giornata già avviata (solo icona vicino all'orologio; nessuna giornata parte da sola)"; GroupDescription: "Dopo un riavvio:"
+
+[InstallDelete]
+; Opzione tolta in un aggiornamento: si toglie anche il collegamento creato dall'installazione precedente
+Type: files; Name: "{autodesktop}\Resoconto lavoro agile.lnk"; Tasks: not desktop
+Type: files; Name: "{autodesktop}\Verifica resoconto.lnk"; Tasks: not desktop
+Type: files; Name: "{userstartup}\Resoconto lavoro agile (ripresa giornata).lnk"; Tasks: not accesso
+
+[Icons]
+; Creati da Inno dopo [Files], quindi dopo installa.ps1 (AfterInstall): solo se l'installazione è riuscita
+Name: "{autoprograms}\Resoconto lavoro agile"; Filename: "{app}\RendicontoSW.exe"; WorkingDir: "{userdocs}"; Comment: "Resoconto della giornata di lavoro agile"; Check: InstallaRiuscita
+Name: "{autoprograms}\Verifica resoconto"; Filename: "{app}\VerificaRendiconto.exe"; WorkingDir: "{userdocs}"; Comment: "Verifica di un resoconto PDF o JSON"; Check: InstallaRiuscita
+Name: "{autodesktop}\Resoconto lavoro agile"; Filename: "{app}\RendicontoSW.exe"; WorkingDir: "{userdocs}"; Comment: "Resoconto della giornata di lavoro agile"; Tasks: desktop; Check: InstallaRiuscita
+Name: "{autodesktop}\Verifica resoconto"; Filename: "{app}\VerificaRendiconto.exe"; WorkingDir: "{userdocs}"; Comment: "Verifica di un resoconto PDF o JSON"; Tasks: desktop; Check: InstallaRiuscita
+; All'accesso: esce subito se oggi non c'è una giornata avviata; altrimenti la riaggancia e mostra solo l'icona
+Name: "{userstartup}\Resoconto lavoro agile (ripresa giornata)"; Filename: "{app}\RendicontoSW.exe"; Parameters: "--avvio-sessione"; WorkingDir: "{userdocs}"; Comment: "Riprende una giornata già avviata dopo un riavvio"; Tasks: accesso; Check: InstallaRiuscita
 
 [Run]
 Filename: "{app}\RendicontoSW.exe"; WorkingDir: "{userdocs}"; Description: "Avvia Rendiconto SW"; Flags: postinstall nowait skipifsilent; Check: AppInstallata
@@ -305,7 +335,8 @@ begin
       Aperti := Aperti + '.' + A_CAPO + A_CAPO + 'La giornata è in corso: in Rendiconto SW premi «Pausa» (o «Chiudi ' +
                 'giornata») per fermare la raccolta';
     if MsgBox('Rendiconto SW è aperto: ' + Aperti + '.' + A_CAPO + A_CAPO +
-              'Chiudi Rendiconto SW (e il verificatore, se aperto), poi premi «Riprova».' + A_CAPO +
+              'Chiudi Rendiconto SW (e il verificatore, se aperto; se resta l''icona vicino all''orologio usa il ' +
+              'suo menu «Esci…»), poi premi «Riprova».' + A_CAPO +
               'Con «Annulla» ' + Esito, mbError, MB_RETRYCANCEL) <> IDRETRY then
     begin
       Result := False;
@@ -364,7 +395,8 @@ begin
     10: Result := 'Il controllo di integrità non è riuscito: alcuni file del pacchetto non corrispondono alle impronte ' +
                   'SHA-256 (SHA256SUMS.txt). Non è stato installato nulla. Non usare questo Setup e avvisa i Sistemi Informativi.';
     20: Result := 'Rendiconto SW (o il verificatore, o l''assistente locale, o la raccolta di una giornata in corso) ' +
-                  'è aperto. Chiudilo (con una giornata in corso premi prima «Pausa») e avvia di nuovo ' +
+                  'è aperto. Chiudilo (con una giornata in corso premi prima «Pausa»; dall''icona vicino ' +
+                  'all''orologio usa «Esci…») e avvia di nuovo ' +
                   'l''installazione. Non è stato modificato nulla.';
     40: Result := 'Spazio su disco insufficiente: durante l''installazione servono circa il doppio della dimensione del ' +
                   'programma (circa 3 GB liberi). Libera spazio e riprova. Non è stato modificato nulla.';
@@ -457,8 +489,9 @@ end;
 
 procedure CurPageChanged(CurPageID: Integer);
 begin
-  { Senza la pagina «Pronto» l'ultima pagina prima dell'installazione è l'informativa: il pulsante diventa «Installa» }
-  if CurPageID = wpInfoBefore then
+  { Senza la pagina «Pronto» l'ultima pagina prima dell'installazione è quella delle opzioni: il pulsante diventa
+    «Installa» }
+  if CurPageID = wpSelectTasks then
     WizardForm.NextButton.Caption := SetupMessage(msgButtonInstall)
   else if CurPageID = wpFinished then
   begin

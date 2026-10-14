@@ -53,6 +53,12 @@ class Verificatore:
         from applicazione.movimento import Movimento
         self.movimento = Movimento(self.win, getattr(master,"s",None).imp.get("riduci_animazioni","sistema") if master is not None and getattr(master,"s",None) else "sistema")
         self.win.title("Verifica resoconto")
+        if sys.platform == "win32":
+            try:
+                from resoconto.edizione import icona
+                self.win.iconbitmap(str(icona("verifica.ico")))
+            except tk.TclError:
+                pass
         self.win.configure(bg=C["bg"])
         self.win.geometry(f"{px(780)}x{px(700)}")
         self.win.minsize(px(640), px(560))

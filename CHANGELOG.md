@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.0.1 — 2026-10-14
+
+- Collegamenti: il Setup crea «Resoconto lavoro agile» e «Verifica resoconto» nel menu Start e, con opzione già spuntata, sul Desktop; la disinstallazione li rimuove (Inno e `disinstalla.ps1`).
+- Area di notifica: con una giornata avviata la chiusura della finestra lascia un’icona accanto all’orologio con un avviso. Menu Apri, Pausa/Riprendi, Chiudi giornata ed Esci, con conferma; uscire con la giornata in corso la mette in pausa. Tre stati distinti da colore e forma; istanza unica per cartella dati.
+- Ripresa dopo un riavvio: una giornata di oggi avviata e rimasta in corso riprende all’apertura o all’accesso (`--avvio-sessione`, opzione del Setup già spuntata). Mai senza «Avvia giornata», mai in pausa o per un altro giorno; la home non indica più «Raccolta in corso» se il processo non è attivo.
+- Icone ridisegnate (programma, Verificatore, Setup, area di notifica), .ico da 16 a 256 px generate dai token; rimossa la vecchia icona.
+- Versione del programma 5.0.1; impaginatore PDF invariato (5.0.0) per mantenere il confronto grafico dei PDF già emessi.
+- Nuovi test mirati in `tests/test_area_notifica.py`.
+
 ## 5.0.0 — 2026-10-07
 
 - Pagina pubblica riscritta sul comportamento /5: otto PNG di presentazione riproducibili con Titillium Web, galleria neutra rigenerata, GIF del flusso, badge locali e istruzioni social preview. Prerequisiti, provenienze e limiti del Verificatore espliciti; mappa delle affermazioni al codice.

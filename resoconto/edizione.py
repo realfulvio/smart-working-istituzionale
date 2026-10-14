@@ -23,6 +23,15 @@ def percorso(nome):
         return overlay / nome
     return RADICE / "config" / nome
 
+def icona(nome):
+    """Icona .ico dell'edizione: overlay scelto, poi configurazione materializzata nella build, poi icone neutre."""
+    overlay = cartella()
+    for base in ((overlay / "icone") if overlay else None, RADICE / "config" / "icone",
+                 RADICE / "applicazione" / "assets" / "icone"):
+        if base is not None and (base / nome).is_file():
+            return base / nome
+    return RADICE / "applicazione" / "assets" / "icone" / nome
+
 def identita():
     try:
         return json.loads(percorso("identita.json").read_text(encoding="utf-8-sig"))
