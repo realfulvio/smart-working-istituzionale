@@ -69,6 +69,8 @@ La versione dell’impaginatore PDF resta 5.0.0: i PDF già emessi restano confr
 
 > **Cambio di formato:** il JSON sigillato è `rendiconto-sw/giornaliero/5`, incompatibile con i formati precedenti. Non si convertono o risigillano automaticamente i vecchi documenti. I renderer storici restano separati per verificarli, nei limiti della configurazione disponibile.
 
+> **Nota sul nome `halley`:** nel codice, nello schema, nella mappatura e negli esempi `halley` è il nome di una categoria del formato dati (un gestionale web per la Pubblica Amministrazione), conservato per compatibilità con i documenti sigillati. Non è un riferimento a un'installazione o a un Ente specifico; nell'edizione operativa il riconoscimento è disattivato.
+
 <a id="principi"></a>
 ## Tre principi
 
