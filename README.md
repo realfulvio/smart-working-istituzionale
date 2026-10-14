@@ -5,7 +5,7 @@
 <h1 align="center">Smart Working Istituzionale</h1>
 <p align="center"><b>La giornata, rivista da chi l’ha vissuta.</b><br>Il resoconto del lavoro agile per gli enti pubblici: poca raccolta, revisione del dipendente, PDF verificabile.</p>
 <p align="center">
-  <img alt="Versione 5.0.1" src="https://img.shields.io/badge/versione-5.0.1-0066CC">
+  <img alt="Versione 5.0.2" src="https://img.shields.io/badge/versione-5.0.2-0066CC">
   <a href="LICENSE"><img alt="Licenza EUPL-1.2" src="https://img.shields.io/badge/licenza-EUPL--1.2-0066CC"></a>
   <img alt="Windows 10 e 11" src="https://img.shields.io/badge/Windows-10%20%2F%2011-0066CC">
   <img alt="Python 3.12 verificato" src="https://img.shields.io/badge/Python-3.12-0066CC">
@@ -39,7 +39,16 @@ Il programma non invia automaticamente il resoconto. La consegna è una scelta m
 <a id="indice"></a>
 ## Indice
 
-[Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+[Novità 5.0.2](#novita-502) · [Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+
+<a id="novita-502"></a>
+## Novità 5.0.2
+
+| Novità | Cosa cambia nell’uso |
+|---|---|
+| **Logo nitido nell’intestazione** | Il logo dell’Ente è ricampionato alla scala reale dello schermo e mai ingrandito oltre l’originale, su un riquadro proporzionato. Un overlay può indicare un ritaglio solo per l’interfaccia (`ritaglio_logo_interfaccia` in `ente.json`), per esempio un logo senza la scritta. Il file del logo, sigillato nei documenti, non cambia. |
+| **Una sola icona** | Finestra, barra delle applicazioni, collegamenti, eseguibile e Setup usano la stessa icona. Le finestre la impostano con tutti i formati da 16 a 256 px, così non compare l’icona generica né quella di Tk. |
+| **Modello AI confermato** | Qwen3.5-2B è stato confrontato con Qwen3-1.7B su 20 giornate sintetiche e non è stato adottato perché produce più errori di tipo invenzione. Il motore riconosce comunque il suo template e toglie ogni blocco di ragionamento dall’uscita. |
 
 <a id="novita-501"></a>
 ## Novità 5.0.1
@@ -191,6 +200,8 @@ Il flusso funziona senza AI. Il pulsante di sintesi richiede un runtime `llama.c
 
 La selezione **LIGHT/STANDARD** considera configurazione, modello installato, RAM totale e memoria libera. LIGHT è l’opzione conservativa per una postazione da 8 GB; la disponibilità effettiva va collaudata. Le risorse diagnostiche usate per scegliere il profilo non diventano fatti della giornata.
 
+**Modello e runtime (5.0.2).** Il profilo AI-LIGHT (postazioni da 8 GB) usa `Qwen3-1.7B-Q4_K_M.gguf`, cioè il file `Qwen_Qwen3-1.7B-Q4_K_M.gguf` di https://huggingface.co/bartowski/Qwen_Qwen3-1.7B-GGUF rinominato. Dimensione 1.282.439.584 byte (circa 1,3 GB), SHA-256 `72c5c3cb38fa32d5256e2fe30d03e7a64c6c79e668ad84057e3bd66e250b24fb`, licenza Apache-2.0. Memoria: il motore arriva a circa 1,4 GB di picco e l'app lo avvia solo con almeno 2,2 GB liberi; il funzionamento è provato in una simulazione del profilo 8 GB (Job Object di Windows). AI-STANDARD (PC da 16 GB) usa `Qwen3-4B-Q4_K_M.gguf` (dettagli in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)). Il runtime è llama.cpp **b11386**, build Windows CPU x64 `llama-b11386-bin-win-cpu-x64.zip` dalle release di https://github.com/ggml-org/llama.cpp (SHA-256 dichiarato da GitHub: `315eee262994ebd78e7208e0a800024451abfe3904e40bba2746455a725700b6`), licenza MIT. I modelli **non sono nel repository**: si scaricano dalla fonte indicata, se ne verifica lo SHA-256 e si copiano in `ai\modelli`. Nella 5.0.2 è stato valutato Qwen3.5-2B: più veloce e compatibile con gli 8 GB, ma su 20 giornate sintetiche ha prodotto più errori di tipo invenzione intercettati dal controllo (33 contro 18). Non è stato adottato; il confronto è in [CONFRONTO_QWEN35_2B.md](docs/CONFRONTO_QWEN35_2B.md).
+
 Se l’assistente manca, il modello non è installato, la memoria libera non basta o i permessi non consentono l’accesso, compare una causa in parole semplici e l’indicazione di cosa fare. Il **fallback deterministico resta disponibile**. Il controllo anti-invenzione non certifica ogni frase: il dipendente verifica il testo, e le modifiche dichiarate mantengono origine e avvisi.
 
 Rete e Halley rimangono disabilitati: nessun sensore SMB istanziato e nessuna estensione distribuita o attivabile dall’utente. Una loro futura attivazione richiederebbe decisione dell’Ente, verifica privacy e validazione tecnica dedicata; non basta cambiare una spunta.
@@ -242,7 +253,7 @@ powershell -NoProfile -File tools/pacchetto/build_app.ps1 -Edizione neutra
 # tools/pacchetto/setup/compila_setup.ps1
 ```
 
-Il nome tecnico del Setup è `Setup_RendicontoSW_5.0.1.exe`, indipendente dall’edizione. Inno standard, senza bootstrapper: immagini, testi e pagina finale configurabili. La build controlla lo spazio libero prima della compressione. Parametri e codici di uscita in [LEGGIMI_SETUP.md](tools/pacchetto/setup/LEGGIMI_SETUP.md).
+Il nome tecnico del Setup è `Setup_RendicontoSW_5.0.2.exe`, indipendente dall’edizione. Inno standard, senza bootstrapper: immagini, testi e pagina finale configurabili. La build controlla lo spazio libero prima della compressione. Parametri e codici di uscita in [LEGGIMI_SETUP.md](tools/pacchetto/setup/LEGGIMI_SETUP.md).
 
 Installazione per utente in `%LOCALAPPDATA%\Programs\RendicontoSW`, collegamenti nel menu Start, sul Desktop e nell’Esecuzione automatica (le ultime due sono opzioni già spuntate nel wizard) e voce in App installate (HKCU). Nessun servizio o attività pianificata; nessuna esclusione antivirus aggiunta dal Setup. Disinstallazione da App installate o `disinstalla.ps1`: i dati sono conservati. L’opzione separata `-RimuoviDati` richiede conferme per categoria e non elimina i PDF in Documenti. Runtime e modelli: versioni/licenze e impronte in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 

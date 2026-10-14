@@ -260,7 +260,7 @@ def test_informativa_breve_del_setup_descrive_il_collector():
     testo = rtf.replace("\\u224?", "à").replace("\\u232?", "è").replace("\\u233?", "é").replace("\\u236?", "ì") \
         .replace("\\u171?", "«").replace("\\u187?", "»")
     for atteso in ("Avvia giornata", "escluse le pause", "15 minuti", "solo sì/no", "elenco dei Sistemi Informativi",
-                   "Rete e integrazione Halley disabilitate", "Web", "registro eventi", "Nulla prima di", "5.0.1"):
+                   "Rete e integrazione Halley disabilitate", "Web", "registro eventi", "Nulla prima di", "5.0.2"):
         assert atteso in testo, atteso
     for falso in ("Solo gli orari dei tuoi pulsanti", "Nessun programma resta attivo", "4.1.0"):
         assert falso not in testo, falso
@@ -335,7 +335,7 @@ def test_setup_powershell_con_psmodulepath_ripulito_in_installazione_e_disinstal
         assert "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File" in corpo
         assert corpo.index("PreparaAmbientePowerShell;") < corpo.index("Exec(PowerShellExe"), nome
     assert s.count("Exec(") == 2
-    assert '#define AppVer "5.0.1"' in s
+    assert '#define AppVer "5.0.2"' in s
 
 
 def test_setup_rileva_la_raccolta_in_installazione_e_la_lascia_a_disinstalla():

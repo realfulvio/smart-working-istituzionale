@@ -317,7 +317,7 @@ class App(tk.Tk):
         popup = tk.Toplevel(self); popup.movimento=self.movimento; self.splash=popup; popup.overrideredirect(True); popup.configure(bg="white")
         popup.geometry(f"{px(340)}x{px(270)}+{self.winfo_x()+px(360)}+{self.winfo_y()+px(150)}")
         logo = tk.Label(popup, bg="white"); logo.pack(pady=(px(22),px(12)))
-        im = Image.open(_ENTE["logo"]).convert("RGBA") if _ENTE["logo"] else None
+        im = tema.logo_interfaccia(px(96))
         etichetta(popup, NOME_ENTE, 17, "bold", colore=C["dark"]).pack()
         etichetta(popup, "Preparazione dell’applicazione…", 13).pack(pady=8)
         bar=progresso(popup,C["primary"],"white");bar.pack_forget()
@@ -348,33 +348,36 @@ class App(tk.Tk):
         super().destroy()
 
     # ------------------------------------------------------------------------------------- struttura
+    # Logo nell'intestazione: alto quanto la fascia meno il margine del riquadro bianco, alla scala reale dello
+    # schermo (px), dal ritaglio dell'overlay se c'è (es. logo senza scritta) e mai ingrandito oltre l'originale.
+    ALTEZZA_LOGO, MARGINE_LOGO = 80, 6
+
     def _icone(self):
         self.img_stemma = self.img_stemma_g = None
         try:
-            from PIL import Image, ImageTk
-            if _ENTE["logo"]:   # logo dell'Ente (config/ente.json): senza logo non si disegna nulla
-                im = Image.open(_ENTE["logo"]).convert("RGBA")
-                self.img_stemma = ImageTk.PhotoImage(im.resize((px(72), px(72)), Image.LANCZOS), master=self)
-                self.img_stemma_g = ImageTk.PhotoImage(im.resize((px(54), px(54)), Image.LANCZOS), master=self)
+            from PIL import ImageTk
+            im = tema.logo_interfaccia(px(self.ALTEZZA_LOGO))     # senza logo in ente.json non si disegna nulla
+            if im is not None:
+                self.img_stemma = ImageTk.PhotoImage(im, master=self)
+                self.img_stemma_g = ImageTk.PhotoImage(tema.logo_interfaccia(px(56)), master=self)
         except Exception:   # noqa: BLE001
             pass
-        if sys.platform == "win32":
-            # finestra e barra delle applicazioni: la stessa icona del programma e dei collegamenti (non lo stemma)
-            try:
-                self.iconbitmap(default=str(icona_edizione("rendiconto.ico")))
-            except tk.TclError:
-                pass
+        # finestra e barra delle applicazioni: la stessa icona del programma e dei collegamenti (non il logo dell'Ente)
+        tema.icone_finestra(self, str(icona_edizione("rendiconto.ico")))
 
     def _stemma(self, master, grande=False):
         bg = master.cget("bg")
         if not self.img_stemma:
             return tk.Frame(master, bg=bg, width=1, height=1)
-        r = px(56 if grande else 48)
-        cv = tk.Canvas(master, width=r, height=r, bg=bg, highlightthickness=0)
-        cv.create_oval(1, 1, r - 1, r - 1, fill="white", outline=C["line"] if grande else "white")
         img = self.img_stemma_g if grande else self.img_stemma
-        if img:
-            cv.create_image(r // 2, r // 2, image=img)
+        m = px(self.MARGINE_LOGO)
+        w, h = img.width() + 2 * m, img.height() + 2 * m
+        cv = tk.Canvas(master, width=w, height=h, bg=bg, highlightthickness=0)
+        # riquadro bianco appena più grande del logo, angoli arrotondati come le schede dell'app
+        rr = px(8)
+        pts = [rr, 0, w - rr, 0, w, 0, w, rr, w, h - rr, w, h, w - rr, h, rr, h, 0, h, 0, h - rr, 0, rr, 0, 0]
+        cv.create_polygon(pts, smooth=True, fill="white", outline=C["line"] if grande else "white")
+        cv.create_image(w // 2, h // 2, image=img)
         return cv
 
     def _testata(self):

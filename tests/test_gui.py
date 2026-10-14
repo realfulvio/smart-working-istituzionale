@@ -27,7 +27,7 @@ def test_interfaccia_non_raccoglie_dati_vietati():
 
 
 @pytest.mark.skipif(not os.environ.get("DISPLAY") and sys.platform != "win32", reason="serve un display")
-def test_flusso_a_video(tmp_path):
+def test_flusso_a_video(tmp_path, monkeypatch):
     """Avvia l'applicazione vera su un display, percorre le schermate principali (dati di esempio)."""
     import datetime as dt
     import tkinter as tk
@@ -36,7 +36,7 @@ def test_flusso_a_video(tmp_path):
     from collector import giornata as cg
     from tests.test_servizio import T, Orologio, lettore
     oro = Orologio(T("07:58"))
-    cg._adesso = oro
+    monkeypatch.setattr(cg, "_adesso", oro)      # ripristinato a fine test: niente data finta per i test dopo
     imp = {"modalita": "consuntivo", "server_ai": "/x", "modelli_ai": "/x", "cache_ai": str(tmp_path / "c"), "thread_ai": 2,
            "profilo_ai": None, "cartella_pdf": str(tmp_path / "pdf"), "profili_siti": [], "browser": True, "posta": False,
            "filigrana_pdf": "PROVA"}

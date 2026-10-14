@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.2 — 2026-10-14
+
+- Intestazione: logo ricampionato alla scala reale, mai ingrandito, su un riquadro proporzionato; ritaglio facoltativo solo per l’interfaccia (`ritaglio_logo_interfaccia`). Il file del logo sigillato non cambia.
+- Icona unica per finestra, barra delle applicazioni, collegamenti, eseguibile e Setup (tolta l’icona separata del Setup); `iconbitmap` più `iconphoto` a 8 formati, applicata alla prima comparsa della finestra.
+- AI: confronto Qwen3-1.7B / Qwen3.5-2B su 20 giornate sintetiche entro un limite di 8 GB (`docs/CONFRONTO_QWEN35_2B.md`, `tools/confronta_modelli.py`). Qwen3.5-2B non adottato: più errori di tipo invenzione intercettati (33 contro 18). Il motore riconosce il template di Qwen3.5 e toglie i blocchi di ragionamento.
+- `THIRD_PARTY_NOTICES`: corretta la provenienza del Qwen3-1.7B; README con modello, dimensione, memoria, fonte, SHA-256 e licenza.
+- Versione del programma 5.0.2; impaginatore PDF invariato (5.0.0).
+
 ## 5.0.1 — 2026-10-14
 
 - Collegamenti: il Setup crea «Resoconto lavoro agile» e «Verifica resoconto» nel menu Start e, con opzione già spuntata, sul Desktop; la disinstallazione li rimuove (Inno e `disinstalla.ps1`).

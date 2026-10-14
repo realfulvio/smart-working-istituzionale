@@ -50,6 +50,58 @@ def carica_font(root: tk.Tk) -> str:
     return FAMIGLIA
 
 
+def logo_interfaccia(altezza: int):
+    """Logo dell'Ente per l'intestazione (PIL RGBA) alto al massimo «altezza» pixel reali: ritaglio facoltativo da
+    ente.json (solo interfaccia), ricampionamento LANCZOS e mai ingrandito oltre l'originale. None senza logo."""
+    e = ente.carica()
+    if not e["logo"]:
+        return None
+    from PIL import Image
+    im = Image.open(e["logo"]).convert("RGBA")
+    if e.get("ritaglio_logo_interfaccia"):
+        im = im.crop(tuple(e["ritaglio_logo_interfaccia"]))
+    h = max(1, min(int(altezza), im.height))
+    w = max(1, round(im.width * h / im.height))
+    return im if (w, h) == im.size else im.resize((w, h), Image.Resampling.LANCZOS)
+
+
+def icone_finestra(win, file_ico: str) -> None:
+    """Icona della finestra e della barra delle applicazioni: iconbitmap (.ico) subito, così non compare mai la piuma
+    di Tk, e iconphoto con tutti i formati del file alla prima comparsa della finestra. Provato su Windows: chiamata
+    durante la costruzione, prima che la finestra sia mostrata, iconphoto lascia un'icona generica."""
+    try:
+        if sys.platform == "win32":
+            win.iconbitmap(default=file_ico) if isinstance(win, tk.Tk) else win.iconbitmap(file_ico)
+    except tk.TclError:
+        pass
+    if win.winfo_ismapped():
+        _icone_foto(win, file_ico)
+        return
+    def alla_comparsa(e=None):
+        if e is not None and e.widget is not win:     # sul Tk principale arrivano anche i <Map> dei figli
+            return
+        win.unbind("<Map>", legame)
+        win.after_idle(lambda: _icone_foto(win, file_ico))
+    legame = win.bind("<Map>", alla_comparsa, add="+")
+
+
+def _icone_foto(win, file_ico: str) -> None:
+    try:
+        from PIL import Image, ImageTk
+        foto = []
+        for lato in (256, 64, 48, 40, 32, 24, 20, 16):       # il più grande per primo
+            with Image.open(file_ico) as ico:
+                if (lato, lato) not in ico.info.get("sizes", set()):
+                    continue
+                ico.size = (lato, lato)
+                foto.append(ImageTk.PhotoImage(ico.convert("RGBA"), master=win))
+        if foto:
+            win.iconphoto(isinstance(win, tk.Tk), *foto)
+            win._icone_finestra = foto            # riferimenti tenuti vivi
+    except (tk.TclError, OSError, ImportError):
+        pass
+
+
 def px(n: float) -> int:
     return int(round(n * SCALA))
 
