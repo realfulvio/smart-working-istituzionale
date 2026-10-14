@@ -9,4 +9,6 @@ La selezione precede gli import e viene letta all'avvio: dopo una modifica riavv
 
 Build: `powershell -NoProfile -File tools/pacchetto/build_app.ps1 -Edizione neutra` oppure il nome dell'overlay. `tools/configura_edizione.py` materializza **solo** la configurazione scelta in una cartella nuova `build/config-edizione-<id>`; rifiuta destinazioni non vuote per evitare residui tra edizioni. Il pacchetto non include gli altri overlay. La compilazione Inno genera le immagini e legge nome Ente dalla configurazione del pacchetto. Versione tecnica unica, indipendente dall'identità.
 
+Icone (dalla 5.0.1): `applicazione/assets/icone/` contiene quelle neutre (programma, Verificatore, Setup e i tre stati dell'area di notifica); un overlay può avere `icone/` con gli stessi nomi, generate dai suoi token con `python -m tools.crea_icone --uscita edizioni/<id>/icone --tokens edizioni/<id>/design_tokens.json`. Le icone non contengono stemmi. La build le materializza in `config/icone` e le usa per gli eseguibili, il Setup, i collegamenti e l'area di notifica.
+
 Il codice e il simbolo generico sono EUPL-1.2; nome e stemma dell'Ente adottante non sono coperti dalla licenza del software. Il titolare dell'overlay ne autorizza uso e diffusione. La pubblicazione del codice neutro non autorizza la pubblicazione di overlay privati.

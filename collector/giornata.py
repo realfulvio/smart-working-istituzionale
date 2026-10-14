@@ -115,6 +115,27 @@ def riprendi(p: Percorsi, lancia: bool = True) -> None:
         _lancia_demone(p, st)
 
 
+def riaggancia(p: Percorsi, lancia: bool = True, adesso: dt.datetime | None = None) -> bool:
+    """Riavvia il processo di raccolta di una giornata di OGGI che il dipendente ha avviato e non ha messo in pausa
+    né chiuso, quando quel processo non è più attivo (riavvio o disconnessione di Windows, chiusura imprevista).
+
+    Non avvia mai una giornata: senza «Avvia giornata» (o in pausa, o con una giornata di un altro giorno, o con una
+    chiusura da completare) non fa nulla e restituisce False. Il periodo da spegnimento a riaggancio resta quello
+    registrato (sessione chiusa): si scrive solo «avvio_raccolta» all'istante del riaggancio, come per «Riprendi»."""
+    st, t = Stato(p), adesso or _adesso()
+    g = st.giornata()
+    if g.get("fase") != "in_corso" or g.get("giorno") != t.date().isoformat() or chiusura_da_completare(p, g):
+        return False
+    if st.presa_visione() is None or st.demone_attivo():
+        return False
+    Registro(p).scrivi("sessione", t, evento="avvio_raccolta")
+    d = st.demone()
+    st.log(f"riaggancio della giornata {g['giorno']} (raccolta terminata: {d.get('motivo') or 'motivo non registrato'})")
+    if lancia:
+        _lancia_demone(p, st)
+    return True
+
+
 def _ferma(p: Percorsi, st: Stato, comando: str, t: dt.datetime):
     if st.demone_attivo():
         st.invia_comando(comando, t)

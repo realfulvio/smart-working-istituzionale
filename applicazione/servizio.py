@@ -295,6 +295,28 @@ class Servizio:
         except cg.ErroreGiornata as e:
             raise ErroreApp(str(e)) from e
 
+    def stato_breve(self) -> dict:
+        """Stato leggero per l'icona nell'area di notifica (letto spesso): fase, giorno, ora di avvio o di pausa e se
+        il processo di raccolta è attivo. Non legge resoconti né PDF."""
+        st = Stato(self.p)
+        g = st.giornata()
+        fase = g.get("fase") if g.get("fase") in ("in_corso", "in_pausa") else "nessuna"
+        fasi = g.get("fasi") or [{}]
+        return {"fase": fase, "giorno": g.get("giorno"), "avvio": fasi[0].get("avvio"),
+                "pausa_dalle": fasi[-1].get("pausa") if fase == "in_pausa" else None,
+                "raccolta_attiva": fase == "in_corso" and self._collector() and st.demone_attivo(),
+                "modalita": self.imp["modalita"]}
+
+    def riaggancia(self) -> bool:
+        """Dopo un riavvio di Windows: riprende la raccolta di una giornata di oggi già avviata dal dipendente e
+        rimasta «in corso» (vedi collector.giornata.riaggancia). Mai a consuntivo, mai senza «Avvia giornata»."""
+        if not self._collector():
+            return False
+        try:
+            return cg.riaggancia(self.p, adesso=self.adesso())
+        except cg.ErroreGiornata as e:
+            raise ErroreApp(str(e)) from e
+
     def pausa(self) -> None:
         try:
             cg.pausa(self.p)

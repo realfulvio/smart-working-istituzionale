@@ -18,8 +18,8 @@ import threading
 import time
 import tkinter as tk
 
-from resoconto import VERSIONE_APP, ente
-from resoconto.edizione import identita
+from resoconto import VERSIONE_APP, VERSIONE_PROGRAMMA, ente
+from resoconto.edizione import icona as icona_edizione, identita
 from resoconto.formati import CAMPI_SEGNALAZIONE, COLORI_STATO, MANUALI, ST_LAB, Giornata, avviso_leggibile, data_lunga
 
 from . import tema
@@ -140,7 +140,10 @@ def _fasce(n: int) -> str:
 
 
 class App(tk.Tk):
-    def __init__(self, servizio: Servizio, dimensione=(1160, 780), scala_test=None):
+    def __init__(self, servizio: Servizio, dimensione=(1160, 780), scala_test=None, area_notifica=False,
+                 nascosta=False):
+        """area_notifica: icona accanto all'orologio (solo l'avvio reale, main); nascosta: parte solo con l'icona
+        (avvio all'accesso a Windows con una giornata già avviata)."""
         if sys.platform == "win32":
             try:
                 import ctypes
@@ -148,6 +151,9 @@ class App(tk.Tk):
             except Exception:   # noqa: BLE001
                 pass
         super().__init__()
+        if nascosta:
+            self.withdraw()
+        self.area = None
         self.s = servizio
         tema.carica_font(self)
         if scala_test is not None:
@@ -180,9 +186,129 @@ class App(tk.Tk):
         etichetta(pw, identita()["etichetta"] + " · dati locali", 11, colore=C["muted"]).pack(side="left")
         self.corpo = tk.Frame(self, bg=C["bg"])
         self.corpo.pack(fill="both", expand=True)
+        self.protocol("WM_DELETE_WINDOW", self.chiudi_finestra)
+        if area_notifica:
+            self._avvia_area_notifica()
         self.vai_oggi()
         # Attende il mapping della finestra: after_idle può precederlo su Windows.
         self.after(100, self.mostra_splash)
+
+    # ------------------------------------------------------------------------- area di notifica
+    def _avvia_area_notifica(self):
+        from .area_notifica import ICONE, AreaNotifica
+        icone = {k: str(icona_edizione(v)) for k, v in ICONE.items()}
+        area = AreaNotifica(lambda c: self.q.put((lambda _v, c=c: self._comando_area(c), None, False)), icone)
+        area.avvia(self.s.stato_breve())
+        if area.hwnd:            # anche se Esplora risorse non è pronto: l'icona si aggiunge quando lo diventa
+            self.area = area
+            self.after(15000, self._ciclo_area_notifica)
+
+    def _aggiorna_area_notifica(self):
+        if self.area is not None:
+            try:
+                self.area.aggiorna(self.s.stato_breve())
+            except Exception:   # noqa: BLE001 - l'icona non deve mai bloccare l'interfaccia
+                pass
+
+    def _ciclo_area_notifica(self):
+        self._aggiorna_area_notifica()
+        self.after(15000, self._ciclo_area_notifica)
+
+    def mostra_finestra(self):
+        self.deiconify()
+        self.lift()
+        try:
+            self.focus_force()
+        except tk.TclError:
+            pass
+
+    def chiudi_finestra(self):
+        """«X» della finestra: con una giornata avviata (o un lavoro in corso) il programma resta nell'area di
+        notifica e la raccolta continua; senza giornata il programma si chiude come prima."""
+        fase = self.s.stato_breve()["fase"]
+        if self.area is not None and self.area.visibile and (fase in ("in_corso", "in_pausa") or self._occupato):
+            from .area_notifica import AVVISO_CHIUSURA, AVVISO_CHIUSURA_PAUSA
+            self.chiudi_velo()
+            self.withdraw()
+            self._aggiorna_area_notifica()
+            self.area.avviso(*(AVVISO_CHIUSURA_PAUSA if fase == "in_pausa" else AVVISO_CHIUSURA))
+            return
+        self.esci()
+
+    def esci(self):
+        self.destroy()
+
+    def avvisa_riaggancio(self):
+        from .area_notifica import AVVISO_RIAGGANCIO
+        ora = (self.s.stato_breve().get("avvio") or "")[11:16]
+        if self.area is not None and self.area.visibile:
+            self.area.avviso(AVVISO_RIAGGANCIO[0], AVVISO_RIAGGANCIO[1].format(ora=ora))
+
+    def _comando_area(self, c):
+        if c == "apri":
+            return self.mostra_finestra()
+        if c == "esci":
+            return self.mostra_esci()
+        if self._occupato:          # chiusura o generazione in corso: si mostra la finestra, nessuna azione
+            return self.mostra_finestra()
+        if c == "chiudi_giornata":
+            return self.mostra_conferma_chiusura()
+        try:
+            (self.s.pausa if c == "pausa" else self.s.riprendi)()
+        except ErroreApp as e:
+            self.mostra_finestra()
+            return self.errore(str(e))
+        self.vai_oggi()
+
+    def mostra_conferma_chiusura(self):
+        self.mostra_finestra()
+        if self.s.stato_breve()["fase"] not in ("in_corso", "in_pausa"):
+            return self.vai_oggi()
+        self.vai_oggi()
+        sc = self.apri_velo(560)
+        p = tk.Frame(sc, bg="white"); p.pack(fill="both", padx=px(28), pady=px(24))
+        etichetta(p, f"Chiudere la giornata adesso, alle {self.s.adesso():%H:%M}?", 18, "bold", colore=C["dark"],
+                  wrap=500).pack(anchor="w")
+        etichetta(p, "La raccolta si ferma e preparo il resoconto: lo rivedi prima di salvarlo.", 14.5,
+                  colore=C["muted"], wrap=500).pack(anchor="w", pady=(px(8), px(18)))
+        bb = tk.Frame(p, bg="white"); bb.pack(fill="x")
+        Bottone(bb, "■   Chiudi e rivedi", lambda: (self.chiudi_velo(), self.azione_chiudi(genera=False))).pack(
+            side="right")
+        Bottone(bb, "Annulla", self.chiudi_velo, "secondario").pack(side="right", padx=px(12))
+
+    def mostra_esci(self):
+        """«Esci…» dal menu dell'icona: sempre una conferma esplicita; con la giornata in corso si esce solo
+        mettendola in pausa, così non resta una raccolta attiva senza nessuna icona visibile."""
+        self.mostra_finestra()
+        if self._occupato:
+            return self.errore("Attendi la fine dell'operazione in corso, poi riprova a uscire.")
+        fase = self.s.stato_breve()["fase"]
+        if fase == "in_corso":
+            testo = ("La giornata è in corso. Uscendo la metto in pausa: da quel momento non si raccoglie nulla. "
+                     "Quando riapri il programma premi «Riprendi» oppure chiudi la giornata.")
+            bottone = "❚❚  Metti in pausa ed esci"
+        elif fase == "in_pausa":
+            testo = ("La giornata resta in pausa e non si raccoglie nulla. Quando riapri il programma premi "
+                     "«Riprendi» oppure chiudi la giornata.")
+            bottone = "Esci"
+        else:
+            testo = "Non c'è nessuna giornata avviata. Puoi riaprire il programma dal menu Start o dal Desktop."
+            bottone = "Esci"
+
+        def conferma():
+            if fase == "in_corso":
+                try:
+                    self.s.pausa()
+                except ErroreApp as e:
+                    return self.errore(str(e))
+            self.esci()
+        sc = self.apri_velo(560)
+        p = tk.Frame(sc, bg="white"); p.pack(fill="both", padx=px(28), pady=px(24))
+        etichetta(p, "Vuoi uscire da Resoconto lavoro agile?", 18, "bold", colore=C["dark"], wrap=500).pack(anchor="w")
+        etichetta(p, testo, 14.5, colore=C["muted"], wrap=500).pack(anchor="w", pady=(px(8), px(18)))
+        bb = tk.Frame(p, bg="white"); bb.pack(fill="x")
+        Bottone(bb, bottone, conferma).pack(side="right")
+        Bottone(bb, "Annulla", self.chiudi_velo, "secondario").pack(side="right", padx=px(12))
 
     def mostra_splash(self):
         if self.movimento.ridotto or self.s.serve_informativa() or not self.winfo_viewable():
@@ -207,6 +333,9 @@ class App(tk.Tk):
         self.movimento.effetto(popup,draw,.54)
 
     def destroy(self):
+        if getattr(self, "area", None) is not None:      # senza, l'icona resterebbe accanto all'orologio
+            self.area.chiudi()
+            self.area = None
         owners={}
         def collect(w):
             for cmd in getattr(w,"_tclCommands",[]) or []:owners[cmd]=w
@@ -227,13 +356,12 @@ class App(tk.Tk):
                 im = Image.open(_ENTE["logo"]).convert("RGBA")
                 self.img_stemma = ImageTk.PhotoImage(im.resize((px(72), px(72)), Image.LANCZOS), master=self)
                 self.img_stemma_g = ImageTk.PhotoImage(im.resize((px(54), px(54)), Image.LANCZOS), master=self)
-                self._ico = ImageTk.PhotoImage(im.resize((32, 32), Image.LANCZOS), master=self)
-                self.iconphoto(True, self._ico)
         except Exception:   # noqa: BLE001
             pass
         if sys.platform == "win32":
+            # finestra e barra delle applicazioni: la stessa icona del programma e dei collegamenti (non lo stemma)
             try:
-                self.iconbitmap(default=os.path.join(tema.ASSETS, "rendiconto.ico"))
+                self.iconbitmap(default=str(icona_edizione("rendiconto.ico")))
             except tk.TclError:
                 pass
 
@@ -466,6 +594,7 @@ class App(tk.Tk):
         elif st["precedente_aperto"] and st["fase"] == "da_avviare":
             # Oltre mezzanotte con giornata ancora in corso: Pausa/Chiudi restano sulla home (stato in_corso).
             self.mostra_precedente()
+        self._aggiorna_area_notifica()
 
     def _saluto(self):
         nome = (self.s.dipendente().get("nome") or "").replace("(ESEMPIO)", "").split()
@@ -498,8 +627,11 @@ class App(tk.Tk):
         if fase == "in_corso":
             status=tk.Frame(sx,bg=C["dark"]);status.pack(anchor="w",pady=px(4))
             dot=tk.Canvas(status,width=px(16),height=px(16),bg=C["dark"],highlightthickness=0);dot.pack(side="left")
-            item=dot.create_oval(4,4,12,12,fill=C["ok"],outline="")
-            etichetta(status,"Raccolta in corso" if not consuntivo else "Giornata in corso · consuntivo",12,colore=C["tint"]).pack(side="left")
+            # il pallino verde solo se il processo di raccolta è davvero attivo (dopo un riavvio poteva non esserlo)
+            attiva = consuntivo or self.s.stato_breve()["raccolta_attiva"]
+            item=dot.create_oval(4,4,12,12,fill=C["ok"] if attiva else C["err"],outline="")
+            etichetta(status,"Giornata in corso · consuntivo" if consuntivo else "Raccolta in corso" if attiva else
+                      "Raccolta non attiva: premi «Pausa» e poi «Riprendi»",12,colore=C["tint"]).pack(side="left")
             self.movimento.effetto(dot,lambda n:dot.coords(item,4-math.sin(n*math.pi*2)*.5,4-math.sin(n*math.pi*2)*.5,12+math.sin(n*math.pi*2)*.5,12+math.sin(n*math.pi*2)*.5),2,continuo=True)
         etichetta(sx, self._saluto(), 26, "bold", colore="white").pack(anchor="w", pady=(px(10), px(2)))
         if fase == "da_avviare":
@@ -515,7 +647,7 @@ class App(tk.Tk):
             etichetta(sx, testo, 15, colore=C["tint"], wrap=520).pack(anchor="w")
             if not st["oggi_concluso"]:
                 Bottone(dx, "▶   Avvia giornata", self.azione_avvia, dim=17, padx=70, pady=13).pack(fill="x")
-                etichetta(dx, "Si parte solo quando premi il pulsante:\nnessun avvio automatico all'accesso.", 12.5,
+                etichetta(dx, "Si parte solo quando premi il pulsante:\nall'accesso a Windows non parte nessuna giornata.", 12.5,
                           colore=C["tint"], justify="center", anchor="center").pack(fill="x", pady=(px(8), 0))
         else:
             avvio = (st.get("avvio") or "")[11:16]
@@ -1413,8 +1545,8 @@ class App(tk.Tk):
     # ============================================================================== informazioni
     def mostra_informazioni(self):
         sc = self.apri_velo(760)
-        self._testata_modale(sc, "Informazioni", "Rendiconto SW", f"Versione {VERSIONE_APP} · resoconto della giornata "
-                             "di lavoro agile", icona="stemma", chiudi=self.chiudi_velo)
+        self._testata_modale(sc, "Informazioni", "Rendiconto SW", f"Versione {VERSIONE_PROGRAMMA} (impaginatore PDF {VERSIONE_APP}) · "
+                             "resoconto della giornata di lavoro agile", icona="stemma", chiudi=self.chiudi_velo)
         p = tk.Frame(sc, bg="white"); p.pack(fill="x", padx=px(28), pady=px(16))
         dx = tk.Frame(p, bg="white"); dx.pack(side="right", fill="both", padx=(px(22), 0), anchor="n")
         sx = tk.Frame(p, bg="white"); sx.pack(side="left", fill="both", expand=True, anchor="n")
@@ -1447,7 +1579,7 @@ class App(tk.Tk):
 
         def copia():
             self.clipboard_clear()
-            self.clipboard_append(f"Rendiconto SW {VERSIONE_APP} · aggregatore {va} · mappatura {mv} · informativa "
+            self.clipboard_append(f"Rendiconto SW {VERSIONE_PROGRAMMA} · impaginatore {VERSIONE_APP} · aggregatore {va} · mappatura {mv} · informativa "
                                   f"{VERSIONE_INFORMATIVA} · modalità {self.s.imp['modalita']}")
         Bottone(b, "Copia le informazioni", copia, "secondario", dim=13.5).pack(side="left")
 
@@ -1488,7 +1620,10 @@ class App(tk.Tk):
         sc = Scheda(w); sc.pack(fill="both", expand=True)
         p = tk.Frame(sc, bg="white"); p.pack(fill="x", padx=px(26), pady=px(20))
         etichetta(p, "Aiuto", 20, "bold", colore=C["dark"]).pack(anchor="w", pady=(0, px(8)))
-        passi = [("1. Avvia giornata", "quando inizi a lavorare. Nessun avvio automatico."),
+        passi = [("1. Avvia giornata", "quando inizi a lavorare. Nessuna giornata parte da sola; dopo un riavvio di "
+                                       "Windows riprende solo quella che avevi avviato e non messo in pausa."),
+                 ("Icona in basso a destra", "se chiudi la finestra con la giornata avviata il programma resta lì: "
+                                               "da quell'icona riapri, metti in pausa, riprendi o chiudi la giornata."),
                  ("2. Pausa / Riprendi", "durante la pausa non viene contato nulla."),
                  ("3. Aggiungi attività", "riunioni, telefonate, lavoro su carta, sopralluoghi, formazione "
                                           f"(descrizione fino a {MAX_DESCRIZIONE} caratteri)."),
@@ -1522,6 +1657,9 @@ def main(argv=None) -> int:
     ap.add_argument("--senza-finestra", action="store_true", help="collaudo con le funzioni dei pulsanti, senza Tk")
     ap.add_argument("--testo-standard", action="store_true", help="collaudo senza assistente locale")
     ap.add_argument("--diagnostica-ai", metavar="FILE", help="scrive la sola diagnostica locale AI, senza avviare il motore")
+    ap.add_argument("--avvio-sessione", action="store_true",
+                    help="all'accesso a Windows: se oggi c'è una giornata avviata riaggancia la raccolta e mostra solo "
+                         "l'icona vicino all'orologio; altrimenti esce subito senza fare nulla")
     ns = ap.parse_args(argv)
     if ns.diagnostica_ai:
         import json
@@ -1531,7 +1669,40 @@ def main(argv=None) -> int:
     if ns.smoke_giornata:
         from .smoke import esegui
         return esegui(ns.smoke_giornata, ns.esito, finestra=not ns.senza_finestra, testo_standard=ns.testo_standard)
-    App(Servizio(ns.base)).mainloop()
+    return avvia_interfaccia(Servizio(ns.base), ns.avvio_sessione)
+
+
+def deve_restare_aperta(s: Servizio) -> bool:
+    """Avvio all'accesso a Windows: si resta aperti (solo icona) soltanto con una giornata di oggi in corso o in
+    pausa e l'informativa già vista. In ogni altro caso si esce subito: nessuna giornata parte da sola."""
+    st = s.stato_breve()
+    return (not s.serve_informativa() and st["fase"] in ("in_corso", "in_pausa")
+            and st["giorno"] == s.adesso().date().isoformat())
+
+
+def avvia_interfaccia(s: Servizio, avvio_sessione: bool = False) -> int:
+    from . import area_notifica
+    if not area_notifica.prima_istanza(s.p.base):
+        # già aperta (anche solo come icona): la si riporta in primo piano, niente seconda interfaccia
+        if not avvio_sessione:
+            area_notifica.chiedi_apertura()
+        return 0
+    if avvio_sessione and not deve_restare_aperta(s):
+        return 0
+    errore_riaggancio = None
+    try:
+        riagganciata = s.riaggancia()
+    except ErroreApp as e:
+        riagganciata, errore_riaggancio = False, str(e)
+    app = App(s, area_notifica=True, nascosta=avvio_sessione)
+    if avvio_sessione and (app.area is None or not app.area.visibile or errore_riaggancio):
+        app.mostra_finestra()          # senza icona visibile la giornata aperta non deve restare nascosta
+    if errore_riaggancio:
+        app.errore(f"La giornata è ancora aperta, ma la raccolta non è ripartita dopo il riavvio: {errore_riaggancio}. "
+                   "Premi «Pausa» e poi «Riprendi»; se il problema resta avvisa i Sistemi Informativi.")
+    elif riagganciata:
+        app.avvisa_riaggancio()
+    app.mainloop()
     return 0
 
 

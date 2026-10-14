@@ -31,11 +31,13 @@ $comuni = @("--noconfirm", "--clean", "--onedir", "--windowed", "--distpath", "b
             "--exclude-module", "estensione",
             # ReportLab usa Pillow solo per il logo PNG dell'Ente: i codec AVIF e WebP (~8 MB) non servono mai
             "--exclude-module", "PIL._avif", "--exclude-module", "PIL.AvifImagePlugin",
-            "--exclude-module", "PIL._webp", "--exclude-module", "PIL.WebPImagePlugin",
-            "--icon", "..\applicazione\assets\rendiconto.ico") + $raccolta
-python -m PyInstaller @comuni --name RendicontoSW tools\pacchetto\app_entry.py
+            "--exclude-module", "PIL._webp", "--exclude-module", "PIL.WebPImagePlugin") + $raccolta
+# Icone degli eseguibili: quelle dell'edizione materializzata (overlay), altrimenti quelle neutre
+$icone = Join-Path $configBuild "icone"
+if (-not (Test-Path -LiteralPath (Join-Path $icone "rendiconto.ico"))) { $icone = Join-Path (Get-Location) "applicazione\assets\icone" }
+python -m PyInstaller @comuni --icon (Join-Path $icone "rendiconto.ico") --name RendicontoSW tools\pacchetto\app_entry.py
 if ($LASTEXITCODE -ne 0) { throw "Build applicazione fallita" }
-python -m PyInstaller @comuni --name VerificaRendiconto tools\pacchetto\verifica_entry.py
+python -m PyInstaller @comuni --icon (Join-Path $icone "verifica.ico") --name VerificaRendiconto tools\pacchetto\verifica_entry.py
 if ($LASTEXITCODE -ne 0) { throw "Build Verificatore fallita" }
 # un'unica cartella: l'eseguibile del verificatore accanto a quello dell'applicazione (stesse librerie)
 Copy-Item build\dist\VerificaRendiconto\VerificaRendiconto.exe build\dist\RendicontoSW\ -Force

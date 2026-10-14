@@ -22,7 +22,7 @@ ns=ap.parse_args() if __name__=="__main__" else ap.parse_args([])
 ENTE = ente.carica(ns.config) if ns.config else ente.carica()
 DEST=Path(ns.output) if ns.output else QUI
 DEST.mkdir(parents=True,exist_ok=True)
-VERSIONE = "5.0.0"
+VERSIONE = "5.0.1"
 
 def _rgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))

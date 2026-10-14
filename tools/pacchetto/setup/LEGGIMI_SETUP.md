@@ -39,6 +39,22 @@ La copia nativa di Inno è stata scartata perché avrebbe duplicato (e da ricoll
 Perché non Inno «puro»: la logica di `installa.ps1` (rollback, regole sulla cartella dati, chiave legacy, collegamenti)
 è il punto già collaudato; rifarla in Pascal Script avrebbe significato un nuovo installer da collaudare da zero.
 
+### Collegamenti e opzioni (dalla 5.0.1)
+
+Pagine: Benvenuto → Informativa breve → **Opzioni** → «Installa» → Fine. Le opzioni ([Tasks], già spuntate):
+
+- `desktop`: «Resoconto lavoro agile» e «Verifica resoconto» sul Desktop dell'utente;
+- `accesso`: «Resoconto lavoro agile (ripresa giornata)» nell'Esecuzione automatica dell'utente, con
+  `RendicontoSW.exe --avvio-sessione`: esce subito se oggi non c'è una giornata avviata, altrimenti la riaggancia
+  (solo se in corso) e mostra soltanto l'icona vicino all'orologio. Nessuna giornata parte da sola.
+
+Il menu Start («Resoconto lavoro agile», «Verifica resoconto») si crea sempre. I collegamenti ([Icons]) sono creati
+da Inno dopo [Files], quindi dopo `installa.ps1`, e solo se è terminato con 0 (`Check: InstallaRiuscita`). La
+disinstallazione li rimuove (registro di Inno) e `disinstalla.ps1` toglie comunque ogni `.lnk` che punta alla cartella
+del programma in menu Start, Desktop ed Esecuzione automatica. Un'opzione tolta in un aggiornamento cancella il
+collegamento creato prima ([InstallDelete]). Silenzioso: `/TASKS="desktop,accesso"` (predefinito) o `/TASKS=""`.
+Icona del Setup: `/DIconaSetup=` da `compila_setup.ps1` (quella dell'edizione nel pacchetto).
+
 ### Codici d'uscita e messaggi
 
 | installa.ps1 | Messaggio del Setup (finestra + pagina «Installazione non completata») | Uscita di Setup.exe |
@@ -95,6 +111,8 @@ Come `installa.ps1`: cartella predefinita `%LOCALAPPDATA%\Programs\RendicontoSW`
 con `/DIR=<x>` diverso → dati in `<x>_dati` (utile per il collaudo in sandbox).
 **Attenzione nel collaudo**: anche con `/DIR=` `installa.ps1` riscrive i collegamenti Start e la chiave legacy
 `RendicontoSW`, e l'AppId è lo stesso dell'installazione reale: prima di provare in sandbox salvare chiave e collegamenti.
+Dalla 5.0.1 il Setup scrive anche i collegamenti su Desktop ed Esecuzione automatica (opzioni): salvarli o usare
+`/TASKS=""` nelle prove in sandbox.
 
 ## Compressione, dimensioni, DiskSpanning
 

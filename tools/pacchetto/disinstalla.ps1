@@ -209,6 +209,7 @@ function Rimuovi-CollegamentiPerBersaglio {
   $radice = (Get-PercorsoLungo $Dest).TrimEnd('\') + '\'
   $luoghi = @(
     (Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"),
+    [Environment]::GetFolderPath('Startup'),
     [Environment]::GetFolderPath('Desktop'),
     [Environment]::GetFolderPath('CommonDesktopDirectory')
   ) | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -Unique
@@ -229,6 +230,11 @@ function Rimuovi-CollegamentiPerBersaglio {
   $start = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs"
   foreach ($n in @("Resoconto lavoro agile.lnk", "Verifica resoconto.lnk", "Disinstalla Rendiconto SW.lnk")) {
     Remove-Item -LiteralPath (Join-Path $start $n) -Force -ErrorAction SilentlyContinue
+  }
+  # Avvio all'accesso (opzione del Setup 5.0.1): anche se il bersaglio non fosse più leggibile
+  $avvio = [Environment]::GetFolderPath('Startup')
+  if ($avvio) {
+    Remove-Item -LiteralPath (Join-Path $avvio "Resoconto lavoro agile (ripresa giornata).lnk") -Force -ErrorAction SilentlyContinue
   }
 }
 
