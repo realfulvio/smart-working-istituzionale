@@ -1,6 +1,6 @@
 """Icone dell'applicazione (.ico multi-risoluzione) disegnate dai token grafici dell'edizione, senza stemma.
 
-Produce in --uscita: rendiconto.ico (programma e collegamenti), verifica.ico (Verificatore), setup.ico (Setup) e le
+Produce in --uscita: rendiconto.ico (programma, finestra, collegamenti e Setup), verifica.ico (Verificatore) e le
 icone dell'area di notifica tray_attiva.ico, tray_pausa.ico, tray_nessuna.ico. Con --anteprime salva anche i PNG di
 ogni formato e un foglio di confronto. Ogni formato piccolo (16-32 px) ha un disegno semplificato e allineato ai pixel,
 non una riduzione del 256 px. Formati: 16, 20, 24, 32, 40, 48, 64, 256 (BMP 32 bit sotto 256, PNG a 256).
@@ -18,7 +18,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 FORMATI = (16, 20, 24, 32, 40, 48, 64, 256)
-NOMI = ("rendiconto", "verifica", "setup", "tray_attiva", "tray_pausa", "tray_nessuna")
+NOMI = ("rendiconto", "verifica", "tray_attiva", "tray_pausa", "tray_nessuna")
 SOVRA = 8                     # campionamento: si disegna 8 volte più grande e si riduce
 GRIGIO_TILE = ("#7B8A97", "#5F6E7B")
 AMBRA = "#E39A00"             # pausa: più chiaro del «warning» testuale, leggibile su barra chiara e scura
@@ -140,22 +140,6 @@ def _scudo(t: Tela, pal: dict, cx, cy, w, h):
     t.poligono(pts, pal["bianco"])
 
 
-def _freccia(t: Tela, pal: dict, cx, cy, r):
-    n = t.n
-    anello = max(1.0, n * 0.045)
-    t.cerchio(cx, cy, r, pal["bianco"])
-    t.cerchio(cx, cy, r - anello, pal["ok"])
-    s = max(1.5, n * 0.075)
-    a = r - anello
-    if n <= 24:                                      # piccolo: freccia piena, leggibile anche a 16 px
-        t.rett(cx - s / 2, cy - a * 0.6, cx + s / 2, cy + a * 0.05, 0, pal["bianco"])
-        t.poligono([(cx - a * 0.62, cy - a * 0.05), (cx + a * 0.62, cy - a * 0.05), (cx, cy + a * 0.65)],
-                   pal["bianco"])
-        return
-    t.linea([(cx, cy - a * 0.55), (cx, cy + a * 0.45)], pal["bianco"], s)
-    t.linea([(cx - a * 0.45, cy + a * 0.02), (cx, cy + a * 0.47), (cx + a * 0.45, cy + a * 0.02)], pal["bianco"], s)
-
-
 # --------------------------------------------------------------------------------------------- icone intere
 def rendiconto(n: int, pal: dict) -> Image.Image:
     t = Tela(n)
@@ -180,18 +164,6 @@ def verifica(n: int, pal: dict) -> Image.Image:
         t.rett(m + r * 0.9, y, n - m - r * 0.9, y + s, s / 2, pal["accento"])
     _scudo(t, pal, n / 2, n * 0.49, n * (0.62 if n <= 24 else 0.54), n * (0.74 if n <= 24 else 0.64))
     _spunta(t, pal["ok"], n / 2, n * 0.47, n * (0.24 if n <= 24 else 0.2), max(1.5, n * 0.085))
-    return t.immagine()
-
-
-def setup(n: int, pal: dict) -> Image.Image:
-    t = Tela(n)
-    _riquadro(t, pal)
-    if n <= 24:
-        _foglio(t, pal, n * 0.2, n * 0.14, n * 0.66, n * 0.84)
-        _freccia(t, pal, n * 0.68, n * 0.68, n * 0.3)
-    else:
-        _foglio(t, pal, n * 0.22, n * 0.14, n * 0.64, n * 0.74)
-        _freccia(t, pal, n * 0.68, n * 0.64, n * 0.22)
     return t.immagine()
 
 
@@ -228,7 +200,7 @@ def tray(n: int, pal: dict, stato: str) -> Image.Image:
 def disegna(nome: str, n: int, pal: dict) -> Image.Image:
     if nome.startswith("tray_"):
         return tray(n, pal, nome[5:])
-    return {"rendiconto": rendiconto, "verifica": verifica, "setup": setup}[nome](n, pal)
+    return {"rendiconto": rendiconto, "verifica": verifica}[nome](n, pal)
 
 
 # --------------------------------------------------------------------------------------------- file .ico

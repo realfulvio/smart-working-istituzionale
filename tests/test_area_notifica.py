@@ -341,7 +341,7 @@ def test_disinstallazione_toglie_anche_desktop_e_avvio():
 
 def test_compila_setup_usa_l_icona_dell_edizione():
     s = (RADICE / "tools" / "pacchetto" / "setup" / "compila_setup.ps1").read_text(encoding="utf-8-sig")
-    assert "config\\icone\\setup.ico" in s and "/DIconaSetup=" in s
+    assert "config\\icone\\rendiconto.ico" in s and "setup.ico" not in s and "/DIconaSetup=" in s
     b = (RADICE / "tools" / "pacchetto" / "build_app.ps1").read_text(encoding="utf-8-sig")
     assert '"rendiconto.ico") --name RendicontoSW' in b and '"verifica.ico") --name VerificaRendiconto' in b
 

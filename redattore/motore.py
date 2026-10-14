@@ -12,6 +12,7 @@ import hashlib
 import secrets
 import json
 import os
+import re
 import socket
 import subprocess
 import sys
@@ -72,14 +73,33 @@ def _porta_libera() -> int:
     return p
 
 
-def prompt_chatml(sistema: str, utente: str, qwen3: bool, esempio: tuple[str, str] | None = None) -> str:
-    """Modello di chat dei Qwen (ChatML). Con Qwen3 il blocco <think> vuoto equivale a enable_thinking=False.
-    esempio = (domanda, risposta): un turno di esempio prima della richiesta vera."""
-    vuoto = "<think>\n\n</think>\n\n" if qwen3 else ""
+def famiglia_qwen(nome_modello: str) -> str | None:
+    """«qwen35» (Qwen3.5), «qwen3» (Qwen3) oppure None, dal nome del file del modello."""
+    n = (nome_modello or "").lower().replace("_", ".")
+    if "qwen3.5" in n or "qwen35" in n:
+        return "qwen35"
+    return "qwen3" if "qwen3" in n else None
+
+
+def prompt_chatml(sistema: str, utente: str, qwen3: bool, esempio: tuple[str, str] | None = None,
+                  qwen35: bool = False) -> str:
+    """Modello di chat dei Qwen (ChatML). Con Qwen3/Qwen3.5 il blocco <think> vuoto equivale a enable_thinking=False.
+    esempio = (domanda, risposta): un turno di esempio prima della richiesta vera. Qwen3.5 (template ufficiale): i
+    turni precedenti dell'assistente non hanno il blocco <think>, solo quello da generare."""
+    vuoto = "<think>\n\n</think>\n\n" if qwen3 or qwen35 else ""
+    storico = "" if qwen35 else vuoto
     p = f"<|im_start|>system\n{sistema}<|im_end|>\n"
     if esempio:
-        p += f"<|im_start|>user\n{esempio[0]}<|im_end|>\n<|im_start|>assistant\n{vuoto}{esempio[1]}<|im_end|>\n"
+        p += f"<|im_start|>user\n{esempio[0]}<|im_end|>\n<|im_start|>assistant\n{storico}{esempio[1]}<|im_end|>\n"
     return p + f"<|im_start|>user\n{utente}<|im_end|>\n<|im_start|>assistant\n{vuoto}"
+
+
+_RE_PENSIERO = re.compile(r"<think>.*?</think>\s*|^\s*<think>.*?(?=\{)", re.S)
+
+
+def togli_ragionamento(testo: str) -> str:
+    """Toglie gli eventuali blocchi di ragionamento (<think>…</think>) dall'uscita: non vanno mai nel resoconto."""
+    return _RE_PENSIERO.sub("", testo or "").replace("</think>", "").strip()
 
 
 def _picco_memoria_mb(proc: subprocess.Popen) -> dict:
@@ -264,7 +284,8 @@ class LlamaCpp:
         self.server, self.modello, self.thread, self.contesto = server, modello, thread, contesto
         self.seme, self.max_token, self.timeout_avvio = seme, max_token, timeout_avvio
         self.nome_modello = nome_modello or os.path.basename(modello)
-        self.qwen3 = "qwen3" in self.nome_modello.lower()
+        self.famiglia = famiglia_qwen(self.nome_modello)
+        self.qwen3, self.qwen35 = self.famiglia in ("qwen3", "qwen35"), self.famiglia == "qwen35"
         self.proc = None
         self.misure: dict = {}
         self.extra = list(extra or [])
@@ -353,7 +374,7 @@ class LlamaCpp:
         self.misure["secondi_cache_prefisso"] = round(time.monotonic() - t0, 2)
 
     def genera(self, sistema: str, utente: str, schema: dict, esempio=None) -> tuple[str, dict]:
-        prompt = prompt_chatml(sistema, utente, self.qwen3, esempio)
+        prompt = prompt_chatml(sistema, utente, self.qwen3, esempio, qwen35=self.qwen35)
         if not self._prefisso_pronto:
             self._prepara_prefisso(prompt)
         body = {"prompt": prompt, "n_predict": self.max_token,
@@ -365,7 +386,7 @@ class LlamaCpp:
         except (urllib.error.URLError, OSError) as e:
             raise ErroreMotore(f"richiesta al motore non riuscita: {e}") from e
         tm = r.get("timings") or {}
-        return r.get("content", ""), {"secondi": round(time.monotonic() - t0, 2),
+        return togli_ragionamento(r.get("content", "")), {"secondi": round(time.monotonic() - t0, 2),
                                       "token_prompt": tm.get("prompt_n"), "token_generati": tm.get("predicted_n"),
                                       "token_al_secondo": round(tm["predicted_per_second"], 1)
                                       if tm.get("predicted_per_second") else None,
@@ -421,7 +442,7 @@ class Ollama:
             body["think"] = False
         t0 = time.monotonic()
         r = _post(self.url + "/api/chat", body, timeout=600)
-        return (r.get("message") or {}).get("content", ""), {
+        return togli_ragionamento((r.get("message") or {}).get("content", "")), {
             "secondi": round(time.monotonic() - t0, 2), "token_prompt": r.get("prompt_eval_count"),
             "token_generati": r.get("eval_count"),
             "token_al_secondo": round(r["eval_count"] / (r["eval_duration"] / 1e9), 1) if r.get("eval_duration") else None}

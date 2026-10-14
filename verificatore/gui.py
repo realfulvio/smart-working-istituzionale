@@ -53,12 +53,8 @@ class Verificatore:
         from applicazione.movimento import Movimento
         self.movimento = Movimento(self.win, getattr(master,"s",None).imp.get("riduci_animazioni","sistema") if master is not None and getattr(master,"s",None) else "sistema")
         self.win.title("Verifica resoconto")
-        if sys.platform == "win32":
-            try:
-                from resoconto.edizione import icona
-                self.win.iconbitmap(str(icona("verifica.ico")))
-            except tk.TclError:
-                pass
+        from resoconto.edizione import icona
+        tema.icone_finestra(self.win, str(icona("verifica.ico")))
         self.win.configure(bg=C["bg"])
         self.win.geometry(f"{px(780)}x{px(700)}")
         self.win.minsize(px(640), px(560))
@@ -67,10 +63,9 @@ class Verificatore:
         from resoconto import ente
         identity = ente.carica()
         self.img_stemma = None
-        if identity["logo"]:
-            from PIL import Image, ImageTk
-            im = Image.open(identity["logo"]).convert("RGBA")
-            im.thumbnail((px(42), px(42)), Image.Resampling.LANCZOS)
+        im = tema.logo_interfaccia(px(46))
+        if im is not None:
+            from PIL import ImageTk
             self.img_stemma = ImageTk.PhotoImage(im, master=self.win)
             tk.Label(t, image=self.img_stemma, bg=C["primary"]).pack(side="left", padx=(px(18), 0))
         tk.Frame(self.win, bg=C["gold"], height=px(3)).pack(fill="x")

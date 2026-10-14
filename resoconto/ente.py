@@ -18,6 +18,7 @@ PREDEFINITI = {
     "nome": "Il tuo Ente", "sottotitolo": "", "assistenza": "", "logo": "",
     "dati_tecnici_postazione": True,
     "versione_informativa": "2026-10-07",
+    "ritaglio_logo_interfaccia": None,
     "colori": {"primario": _TOKEN["primary"].lower(), "primario_scuro": _TOKEN["primary-700"].lower(),
                "scuro": _TOKEN["dark"].lower(), "tenue": _TOKEN["primary-tint-1"].lower(),
                "accento": _TOKEN["stemma-gold"].lower()},
@@ -48,6 +49,12 @@ def carica(percorso: str | None = None) -> dict:
                 lg = os.path.join(os.path.dirname(os.path.abspath(p)), os.path.expandvars(j["logo"].strip()))
                 if os.path.isfile(lg):
                     out["logo"] = os.path.abspath(lg)
+            # Solo interfaccia: riquadro [sinistra, alto, destra, basso] del logo da mostrare nell'intestazione (es. lo
+            # logo senza la scritta, illeggibile a quella dimensione). Il file del logo e il PDF non cambiano.
+            r = j.get("ritaglio_logo_interfaccia")
+            if isinstance(r, list) and len(r) == 4 and all(isinstance(v, int) and v >= 0 for v in r) \
+                    and r[0] < r[2] and r[1] < r[3]:
+                out["ritaglio_logo_interfaccia"] = list(r)
             if isinstance(j.get("colori"), dict):
                 for k, v in j["colori"].items():
                     if k in out["colori"] and isinstance(v, str) and _RE_COLORE.match(v):

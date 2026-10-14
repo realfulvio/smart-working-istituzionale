@@ -27,13 +27,13 @@
 #ifndef NomeEnte
   #define NomeEnte "Il tuo Ente"
 #endif
-#define AppVer "5.0.1"
+#define AppVer "5.0.2"
 #ifndef Immagini
   #define Immagini SourcePath
 #endif
-; Icona del Setup: quella dell'edizione (compila_setup.ps1 la prende dal pacchetto), altrimenti la neutra
+; Icona del Setup: la stessa del programma, dell'edizione (compila_setup.ps1 la prende dal pacchetto), altrimenti la neutra
 #ifndef IconaSetup
-  #define IconaSetup "..\..\..\applicazione\assets\icone\setup.ico"
+  #define IconaSetup "..\..\..\applicazione\assets\icone\rendiconto.ico"
 #endif
 
 #ifndef Pacchetto
