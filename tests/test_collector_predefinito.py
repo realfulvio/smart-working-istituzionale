@@ -335,7 +335,7 @@ def test_setup_powershell_con_psmodulepath_ripulito_in_installazione_e_disinstal
         assert "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File" in corpo
         assert corpo.index("PreparaAmbientePowerShell;") < corpo.index("Exec(PowerShellExe"), nome
     assert s.count("Exec(") == 2
-    assert '#define AppVer "5.0.2"' in s
+    assert '#define AppVer "5.0.3"' in s
 
 
 def test_setup_rileva_la_raccolta_in_installazione_e_la_lascia_a_disinstalla():
