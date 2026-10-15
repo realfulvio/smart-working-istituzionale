@@ -197,6 +197,10 @@ class Servizio:
                     try:records.append(json.loads(line))
                     except ValueError:continue  # eventuale ultima riga ancora in scrittura
             if not records:return []
+            # il record «meta» lo scrive il Collector solo alla chiusura: per l'anteprima se ne usa uno minimo,
+            # senza leggere i dati tecnici della postazione (5.0.3: prima l'anteprima restava sempre vuota)
+            if not any(isinstance(r,dict) and r.get("tipo")=="meta" for r in records):
+                records.insert(0,cg.meta(self.p,giorno,snapshot=False))
             doc=aggrega.aggregate(parse_records(records),self.mappa())
             cutoff=self.adesso().isoformat()
             rows=[f for f in doc["fasce"] if f["inizio"] <= cutoff and f.get("categorie")]

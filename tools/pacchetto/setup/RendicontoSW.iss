@@ -27,7 +27,7 @@
 #ifndef NomeEnte
   #define NomeEnte "Il tuo Ente"
 #endif
-#define AppVer "5.0.2"
+#define AppVer "5.0.3"
 #ifndef Immagini
   #define Immagini SourcePath
 #endif

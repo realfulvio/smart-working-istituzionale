@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.3 — 15/10/2026
+
+- **Timeline della giornata in corso**: l'anteprima dei segnali rilevati (attività al computer e programmi) non compariva mai, perché il file dei dati grezzi riceve il record «meta» solo alla chiusura e l'anteprima lo richiedeva. Ora ne usa uno minimo, senza leggere i dati tecnici della postazione e senza scrivere nulla. Nuovo test in `tests/test_anteprima.py`.
+- Versione del programma 5.0.3; impaginatore PDF invariato (5.0.0), quindi i resoconti già creati restano verificabili.
+
 ## 5.0.2 — 2026-10-14
 
 - Intestazione: logo ricampionato alla scala reale, mai ingrandito, su un riquadro proporzionato; ritaglio facoltativo solo per l’interfaccia (`ritaglio_logo_interfaccia`). Il file del logo sigillato non cambia.

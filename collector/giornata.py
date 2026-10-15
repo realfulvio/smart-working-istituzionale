@@ -152,7 +152,7 @@ def _ferma(p: Percorsi, st: Stato, comando: str, t: dt.datetime):
 
 
 def meta(p: Percorsi, giorno: str, modalita: str = "collector", copertura: dict | None = None,
-         stato_iniziale: str = "sconosciuta") -> dict:
+         stato_iniziale: str = "sconosciuta", snapshot: bool = True) -> dict:
     """Metadati della giornata. modalita «consuntivo» (M7): nessun processo di raccolta, nessun registro di Windows
     letto (bonifica B6b); copertura indicata dal lettore iniettato (test) o tutta «non_installato»."""
     st = Stato(p)
@@ -175,7 +175,7 @@ def meta(p: Percorsi, giorno: str, modalita: str = "collector", copertura: dict 
     if pv:
         m["presa_visione"] = pv
     from resoconto import ente
-    if ente.carica()["dati_tecnici_postazione"]:
+    if snapshot and ente.carica()["dati_tecnici_postazione"]:
         from .postazione import rileva
         m["dati_tecnici_postazione"] = rileva()
     return m
