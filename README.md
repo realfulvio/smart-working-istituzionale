@@ -5,7 +5,7 @@
 <h1 align="center">Smart Working Istituzionale</h1>
 <p align="center"><b>La giornata, rivista da chi l’ha vissuta.</b><br>Il resoconto del lavoro agile per gli enti pubblici: poca raccolta, revisione del dipendente, PDF verificabile.</p>
 <p align="center">
-  <img alt="Versione 5.0.2" src="https://img.shields.io/badge/versione-5.0.2-0066CC">
+  <img alt="Versione 5.0.3" src="https://img.shields.io/badge/versione-5.0.3-0066CC">
   <a href="LICENSE"><img alt="Licenza EUPL-1.2" src="https://img.shields.io/badge/licenza-EUPL--1.2-0066CC"></a>
   <img alt="Windows 10 e 11" src="https://img.shields.io/badge/Windows-10%20%2F%2011-0066CC">
   <img alt="Python 3.12 verificato" src="https://img.shields.io/badge/Python-3.12-0066CC">
@@ -39,7 +39,16 @@ Il programma non invia automaticamente il resoconto. La consegna è una scelta m
 <a id="indice"></a>
 ## Indice
 
-[Novità 5.0.2](#novita-502) · [Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+[Novità 5.0.3](#novita-503) · [Novità 5.0.2](#novita-502) · [Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+
+<a id="novita-503"></a>
+## Novità 5.0.3
+
+| Novità | Cosa cambia nell’uso |
+|---|---|
+| **Timeline della giornata in corso** | L’anteprima dei segnali rilevati (attività al computer e programmi) ora compare anche durante la giornata, prima della chiusura. Non legge i dati tecnici della postazione e non scrive nulla. |
+
+La versione dell’impaginatore PDF resta 5.0.0: i PDF già emessi restano confrontabili dal Verificatore.
 
 <a id="novita-502"></a>
 ## Novità 5.0.2
@@ -253,7 +262,7 @@ powershell -NoProfile -File tools/pacchetto/build_app.ps1 -Edizione neutra
 # tools/pacchetto/setup/compila_setup.ps1
 ```
 
-Il nome tecnico del Setup è `Setup_RendicontoSW_5.0.2.exe`, indipendente dall’edizione. Inno standard, senza bootstrapper: immagini, testi e pagina finale configurabili. La build controlla lo spazio libero prima della compressione. Parametri e codici di uscita in [LEGGIMI_SETUP.md](tools/pacchetto/setup/LEGGIMI_SETUP.md).
+Il nome tecnico del Setup è `Setup_RendicontoSW_5.0.3.exe`, indipendente dall’edizione. Inno standard, senza bootstrapper: immagini, testi e pagina finale configurabili. La build controlla lo spazio libero prima della compressione. Parametri e codici di uscita in [LEGGIMI_SETUP.md](tools/pacchetto/setup/LEGGIMI_SETUP.md).
 
 Installazione per utente in `%LOCALAPPDATA%\Programs\RendicontoSW`, collegamenti nel menu Start, sul Desktop e nell’Esecuzione automatica (le ultime due sono opzioni già spuntate nel wizard) e voce in App installate (HKCU). Nessun servizio o attività pianificata; nessuna esclusione antivirus aggiunta dal Setup. Disinstallazione da App installate o `disinstalla.ps1`: i dati sono conservati. L’opzione separata `-RimuoviDati` richiede conferme per categoria e non elimina i PDF in Documenti. Runtime e modelli: versioni/licenze e impronte in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
