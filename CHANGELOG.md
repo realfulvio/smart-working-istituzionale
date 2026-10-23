@@ -1,5 +1,11 @@
 # Changelog
 
+## Non rilasciato
+
+- **PDF/A-3b**: il PDF del resoconto ha profilo colore sRGB (OutputIntent), metadati XMP con identificazione PDF/A-3B e `resoconto.json` come file associato (MIME, `AFRelationship /Data`). Date del documento uguali a quelle del sigillo finale. Pagine invariate: impaginatore 5.0.0, esiti del Verificatore invariati. Controllato con veraPDF 1.28 (PDF/A-3B conforme, anche con logo e filigrana). Nuovo modulo `resoconto/pdfa.py`.
+- **Metadati AgID**: accanto a ogni PDF confermato, `<nome>.metadati.xml` con i metadati del documento informatico (Linee guida AgID, allegato 5) noti alla creazione, compresa l'impronta SHA-256 del PDF. Nuovo campo facoltativo `codice_ipa` in `ente.json`.
+- Build: `--hidden-import PIL.ImageCms` per il profilo colore. Nuovi test in `tests/test_pdfa.py`.
+
 ## 5.0.3 — 15/10/2026
 
 - **Timeline della giornata in corso**: l'anteprima dei segnali rilevati (attività al computer e programmi) non compariva mai, perché il file dei dati grezzi riceve il record «meta» solo alla chiusura e l'anteprima lo richiedeva. Ora ne usa uno minimo, senza leggere i dati tecnici della postazione e senza scrivere nulla. Nuovo test in `tests/test_anteprima.py`.
