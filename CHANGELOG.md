@@ -4,8 +4,6 @@
 
 - **PDF/A-3b**: il PDF del resoconto ha profilo colore sRGB (OutputIntent), metadati XMP con identificazione PDF/A-3B e `resoconto.json` come file associato (MIME, `AFRelationship /Data`). Date del documento uguali a quelle del sigillo finale. Pagine invariate: impaginatore 5.0.0, esiti del Verificatore invariati. Controllato con veraPDF 1.28 (PDF/A-3B conforme, anche con logo e filigrana). Nuovo modulo `resoconto/pdfa.py`.
 - **Metadati AgID**: accanto a ogni PDF confermato, `<nome>.metadati.xml` con i metadati del documento informatico (Linee guida AgID, allegato 5) noti alla creazione, compresa l'impronta SHA-256 del PDF. Nuovo campo facoltativo `codice_ipa` in `ente.json`.
-- **Verificatore e firma PAdES**: un PDF firmato dopo la creazione non è più ALTERATO per il solo `/AcroForm`; la firma è segnalata (`firme_pades`) e testo, grafica e allegato devono comunque corrispondere ai dati sigillati. Crittografia e certificato non verificati. Intervallo `/ByteRange` incoerente, campi diversi dalla firma e azioni sui campi restano ALTERATO.
-- Test: le icone si confrontano per pixel e non per byte (i PNG interni dipendono dalla build di zlib).
 - Build: `--hidden-import PIL.ImageCms` per il profilo colore. Nuovi test in `tests/test_pdfa.py`.
 
 ## 5.0.3 — 15/10/2026

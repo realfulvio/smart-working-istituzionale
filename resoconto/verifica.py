@@ -35,69 +35,6 @@ _RE_XOB_B = re.compile(rb"/FormXob\.[0-9A-Fa-f]+")
 _ATTIVI = ("/OpenAction", "/AA", "/AcroForm", "/JavaScript", "/URI", "/Launch")     # contenuto attivo: mai nei resoconti
 
 
-def _campi_firma(r) -> tuple[list[dict], bool]:
-    """([firme PAdES del PDF], True se l'AcroForm contiene solo campi firma senza azioni).
-    Una firma aggiunta dopo la creazione è una revisione incrementale con /AcroForm e un campo /Sig: non è contenuto
-    attivo. Qualunque altro campo, o un'azione su un campo, lo resta."""
-    af = r.trailer["/Root"].get("/AcroForm")
-    if af is None:
-        return [], False
-    af = af.get_object()
-    firme, solo = [], True
-    for rif in af.get("/Fields", []):
-        c = rif.get_object()
-        if c.get("/FT") != "/Sig" or "/A" in c or "/AA" in c:
-            solo = False
-            continue
-        v = c.get("/V")
-        v = v.get_object() if v is not None else None
-        if v is not None:
-            firme.append({"campo": str(c.get("/T", "")), "formato": str(v.get("/SubFilter", "")),
-                          "range": [int(x) for x in v.get("/ByteRange", [])], "contenuto": v.get("/Contents")})
-    return firme, solo and bool(firme)
-
-
-def _annotazioni_non_firma(p) -> bool:
-    """True se la pagina ha annotazioni diverse dai widget di firma."""
-    for a in p.get("/Annots", []):
-        a = a.get_object()
-        if not (a.get("/Subtype") == "/Widget" and a.get("/FT") == "/Sig"):
-            return True
-    return False
-
-
-def _problemi_firme(firme: list[dict], lunghezza: int) -> list[str]:
-    """Incoerenze tra l'intervallo firmato dichiarato (/ByteRange) e il file. Non verifica la crittografia."""
-    out = []
-    for f in firme:
-        b = f["range"]
-        if (len(b) != 4 or b[0] != 0 or not (0 < b[1] <= b[2]) or b[2] + b[3] > lunghezza or b[3] <= 0
-                or f["contenuto"] is None):
-            out.append(f"intervallo della firma «{f['campo']}» non coerente con il file")
-    return out
-
-
-def _firme_pades(dati: bytes, out: dict) -> None:
-    """Segnala le firme digitali aggiunte al PDF dopo la creazione (PAdES). Il Verificatore NON ne controlla la
-    crittografia né il certificato: lo fa lo strumento di firma. Qui si controlla solo che la firma non nasconda
-    modifiche: grafica, testo e allegato del PDF firmato devono comunque corrispondere ai dati sigillati."""
-    from pypdf import PdfReader
-    try:
-        firme, _ = _campi_firma(PdfReader(io.BytesIO(dati)))
-    except Exception:   # noqa: BLE001 - un modulo illeggibile resta segnalato come contenuto non previsto più avanti
-        return
-    if not firme:
-        return
-    out["firme_pades"] = [{"campo": f["campo"], "formato": f["formato"]} for f in firme]
-    problemi = _problemi_firme(firme, len(dati))
-    if problemi:
-        out["esito"] = "ALTERATO"
-        out["motivi"].extend(problemi)
-    out["motivi"].append(f"PDF con {len(firme)} firma/e digitale/i aggiunta/e dopo la creazione: validità della firma e del "
-                         "certificato non verificata dal Verificatore; il contenuto del PDF corrisponde ai dati sigillati "
-                         "solo se i controlli di testo e grafica risultano superati")
-
-
 def _hash_oggetto(o, h, visti: set) -> None:
     """Impronta strutturale di un oggetto PDF (numeri di oggetto esclusi; stream decodificati)."""
     from pypdf.generic import ArrayObject, DictionaryObject, IndirectObject, StreamObject
@@ -137,12 +74,11 @@ def _impronte_grafiche(dati: bytes) -> tuple[list[str], list[str]]:
         h = hashlib.sha256()
         for k in ("/MediaBox", "/CropBox", "/Rotate", "/Resources", "/Annots", "/Contents"):
             h.update(k.encode())
-            if k in p and not (k == "/Annots" and not _annotazioni_non_firma(p)):   # i widget di firma non sono grafica
+            if k in p:
                 _hash_oggetto(p[k], h, set())
         out.append(h.hexdigest())
     radice = r.trailer["/Root"]
-    solo_firme = _campi_firma(r)[1]
-    attivi = [k for k in _ATTIVI if k in radice and not (k == "/AcroForm" and solo_firme)]
+    attivi = [k for k in _ATTIVI if k in radice]
     return out, attivi
 
 
@@ -151,9 +87,8 @@ def _manomissioni_indipendenti_dalla_versione(dati: bytes) -> list[str]:
     dichiarata nei metadati è diversa): contenuto attivo e annotazioni, che un resoconto non contiene mai."""
     from pypdf import PdfReader
     r = PdfReader(io.BytesIO(dati))
-    solo_firme = _campi_firma(r)[1]
-    trovati = [k for k in _ATTIVI if k in r.trailer["/Root"] and not (k == "/AcroForm" and solo_firme)]
-    con_annotazioni = [i + 1 for i, p in enumerate(r.pages) if _annotazioni_non_firma(p)]
+    trovati = [k for k in _ATTIVI if k in r.trailer["/Root"]]
+    con_annotazioni = [i + 1 for i, p in enumerate(r.pages) if "/Annots" in p]
     if con_annotazioni:
         trovati.append("/Annots (pagine " + ", ".join(map(str, con_annotazioni)) + ")")
     return trovati
@@ -218,8 +153,6 @@ def verifica_file(path: str, chiavi_dirs: list[str] | None = None) -> dict:
         out["motivi"].insert(0, "manca il sigillo finale: la giornata non è stata confermata dal dipendente")
     out["sigilli"] = {k: {"presente": r[k].get("presente"), "valido": r[k].get("valido"), "codice": r[k].get("codice")}
                       for k in ("tecnico", "finale") if isinstance(r.get(k), dict)}
-    if dati is not None:
-        _firme_pades(dati, out)
     if dati is not None and out["esito"] in ("VALIDO", "INTEGRO", "NON SIGILLATO"):
         filigrana = (meta.get("/RendicontoSWFiligrana") or "DATI DI ESEMPIO") if "filigrana" in meta.get("/RendicontoSW", "") \
             else None
