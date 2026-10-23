@@ -3,6 +3,7 @@
   "nome": "Il tuo Ente",
   "sottotitolo": "",
   "assistenza": "",
+  "codice_ipa": "",
   "logo": "../applicazione/assets/ente-segnaposto.png",
   "colori": {},
   "dati_tecnici_postazione": true

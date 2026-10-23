@@ -39,7 +39,7 @@ Il programma non invia automaticamente il resoconto. La consegna è una scelta m
 <a id="indice"></a>
 ## Indice
 
-[Novità 5.0.3](#novita-503) · [Novità 5.0.2](#novita-502) · [Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
+[Novità 5.0.3](#novita-503) · [Novità 5.0.2](#novita-502) · [Novità 5.0.1](#novita-501) · [Novità 5.0.0](#novita) · [Tre principi](#principi) · [Flusso](#flusso) · [Galleria](#galleria) · [JSON e dati locali](#json) · [AI locale](#ai) · [Verificatore](#verificatore) · [PDF/A e metadati](#pdfa) · [Due edizioni e overlay](#edizioni) · [Installazione e Setup](#installazione) · [Accessibilità e limiti](#limiti) · [Prerequisiti](#prerequisiti) · [Sviluppo](#sviluppo) · [English summary](#english)
 
 <a id="novita-503"></a>
 ## Novità 5.0.3
@@ -226,6 +226,15 @@ Rete e Halley rimangono disabilitati: nessun sensore SMB istanziato e nessuna es
 | **NON SIGILLATO** | Manca il sigillo finale richiesto o il JSON allegato al PDF. |
 
 Il sigillo attesta l’integrità del documento, **non qualità, verità o rendimento del lavoro**. Il registro delle chiavi pubbliche segue una procedura dell’Ente. Versione del renderer e identità grafica disponibili possono limitare la verifica di documenti storici; non si promette VALIDO se il confronto non è eseguibile. [Modello di sicurezza](SECURITY.md).
+
+<a id="pdfa"></a>
+## PDF/A-3 e metadati per protocollo e conservazione
+
+*Non ancora rilasciato.* Il PDF del resoconto è un **PDF/A-3b** (ISO 19005-3), il formato richiesto per la conservazione: profilo colore sRGB incorporato, metadati XMP e `resoconto.json` dichiarato come file associato (`AFRelationship /Data`). Le pagine non cambiano: testo e grafica restano quelli dell’impaginatore 5.0.0 e il Verificatore dà gli stessi esiti. La conformità è stata controllata con veraPDF (profilo PDF/A-3B).
+
+Accanto a ogni PDF confermato il programma scrive `<nome>.metadati.xml` con i **metadati del documento informatico** (Linee guida AgID, allegato 5): impronta SHA-256 del PDF, identificativo (codice del sigillo), autore e ufficio, Ente e codice IPA, oggetto, tipologia, formato, allegati, riservatezza. Servono al sistema di protocollo o di conservazione per acquisire il documento senza ricopiare i dati a mano. Registrazione, classificazione e tempo di conservazione li assegna il protocollo dell’Ente. Il file non contiene dati che non siano già nel PDF; l’account di Windows non c’è. Il codice IPA si imposta in `ente.json` (`codice_ipa`). I PDF di prova con filigrana non hanno il file dei metadati.
+
+I sigilli Ed25519 non sono firme o sigilli elettronici qualificati: nei metadati `FirmatoDigitalmente` e `SigillatoElettronicamente` restano `false`. **Limite attuale:** un PDF firmato in PAdES dopo la creazione risulta ALTERATO nel Verificatore, perché la firma aggiunge un modulo (`/AcroForm`) che un resoconto non contiene. Va verificato il PDF prima della firma; il riconoscimento della firma PAdES nel Verificatore è un lavoro separato.
 
 <a id="edizioni"></a>
 ## Due edizioni, un solo codice

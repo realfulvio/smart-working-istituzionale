@@ -15,7 +15,7 @@ _TOKEN = token_ente()
 
 PERCORSO_PREDEFINITO = str(percorso("ente.json"))
 PREDEFINITI = {
-    "nome": "Il tuo Ente", "sottotitolo": "", "assistenza": "", "logo": "",
+    "nome": "Il tuo Ente", "sottotitolo": "", "assistenza": "", "logo": "", "codice_ipa": "",
     "dati_tecnici_postazione": True,
     "versione_informativa": "2026-10-07",
     "ritaglio_logo_interfaccia": None,
@@ -40,7 +40,7 @@ def carica(percorso: str | None = None) -> dict:
         if isinstance(j, dict):
             if isinstance(j.get("dati_tecnici_postazione"), bool):
                 out["dati_tecnici_postazione"] = j["dati_tecnici_postazione"]
-            for k in ("nome", "sottotitolo", "assistenza", "versione_informativa"):
+            for k in ("nome", "sottotitolo", "assistenza", "versione_informativa", "codice_ipa"):
                 if isinstance(j.get(k), str):
                     out[k] = j[k].strip()[:120]
             if not out["nome"]:

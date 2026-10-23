@@ -162,13 +162,22 @@ def crea_pdf(doc: dict, percorso: str, filigrana: str | None = None) -> str:
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import NameObject, TextStringObject
     import reportlab
+    from .pdfa import data_pdf, rendi_pdfa, scrivi_metadati
     w = PdfWriter(clone_from=PdfReader(io.BytesIO(pdf_bytes(doc,filigrana))))
     w._root_object[NameObject("/Lang")] = TextStringObject("it")
     w.add_attachment(NOME_ALLEGATO,json.dumps(doc,ensure_ascii=False,indent=1).encode("utf-8"))
-    meta = {"/RendicontoSW": f"{VERSIONE_APP}|{'filigrana' if filigrana else 'sigillato'}|rl{reportlab.Version}"}
+    # PDF/A-3b: date del sigillo finale (le pagine restano quelle invarianti dell'impaginatore)
+    data = data_pdf(((doc.get("integrita") or {}).get("sigillo_finale") or {}).get("creato_il"))
+    meta = {"/RendicontoSW": f"{VERSIONE_APP}|{'filigrana' if filigrana else 'sigillato'}|rl{reportlab.Version}",
+            "/CreationDate": data, "/ModDate": data, "/Keywords": "lavoro agile; resoconto giornaliero"}
     if filigrana: meta["/RendicontoSWFiligrana"] = filigrana
     w.add_metadata(meta)
+    if "/Trapped" in w._info.get_object(): del w._info.get_object()[NameObject("/Trapped")]   # senza equivalente XMP
+    rendi_pdfa(w, NOME_ALLEGATO, data)
     tmp = percorso + ".tmp"
     with open(tmp,"wb") as f: w.write(f)
     os.replace(tmp,percorso)
+    if not filigrana:
+        identity = ente.carica()
+        scrivi_metadati(doc, percorso, identity["nome"], identity.get("codice_ipa") or "")
     return percorso
