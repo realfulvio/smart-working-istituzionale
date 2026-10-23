@@ -374,8 +374,16 @@ def test_icone_riproducibili_dai_token(tmp_path):
     from tools.crea_icone import NOMI, crea
     crea(tmp_path / "neutra", json.loads((RADICE / "config/design_tokens.json").read_text(encoding="utf-8-sig")))
     for nome in NOMI:
-        assert (tmp_path / "neutra" / f"{nome}.ico").read_bytes() == \
-            (RADICE / "applicazione/assets/icone" / f"{nome}.ico").read_bytes(), nome
+        assert _pixel_ico(tmp_path / "neutra" / f"{nome}.ico") == \
+            _pixel_ico(RADICE / "applicazione/assets/icone" / f"{nome}.ico"), nome
+
+
+def _pixel_ico(path):
+    """Formati e pixel RGBA di ogni immagine dell'.ico: i byte dei PNG interni dipendono dalla build di zlib."""
+    import io
+    from PIL import IcoImagePlugin
+    ico = IcoImagePlugin.IcoFile(io.BytesIO(path.read_bytes()))
+    return {t: ico.getimage(t).convert("RGBA").tobytes() for t in sorted(ico.sizes())}
 
 
 def _overlay_di_prova(tmp_path):
