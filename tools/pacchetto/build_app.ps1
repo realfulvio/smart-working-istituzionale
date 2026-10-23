@@ -27,7 +27,7 @@ $comuni = @("--noconfirm", "--clean", "--onedir", "--windowed", "--distpath", "b
             "--specpath", "build", "--add-data", ($configBuild + ";config"), "--add-data", "..\schema;schema",
             "--add-data", "..\applicazione\assets;applicazione\assets", "--collect-data", "tzdata",
             "--collect-data", "resoconto",
-            "--hidden-import", "win32timezone", "--collect-submodules", "reportlab.graphics.barcode", "--exclude-module", "unittest", "--exclude-module", "pydoc",
+            "--hidden-import", "win32timezone", "--hidden-import", "PIL.ImageCms", "--collect-submodules", "reportlab.graphics.barcode", "--exclude-module", "unittest", "--exclude-module", "pydoc",
             "--exclude-module", "estensione",
             # ReportLab usa Pillow solo per il logo PNG dell'Ente: i codec AVIF e WebP (~8 MB) non servono mai
             "--exclude-module", "PIL._avif", "--exclude-module", "PIL.AvifImagePlugin",
