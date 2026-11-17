@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Working Istituzionale</title>
+<meta name="description" content="Il resoconto del lavoro agile per gli enti pubblici: poca raccolta, revisione del dipendente, PDF verificabile. Open source, EUPL-1.2.">
+<meta property="og:title" content="Smart Working Istituzionale">
+<meta property="og:description" content="La giornata, rivista da chi l’ha vissuta.">
+<meta property="og:image" content="img/social-preview.png">
+<meta name="theme-color" content="#0066CC">
+<style>
+@font-face{font-family:"Titillium Web";font-weight:400;font-display:swap;src:url(sito-fonts/TitilliumWeb-Regular.ttf) format("truetype")}
+@font-face{font-family:"Titillium Web";font-weight:600;font-display:swap;src:url(sito-fonts/TitilliumWeb-SemiBold.ttf) format("truetype")}
+@font-face{font-family:"Titillium Web";font-weight:700;font-display:swap;src:url(sito-fonts/TitilliumWeb-Bold.ttf) format("truetype")}
+:root{
+  --blu:#0066CC;--blu-scuro:#004c99;--blu-notte:#0b1f3a;--verde:#006B5B;--verde-chiaro:#e3f4f0;
+  --bg:#f5f8fc;--card:#fff;--testo:#17324d;--muto:#5b6f85;--linea:#dbe5f0;--rosso:#b3261e;
+  --ombra:0 1px 2px rgba(11,31,58,.06),0 12px 32px -12px rgba(11,31,58,.18);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0b1624;--card:#122238;--testo:#e6eef8;--muto:#9db0c6;--linea:#223a57;--verde-chiaro:#0f3a35;
+  --ombra:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;font:400 18px/1.6 "Titillium Web",system-ui,sans-serif;background:var(--bg);color:var(--testo)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--blu)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.15;margin:0 0 .5em;font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(1.7rem,3.2vw,2.4rem)}
+section{padding:72px 0}
+.eyebrow{display:inline-block;font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blu);margin-bottom:10px}
+.lead{font-size:1.15rem;color:var(--muto);max-width:62ch}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+nav b{font-weight:700}
+nav .links{display:flex;gap:22px;font-size:.95rem}
+nav .links a{color:var(--muto);text-decoration:none}
+nav .links a:hover{color:var(--blu)}
+@media(max-width:720px){nav .links a:not(.gh){display:none}}
+
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 80% -10%,#1a85ff55,transparent 60%),linear-gradient(160deg,var(--blu-notte),var(--blu-scuro) 70%,var(--blu));color:#fff;padding:84px 0 0;overflow:hidden}
+.hero .eyebrow{color:#9fd0ff}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:.3em}
+.hero p.lead{color:#d3e6fb}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px}
+.badges span{font-size:.82rem;font-weight:600;padding:5px 12px;border-radius:99px;background:#ffffff1c;border:1px solid #ffffff30}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:13px 24px;border-radius:10px;font-weight:600;text-decoration:none;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:#fff;color:var(--blu-scuro)}
+.btn.ghost{border:1.5px solid #ffffff66;color:#fff}
+.btn.ghost:hover{background:#ffffff1a}
+.hero-img{margin-top:56px;border-radius:16px 16px 0 0;box-shadow:0 -10px 60px -10px #000a;border:1px solid #ffffff25;border-bottom:0}
+
+/* cards */
+.grid{display:grid;gap:22px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--linea);border-radius:16px;padding:28px;box-shadow:var(--ombra)}
+.card .num{width:42px;height:42px;border-radius:12px;background:var(--blu);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.2rem;margin-bottom:16px}
+.card h3{font-size:1.3rem}
+.card p{margin:0;color:var(--muto)}
+
+/* privacy */
+.priv .card ul{margin:0;padding:0;list-style:none}
+.priv li{padding:9px 0 9px 32px;position:relative;border-bottom:1px solid var(--linea)}
+.priv li:last-child{border:0}
+.priv li::before{position:absolute;left:0;top:9px;font-weight:700;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;color:#fff}
+.priv .si li::before{content:"✓";background:var(--verde)}
+.priv .no li::before{content:"✕";background:var(--rosso)}
+.priv .si{border-top:5px solid var(--verde)}
+.priv .no{border-top:5px solid var(--rosso)}
+.note{margin-top:26px;padding:18px 22px;border-radius:12px;background:var(--verde-chiaro);border-left:5px solid var(--verde)}
+
+/* flow */
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin-top:34px}
+.flow .step{flex:1 1 140px;background:var(--card);border:1px solid var(--linea);border-radius:14px;padding:18px 14px;text-align:center;font-weight:600;position:relative;box-shadow:var(--ombra)}
+.flow .step small{display:block;font-weight:400;color:var(--muto);font-size:.82rem;margin-top:4px;line-height:1.35}
+.flow .step i{font-style:normal;display:block;font-size:1.6rem;margin-bottom:4px}
+
+/* gallery */
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:30px}
+.shot{margin:0;background:var(--card);border:1px solid var(--linea);border-radius:14px;overflow:hidden;box-shadow:var(--ombra)}
+.shot img{width:100%;border-bottom:1px solid var(--linea);transition:transform .3s}
+.shot:hover img{transform:scale(1.02)}
+.shot{overflow:hidden}
+.shot figcaption{padding:12px 16px;font-size:.92rem;color:var(--muto)}
+.shot figcaption b{color:var(--testo)}
+.gif{margin-top:30px;border-radius:14px;border:1px solid var(--linea);box-shadow:var(--ombra);width:100%;max-width:860px;margin-inline:auto}
+
+/* esiti */
+.esiti{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:28px}
+.esito{background:var(--card);border:1px solid var(--linea);border-radius:14px;padding:20px;border-top:5px solid var(--c)}
+.esito b{display:block;font-size:1.15rem;color:var(--c);margin-bottom:6px;letter-spacing:.04em}
+.esito p{margin:0;color:var(--muto);font-size:.95rem}
+.band{background:var(--card);border-block:1px solid var(--linea)}
+.split{display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:center}
+.split img{border-radius:14px;border:1px solid var(--linea);box-shadow:var(--ombra)}
+
+.warn{background:#fff7e0;color:#4a3800;border-left:5px solid #e0a100;border-radius:12px;padding:20px 24px}
+@media (prefers-color-scheme:dark){.warn{background:#2e2608;color:#f4e3a8}}
+.warn ol{margin:10px 0 0;padding-left:22px}
+
+footer{padding:48px 0;background:var(--blu-notte);color:#b9cce2;font-size:.95rem}
+footer a{color:#fff}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <b>Smart Working Istituzionale</b>
+  <div class="links">
+    <a href="#principi">Principi</a><a href="#privacy">Privacy</a><a href="#giornata">Giornata</a><a href="#app">App</a><a href="#sigillo">Sigillo</a>
+    <a class="gh" href="https://github.com/realfulvio/smart-working-istituzionale">GitHub ↗</a>
+  </div>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Lavoro agile · Enti pubblici · Windows</span>
+    <h1>La giornata, rivista<br>da chi l’ha vissuta.</h1>
+    <p class="lead">Il resoconto del lavoro agile per gli enti pubblici: poca raccolta, revisione del dipendente, PDF verificabile. Nessuna classifica, nessun giudizio sulla persona.</p>
+    <div class="badges">
+      <span>Versione 5.0.3</span><span>Licenza EUPL-1.2</span><span>Windows 10 / 11</span><span>AI locale opzionale</span><span>Utente standard</span>
+    </div>
+    <div class="btns">
+      <a class="btn primary" href="https://github.com/realfulvio/smart-working-istituzionale">Vedi il codice</a>
+      <a class="btn ghost" href="#principi">Come funziona</a>
+      <a class="btn ghost" href="https://github.com/realfulvio/smart-working-istituzionale/blob/main/PRIVACY.md">Privacy tecnica</a>
+    </div>
+    <img class="hero-img" src="screenshots/04d_revisione_verificata.png" alt="Revisione della giornata nell’app, con dati inventati" style="max-width:920px;margin-inline:auto;background:#fff">
+  </div>
+</header>
+
+<section id="principi">
+  <div class="wrap">
+    <span class="eyebrow">Tre principi</span>
+    <h2>Osserva poco. Organizza, non giudica. Scrive, non inventa.</h2>
+    <div class="grid g3" style="margin-top:34px">
+      <div class="card reveal"><div class="num">1</div><h3>Il Collector osserva poco</h3><p>Sessione Windows, attività informatica sì/no e solo i programmi dell’elenco del CED. Soltanto nel periodo della giornata avviata e fuori dalle pause.</p></div>
+      <div class="card reveal"><div class="num">2</div><h3>L’Aggregatore organizza</h3><p>Ordina i segnali in fasce e categorie. Non deduce qualità del lavoro né produttività della persona, non somma durate per programma.</p></div>
+      <div class="card reveal"><div class="num">3</div><h3>L’AI scrive, non inventa</h3><p>Facoltativa, in locale su 127.0.0.1, riformula fatti minimizzati con provenienza. Controllo anti-invenzione, testo standard di riserva, verifica umana.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy" class="band priv">
+  <div class="wrap">
+    <span class="eyebrow">Privacy by design</span>
+    <h2>Cosa registra, cosa non registra.</h2>
+    <p class="lead">Il confine è netto e scritto nel codice, non in una promessa.</p>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card si"><h3>Registra</h3><ul>
+        <li>Eventi della sessione Windows e relativi orari</li>
+        <li>Presenza <b>sì/no</b> di attività informatica nella fascia</li>
+        <li>Programmi in primo piano <b>solo dell’elenco CED</b></li>
+        <li>Browser come categoria, non come siti</li>
+        <li>Attività e osservazioni scritte dal dipendente</li>
+      </ul></div>
+      <div class="card no"><h3>Non registra</h3><ul>
+        <li>Tasti, testo digitato, movimenti del mouse, schermate</li>
+        <li>Titoli delle finestre, nomi o contenuti dei file</li>
+        <li>Indirizzi, siti visitati, cronologia, contenuto della posta</li>
+        <li>Classifiche, punteggi, produttività o durate dedotte</li>
+        <li>IP, MAC, SID, seriali o account tecnico</li>
+      </ul></div>
+    </div>
+    <div class="note"><b>Nessuna attività informatica rilevata non significa assenza di lavoro.</b> Una riunione, una telefonata o il lavoro su carta non lasciano segnali sul PC. Il programma non invia nulla: la consegna è una scelta manuale del dipendente.</div>
+    <img class="reveal" style="margin-top:34px;border-radius:14px;border:1px solid var(--linea)" src="img/privacy.png" alt="Confine della raccolta: segnali ammessi e contenuti personali esclusi" loading="lazy">
+  </div>
+</section>
+
+<section id="giornata">
+  <div class="wrap">
+    <span class="eyebrow">La giornata, passo per passo</span>
+    <h2>Avvia, rivedi, conferma, consegna.</h2>
+    <p class="lead">Il dipendente resta al centro: i dati automatici sono in sola lettura, ma può segnalare un dato, aggiungere attività e scrivere osservazioni.</p>
+    <div class="flow">
+      <div class="step"><i>▶</i>Avvia<small>inizia la giornata</small></div>
+      <div class="step"><i>⏸</i>Pausa<small>riprendi quando vuoi</small></div>
+      <div class="step"><i>■</i>Chiudi<small>JSON minimizzato + sigillo tecnico</small></div>
+      <div class="step"><i>✎</i>Rivedi<small>segnala, aggiungi, commenta</small></div>
+      <div class="step"><i>✓</i>Conferma<small>PDF con sigillo finale</small></div>
+      <div class="step"><i>✉</i>Consegna<small>manuale, secondo l’Ente</small></div>
+    </div>
+    <img class="reveal" style="margin-top:36px;border-radius:14px;border:1px solid var(--linea)" src="img/pipeline.png" alt="Pipeline: Collector, Aggregatore, JSON minimizzato, AI locale facoltativa, revisione e PDF sigillato" loading="lazy">
+    <img class="reveal" style="margin-top:22px;border-radius:14px;border:1px solid var(--linea)" src="img/provenienza.png" alt="Rilevato, dichiarato e testo AI: tre etichette distinte" loading="lazy">
+  </div>
+</section>
+
+<section id="app" class="band">
+  <div class="wrap">
+    <span class="eyebrow">L’app e il PDF</span>
+    <h2>Finestre reali, dati inventati.</h2>
+    <p class="lead">Catture della versione 5.0.0 con dati sintetici («Rossi Maria (ESEMPIO)»). Nessun operatore osservato.</p>
+    <div class="shots">
+      <figure class="shot"><img src="screenshots/02a_home_giornata_da_avviare.png" alt="Home con giornata da avviare" loading="lazy"><figcaption><b>Home</b> · giornata da avviare</figcaption></figure>
+      <figure class="shot"><img src="screenshots/02_home_giornata_in_corso.png" alt="Giornata in corso con timeline" loading="lazy"><figcaption><b>Giornata attiva</b> · timeline dei segnali</figcaption></figure>
+      <figure class="shot"><img src="screenshots/04d_revisione_verificata.png" alt="Revisione con dati in sola lettura" loading="lazy"><figcaption><b>Revisione</b> · dati automatici in sola lettura</figcaption></figure>
+      <figure class="shot"><img src="screenshots/pdf_pagina-1.png" alt="Copertina del PDF" loading="lazy"><figcaption><b>PDF</b> · copertina</figcaption></figure>
+      <figure class="shot"><img src="screenshots/10_verificatore_valido.png" alt="Verificatore: esito valido" loading="lazy"><figcaption><b>Verificatore</b> · VALIDO</figcaption></figure>
+      <figure class="shot"><img src="screenshots/10b_verificatore_alterato.png" alt="Verificatore: PDF alterato" loading="lazy"><figcaption><b>Verificatore</b> · ALTERATO</figcaption></figure>
+    </div>
+    <img class="gif" src="screenshots/flusso.gif" alt="Breve flusso della vera app: home, revisione e preparazione del resoconto" loading="lazy">
+    <p style="text-align:center;margin-top:22px"><a href="screenshots/resoconto_esempio_2026-10-05.pdf">Scarica un PDF di esempio →</a></p>
+  </div>
+</section>
+
+<section id="sigillo">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Verificatore indipendente</span>
+        <h2>Un PDF che si può controllare.</h2>
+        <p class="lead">Il resoconto incorpora il JSON sigillato (Ed25519). Il Verificatore, un’app a parte, dice se il documento è integro. Attesta l’integrità, non la qualità o il rendimento del lavoro.</p>
+      </div>
+      <img src="img/funzioni.png" alt="Funzioni principali: giornata, dichiarazioni, revisione, overlay, PDF sigillato e Verificatore" loading="lazy">
+    </div>
+    <div class="esiti">
+      <div class="esito" style="--c:var(--verde)"><b>VALIDO</b><p>Sigilli integri, chiave registrata, confronti di testo e grafica riusciti.</p></div>
+      <div class="esito" style="--c:var(--blu)"><b>INTEGRO</b><p>Integrità dimostrabile, ma chiave non registrata o confronto grafico non disponibile.</p></div>
+      <div class="esito" style="--c:var(--rosso)"><b>ALTERATO</b><p>Dati o contenuto visibile non corrispondono; vengono mostrati i motivi.</p></div>
+      <div class="esito" style="--c:#7a8796"><b>NON SIGILLATO</b><p>Manca il sigillo finale o il JSON allegato al PDF.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="grid g2">
+      <div class="card"><span class="eyebrow">AI locale, opzionale</span><h3>Funziona anche senza.</h3>
+        <p>Il pulsante di sintesi usa <b>llama.cpp</b> e un modello Qwen3 già predisposto dal CED, solo su 127.0.0.1: niente cloud, niente telemetria, nessun download a runtime. Profilo LIGHT per postazioni da 8 GB, STANDARD da 16 GB. Se manca qualcosa, l’app lo spiega in italiano e usa il testo standard.</p></div>
+      <div class="card"><span class="eyebrow">Due edizioni, un solo codice</span><h3>Neutra o istituzionale.</h3>
+        <p>La base pubblica usa «Il tuo Ente» e la palette neutra AgID. Nome, logo, colori e testi del tuo Ente si applicano con un overlay locale: il codice non incorpora identità di nessuno.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="warn">
+      <b>Prima dell’uso con dipendenti servono gli adempimenti dell’Ente.</b>
+      <ol>
+        <li>Procedura dell’art. 4 L. 300/1970 (accordo sindacale o autorizzazione ITL dove richiesti)</li>
+        <li>DPIA, informativa art. 13 GDPR e parere del DPO</li>
+        <li>Periodi di conservazione approvati</li>
+        <li>Prova pilota su postazioni reali e VDI</li>
+        <li>Clausole nel regolamento del lavoro agile</li>
+      </ol>
+      <p style="margin:12px 0 0">Il progetto è progettato per minimizzazione e privacy by design, ma <b>non è certificato né dichiarato conforme</b>. Software «così com’è», licenza EUPL-1.2.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <div><b style="color:#fff">Smart Working Istituzionale</b> 5.0.3<br>Autore: Luca Accorsi · EUPL-1.2</div>
+    <div>
+      <a href="https://github.com/realfulvio/smart-working-istituzionale">Repository</a> ·
+      <a href="https://github.com/realfulvio/smart-working-istituzionale/blob/main/PRIVACY.md">Privacy</a> ·
+      <a href="https://github.com/realfulvio/smart-working-istituzionale/blob/main/SECURITY.md">Sicurezza</a> ·
+      <a href="https://github.com/realfulvio/smart-working-istituzionale/blob/main/CHANGELOG.md">Changelog</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
