@@ -8,7 +8,8 @@
 <meta property="og:title" content="Smart Working Istituzionale">
 <meta property="og:description" content="La giornata, rivista da chi l’ha vissuta.">
 <meta property="og:image" content="img/social-preview.png">
-<meta name="theme-color" content="#0066CC">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
 <style>
 @font-face{font-family:"Titillium Web";font-weight:400;font-display:swap;src:url(sito-fonts/TitilliumWeb-Regular.ttf) format("truetype")}
 @font-face{font-family:"Titillium Web";font-weight:600;font-display:swap;src:url(sito-fonts/TitilliumWeb-SemiBold.ttf) format("truetype")}
@@ -16,12 +17,8 @@
 :root{
   --blu:#0066CC;--blu-scuro:#004c99;--blu-notte:#0b1f3a;--verde:#006B5B;--verde-chiaro:#e3f4f0;
   --bg:#f5f8fc;--card:#fff;--testo:#17324d;--muto:#5b6f85;--linea:#dbe5f0;--rosso:#b3261e;
-  --ombra:0 1px 2px rgba(11,31,58,.06),0 12px 32px -12px rgba(11,31,58,.18);
+  color-scheme:light;--ombra:0 1px 2px rgba(11,31,58,.06),0 12px 32px -12px rgba(11,31,58,.18);
 }
-@media (prefers-color-scheme:dark){:root{
-  --bg:#0b1624;--card:#122238;--testo:#e6eef8;--muto:#9db0c6;--linea:#223a57;--verde-chiaro:#0f3a35;
-  --ombra:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
-}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
@@ -45,19 +42,19 @@ nav .links a:hover{color:var(--blu)}
 @media(max-width:720px){nav .links a:not(.gh){display:none}}
 
 /* hero */
-.hero{background:radial-gradient(1200px 500px at 80% -10%,#1a85ff55,transparent 60%),linear-gradient(160deg,var(--blu-notte),var(--blu-scuro) 70%,var(--blu));color:#fff;padding:84px 0 0;overflow:hidden}
-.hero .eyebrow{color:#9fd0ff}
+.hero{background:radial-gradient(900px 420px at 85% -10%,#cfe4ff,transparent 65%),linear-gradient(180deg,#eaf3ff,#f5f8fc);color:var(--testo);padding:84px 0 0;overflow:hidden}
+
 .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:.3em}
-.hero p.lead{color:#d3e6fb}
+
 .badges{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px}
-.badges span{font-size:.82rem;font-weight:600;padding:5px 12px;border-radius:99px;background:#ffffff1c;border:1px solid #ffffff30}
+.badges span{font-size:.82rem;font-weight:600;padding:5px 12px;border-radius:99px;background:#fff;border:1px solid var(--linea);color:var(--blu-scuro)}
 .btns{display:flex;flex-wrap:wrap;gap:12px}
 .btn{display:inline-block;padding:13px 24px;border-radius:10px;font-weight:600;text-decoration:none;transition:transform .15s,background .15s}
 .btn:hover{transform:translateY(-2px)}
-.btn.primary{background:#fff;color:var(--blu-scuro)}
-.btn.ghost{border:1.5px solid #ffffff66;color:#fff}
-.btn.ghost:hover{background:#ffffff1a}
-.hero-img{margin-top:56px;border-radius:16px 16px 0 0;box-shadow:0 -10px 60px -10px #000a;border:1px solid #ffffff25;border-bottom:0}
+.btn.primary{background:var(--blu);color:#fff}
+.btn.ghost{border:1.5px solid var(--blu);color:var(--blu)}
+.btn.ghost:hover{background:#e3efff}
+.hero-img{margin-top:56px;border-radius:16px 16px 0 0;box-shadow:0 -6px 40px -10px rgba(11,31,58,.25);border:1px solid var(--linea);border-bottom:0}
 
 /* cards */
 .grid{display:grid;gap:22px}
@@ -105,11 +102,10 @@ nav .links a:hover{color:var(--blu)}
 .split img{border-radius:14px;border:1px solid var(--linea);box-shadow:var(--ombra)}
 
 .warn{background:#fff7e0;color:#4a3800;border-left:5px solid #e0a100;border-radius:12px;padding:20px 24px}
-@media (prefers-color-scheme:dark){.warn{background:#2e2608;color:#f4e3a8}}
 .warn ol{margin:10px 0 0;padding-left:22px}
 
-footer{padding:48px 0;background:var(--blu-notte);color:#b9cce2;font-size:.95rem}
-footer a{color:#fff}
+footer{padding:48px 0;background:#fff;border-top:1px solid var(--linea);color:var(--muto);font-size:.95rem}
+footer a{color:var(--blu)}
 footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
 .reveal.in{opacity:1;transform:none}
@@ -264,7 +260,7 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
 
 <footer>
   <div class="wrap row">
-    <div><b style="color:#fff">Smart Working Istituzionale</b> 5.0.3<br>Autore: Luca Accorsi · EUPL-1.2</div>
+    <div><b style="color:var(--testo)">Smart Working Istituzionale</b> 5.0.3<br>Autore: Luca Accorsi · EUPL-1.2</div>
     <div>
       <a href="https://github.com/realfulvio/smart-working-istituzionale">Repository</a> ·
       <a href="https://github.com/realfulvio/smart-working-istituzionale/blob/main/PRIVACY.md">Privacy</a> ·
