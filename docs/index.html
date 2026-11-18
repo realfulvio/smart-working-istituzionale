@@ -3,12 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Smart Working Istituzionale</title>
-<meta name="description" content="Il resoconto del lavoro agile per gli enti pubblici: poca raccolta, revisione del dipendente, PDF verificabile. Open source, EUPL-1.2.">
-<meta property="og:title" content="Smart Working Istituzionale">
-<meta property="og:description" content="La giornata, rivista da chi l’ha vissuta.">
-<meta property="og:image" content="img/social-preview.png">
+<title>Smart Working Istituzionale – Resoconto del lavoro agile per la PA</title>
+<meta name="description" content="Software open source per il resoconto del lavoro agile negli enti pubblici: raccolta minima, revisione del dipendente, PDF sigillato e verificabile. EUPL-1.2.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://realfulvio.github.io/smart-working-istituzionale/">
+<link rel="icon" href="hero.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Smart Working Istituzionale">
+<meta property="og:locale" content="it_IT">
+<meta property="og:url" content="https://realfulvio.github.io/smart-working-istituzionale/">
+<meta property="og:title" content="Smart Working Istituzionale – Resoconto del lavoro agile per la PA">
+<meta property="og:description" content="La giornata, rivista da chi l’ha vissuta: resoconto del lavoro agile per gli enti pubblici, con privacy by design e PDF verificabile.">
+<meta property="og:image" content="https://realfulvio.github.io/smart-working-istituzionale/img/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="Smart Working Istituzionale: la giornata di lavoro agile rivista dal dipendente, resoconto PDF verificabile">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smart Working Istituzionale – Resoconto del lavoro agile per la PA">
+<meta name="twitter:description" content="La giornata, rivista da chi l’ha vissuta: resoconto del lavoro agile per gli enti pubblici, con privacy by design e PDF verificabile.">
+<meta name="twitter:image" content="https://realfulvio.github.io/smart-working-istituzionale/img/social-preview.png">
 <meta name="theme-color" content="#0066CC">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Smart Working Istituzionale", "applicationCategory": "BusinessApplication", "operatingSystem": "Windows 10, Windows 11", "softwareVersion": "5.0.3", "inLanguage": "it", "description": "Software open source per il resoconto del lavoro agile negli enti pubblici: raccolta minima, revisione del dipendente, PDF sigillato e verificabile. EUPL-1.2.", "url": "https://realfulvio.github.io/smart-working-istituzionale/", "image": "https://realfulvio.github.io/smart-working-istituzionale/img/social-preview.png", "license": "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "codeRepository": "https://github.com/realfulvio/smart-working-istituzionale", "author": {"@type": "Person", "name": "realhcok"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Smart Working Istituzionale", "url": "https://realfulvio.github.io/smart-working-istituzionale/", "inLanguage": "it"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Che cos’è Smart Working Istituzionale?", "acceptedAnswer": {"@type": "Answer", "text": "È un software open source (licenza EUPL-1.2) per Windows 10 e 11 che aiuta gli enti pubblici a produrre il resoconto della giornata di lavoro agile: raccoglie pochi segnali, il dipendente rivede e conferma, e il PDF finale è sigillato e verificabile."}}, {"@type": "Question", "name": "Il programma controlla o valuta il dipendente?", "acceptedAnswer": {"@type": "Answer", "text": "No. Non registra tasti, schermate, titoli di finestre, siti visitati o contenuti dei file, e non produce classifiche, punteggi o giudizi sulla persona. Nessuna attività informatica rilevata non significa assenza di lavoro."}}, {"@type": "Question", "name": "Serve un’intelligenza artificiale in cloud?", "acceptedAnswer": {"@type": "Answer", "text": "No. La sintesi con AI è facoltativa e gira solo in locale su 127.0.0.1, senza cloud né telemetria. Senza AI l’app usa un testo standard."}}, {"@type": "Question", "name": "Come si verifica che il PDF non sia stato alterato?", "acceptedAnswer": {"@type": "Answer", "text": "Il Verificatore, un’app indipendente, controlla il sigillo incorporato nel PDF e restituisce un esito: VALIDO, INTEGRO, ALTERATO o NON SIGILLATO. Attesta l’integrità del documento, non la qualità del lavoro."}}]}</script>
 <style>
 @font-face{font-family:"Titillium Web";font-weight:400;font-display:swap;src:url(sito-fonts/TitilliumWeb-Regular.ttf) format("truetype")}
 @font-face{font-family:"Titillium Web";font-weight:600;font-display:swap;src:url(sito-fonts/TitilliumWeb-SemiBold.ttf) format("truetype")}
@@ -120,7 +137,7 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
 <nav><div class="wrap">
   <b>Smart Working Istituzionale</b>
   <div class="links">
-    <a href="#principi">Principi</a><a href="#privacy">Privacy</a><a href="#giornata">Giornata</a><a href="#app">App</a><a href="#sigillo">Sigillo</a>
+    <a href="#principi">Principi</a><a href="#privacy">Privacy</a><a href="#giornata">Giornata</a><a href="#app">App</a><a href="#sigillo">Sigillo</a><a href="#faq">FAQ</a>
     <a class="gh" href="https://github.com/realfulvio/smart-working-istituzionale">GitHub ↗</a>
   </div>
 </div></nav>
@@ -138,10 +155,11 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
       <a class="btn ghost" href="#principi">Come funziona</a>
       <a class="btn ghost" href="https://github.com/realfulvio/smart-working-istituzionale/blob/main/PRIVACY.md">Privacy tecnica</a>
     </div>
-    <img class="hero-img" src="screenshots/04d_revisione_verificata.png" alt="Revisione della giornata nell’app, con dati inventati" style="max-width:920px;margin-inline:auto;background:#fff">
+    <img width="1160" height="780" class="hero-img" src="screenshots/04d_revisione_verificata.png" alt="Revisione della giornata nell’app, con dati inventati" style="max-width:920px;margin-inline:auto;background:#fff">
   </div>
 </header>
 
+<main>
 <section id="principi">
   <div class="wrap">
     <span class="eyebrow">Tre principi</span>
@@ -176,7 +194,7 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
       </ul></div>
     </div>
     <div class="note"><b>Nessuna attività informatica rilevata non significa assenza di lavoro.</b> Una riunione, una telefonata o il lavoro su carta non lasciano segnali sul PC. Il programma non invia nulla: la consegna è una scelta manuale del dipendente.</div>
-    <img class="reveal" style="margin-top:34px;border-radius:14px;border:1px solid var(--linea)" src="img/privacy.png" alt="Confine della raccolta: segnali ammessi e contenuti personali esclusi" loading="lazy">
+    <img width="1600" height="840" class="reveal" style="margin-top:34px;border-radius:14px;border:1px solid var(--linea)" src="img/privacy.png" alt="Confine della raccolta: segnali ammessi e contenuti personali esclusi" loading="lazy">
   </div>
 </section>
 
@@ -193,8 +211,8 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
       <div class="step"><i>✓</i>Conferma<small>PDF con sigillo finale</small></div>
       <div class="step"><i>✉</i>Consegna<small>manuale, secondo l’Ente</small></div>
     </div>
-    <img class="reveal" style="margin-top:36px;border-radius:14px;border:1px solid var(--linea)" src="img/pipeline.png" alt="Pipeline: Collector, Aggregatore, JSON minimizzato, AI locale facoltativa, revisione e PDF sigillato" loading="lazy">
-    <img class="reveal" style="margin-top:22px;border-radius:14px;border:1px solid var(--linea)" src="img/provenienza.png" alt="Rilevato, dichiarato e testo AI: tre etichette distinte" loading="lazy">
+    <img width="1600" height="670" class="reveal" style="margin-top:36px;border-radius:14px;border:1px solid var(--linea)" src="img/pipeline.png" alt="Pipeline: Collector, Aggregatore, JSON minimizzato, AI locale facoltativa, revisione e PDF sigillato" loading="lazy">
+    <img width="1600" height="720" class="reveal" style="margin-top:22px;border-radius:14px;border:1px solid var(--linea)" src="img/provenienza.png" alt="Rilevato, dichiarato e testo AI: tre etichette distinte" loading="lazy">
   </div>
 </section>
 
@@ -204,14 +222,14 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
     <h2>Finestre reali, dati inventati.</h2>
     <p class="lead">Catture della versione 5.0.0 con dati sintetici («Rossi Maria (ESEMPIO)»). Nessun operatore osservato.</p>
     <div class="shots">
-      <figure class="shot"><img src="screenshots/02a_home_giornata_da_avviare.png" alt="Home con giornata da avviare" loading="lazy"><figcaption><b>Home</b> · giornata da avviare</figcaption></figure>
-      <figure class="shot"><img src="screenshots/02_home_giornata_in_corso.png" alt="Giornata in corso con timeline" loading="lazy"><figcaption><b>Giornata attiva</b> · timeline dei segnali</figcaption></figure>
-      <figure class="shot"><img src="screenshots/04d_revisione_verificata.png" alt="Revisione con dati in sola lettura" loading="lazy"><figcaption><b>Revisione</b> · dati automatici in sola lettura</figcaption></figure>
-      <figure class="shot"><img src="screenshots/pdf_pagina-1.png" alt="Copertina del PDF" loading="lazy"><figcaption><b>PDF</b> · copertina</figcaption></figure>
-      <figure class="shot"><img src="screenshots/10_verificatore_valido.png" alt="Verificatore: esito valido" loading="lazy"><figcaption><b>Verificatore</b> · VALIDO</figcaption></figure>
-      <figure class="shot"><img src="screenshots/10b_verificatore_alterato.png" alt="Verificatore: PDF alterato" loading="lazy"><figcaption><b>Verificatore</b> · ALTERATO</figcaption></figure>
+      <figure class="shot"><img width="1160" height="780" src="screenshots/02a_home_giornata_da_avviare.png" alt="Home con giornata da avviare" loading="lazy"><figcaption><b>Home</b> · giornata da avviare</figcaption></figure>
+      <figure class="shot"><img width="1160" height="780" src="screenshots/02_home_giornata_in_corso.png" alt="Giornata in corso con timeline" loading="lazy"><figcaption><b>Giornata attiva</b> · timeline dei segnali</figcaption></figure>
+      <figure class="shot"><img width="1160" height="780" src="screenshots/04d_revisione_verificata.png" alt="Revisione con dati in sola lettura" loading="lazy"><figcaption><b>Revisione</b> · dati automatici in sola lettura</figcaption></figure>
+      <figure class="shot"><img width="774" height="1095" src="screenshots/pdf_pagina-1.png" alt="Copertina del PDF" loading="lazy"><figcaption><b>PDF</b> · copertina</figcaption></figure>
+      <figure class="shot"><img width="780" height="780" src="screenshots/10_verificatore_valido.png" alt="Verificatore: esito valido" loading="lazy"><figcaption><b>Verificatore</b> · VALIDO</figcaption></figure>
+      <figure class="shot"><img width="780" height="780" src="screenshots/10b_verificatore_alterato.png" alt="Verificatore: PDF alterato" loading="lazy"><figcaption><b>Verificatore</b> · ALTERATO</figcaption></figure>
     </div>
-    <img class="gif" src="screenshots/flusso.gif" alt="Breve flusso della vera app: home, revisione e preparazione del resoconto" loading="lazy">
+    <img width="812" height="546" class="gif" src="screenshots/flusso.gif" alt="Breve flusso della vera app: home, revisione e preparazione del resoconto" loading="lazy">
     <p style="text-align:center;margin-top:22px"><a href="screenshots/resoconto_esempio_2026-10-05.pdf">Scarica un PDF di esempio →</a></p>
   </div>
 </section>
@@ -224,7 +242,7 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
         <h2>Un PDF che si può controllare.</h2>
         <p class="lead">Il resoconto incorpora il JSON sigillato (Ed25519). Il Verificatore, un’app a parte, dice se il documento è integro. Attesta l’integrità, non la qualità o il rendimento del lavoro.</p>
       </div>
-      <img src="img/funzioni.png" alt="Funzioni principali: giornata, dichiarazioni, revisione, overlay, PDF sigillato e Verificatore" loading="lazy">
+      <img width="1600" height="880" src="img/funzioni.png" alt="Funzioni principali: giornata, dichiarazioni, revisione, overlay, PDF sigillato e Verificatore" loading="lazy">
     </div>
     <div class="esiti">
       <div class="esito" style="--c:var(--verde)"><b>VALIDO</b><p>Sigilli integri, chiave registrata, confronti di testo e grafica riusciti.</p></div>
@@ -262,6 +280,19 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
   </div>
 </section>
 
+<section id="faq" class="band">
+  <div class="wrap">
+    <span class="eyebrow">Domande frequenti</span>
+    <h2>Le risposte in breve.</h2>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card"><h3>Che cos’è Smart Working Istituzionale?</h3><p>È un software open source (licenza EUPL-1.2) per Windows 10 e 11 che aiuta gli enti pubblici a produrre il resoconto della giornata di lavoro agile: raccoglie pochi segnali, il dipendente rivede e conferma, e il PDF finale è sigillato e verificabile.</p></div>
+      <div class="card"><h3>Il programma controlla o valuta il dipendente?</h3><p>No. Non registra tasti, schermate, titoli di finestre, siti visitati o contenuti dei file, e non produce classifiche, punteggi o giudizi sulla persona. Nessuna attività informatica rilevata non significa assenza di lavoro.</p></div>
+      <div class="card"><h3>Serve un’intelligenza artificiale in cloud?</h3><p>No. La sintesi con AI è facoltativa e gira solo in locale su 127.0.0.1, senza cloud né telemetria. Senza AI l’app usa un testo standard.</p></div>
+      <div class="card"><h3>Come si verifica che il PDF non sia stato alterato?</h3><p>Il Verificatore, un’app indipendente, controlla il sigillo incorporato nel PDF e restituisce un esito: VALIDO, INTEGRO, ALTERATO o NON SIGILLATO. Attesta l’integrità del documento, non la qualità del lavoro.</p></div>
+    </div>
+  </div>
+</section>
+</main>
 <footer>
   <div class="wrap row">
     <div><b style="color:#fff">Smart Working Istituzionale</b> 5.0.3<br>Autore: realhcok · EUPL-1.2</div>
