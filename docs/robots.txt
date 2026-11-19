@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://realfulvio.github.io/smart-working-istituzionale/sitemap.xml
+Sitemap: https://realhcok.com/smart-working-istituzionale/sitemap.xml
